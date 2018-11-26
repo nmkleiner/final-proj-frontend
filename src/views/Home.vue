@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     events() {
-      this.$store.getters.events
+      return this.$store.getters.events
     },
   },
   created() {

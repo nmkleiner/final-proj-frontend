@@ -1,0 +1,21 @@
+.event-preview {
+    .pic-wrapper {
+        height: 200px;
+        width: 220px;
+        .buttons-wrapper {
+            margin: 0 5px;
+        }
+        .carousel-arrow {
+            border-radius: 50%;    
+            background-color: #fff;
+            padding: 5px;
+            opacity: 0;  
+            transition: .3s;  
+            cursor: pointer;        
+        }
+    }
+    
+    :hover .carousel-arrow {
+        opacity: 1;
+    }
+}

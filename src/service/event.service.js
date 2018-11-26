@@ -51,7 +51,7 @@ function loadEvents(searchKey) {
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
       genre: 'Rock',
       level: 'Professional',
-      pic: '../../public/img/events/1.jpg',
+      pic: 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
       instruments:[{
         instrument: 'Guitar',
         amount: 2,
