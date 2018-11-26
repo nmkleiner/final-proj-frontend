@@ -1,30 +1,27 @@
 import { storageService } from "./storage.service.js";
-import { utilService } from "./util.service.js";
+// import { utilService } from "./util.service.js";
 
 const EVENTS_KEY = "events";
 var eventsDB = [];
 const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
-export const eventService = {
+export default {
   query,
   getEventById,
+  getEvents,
   loadEvents,
-  nextEvent,
-  prevEvent
+  // nextEvent,
+  // prevEvent
 };
 
 
 function query() {
-  var events = storageService.load(EVENTS_KEY);
-  if (!events) {
-    events = generateEvents();
-    storageService.store(EVENTS_KEY, events);
-  }
-  eventsDB = events;
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(eventsDB);
-    }, 500);
-  });
+  // var events = storageService.load(EVENTS_KEY);
+  // if (!events) {
+  //   events = generateEvents();
+  //   storageService.store(EVENTS_KEY, events);
+  // }
+  // eventsDB = events;
+  return Promise.resolve(getEvents());
 }
 
 function getEventById(eventId) {
@@ -44,7 +41,7 @@ function loadEvents(searchKey) {
   
   
   
-  function generateEvents() {
+  function getEvents() {
     var events = [{
       _id: 1,
       adminId: 'xyz',
@@ -54,7 +51,7 @@ function loadEvents(searchKey) {
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
       genre: 'Rock',
       level: 'Professional',
-      pic: '',
+      pic: '../../public/img/events/1.jpg',
       instruments:[{
         instrument: 'Guitar',
         amount: 2,
@@ -79,7 +76,7 @@ function loadEvents(searchKey) {
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
       genre: 'Country',
       level: 'amateur',
-      pic: '',
+      pic: '../../public/img/events/2.jpg',
       instruments:[{
         instrument: 'Drums',
         amount: 1,
@@ -103,7 +100,7 @@ function loadEvents(searchKey) {
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
       genre: 'Children',
       level: 'Amateur',
-      pic: '',
+      pic: '../../public/img/events/3.jpg',
       instruments:[{
         instrument: 'Flute',
         amount: 1,
