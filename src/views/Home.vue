@@ -1,10 +1,7 @@
 <template>
   <div class="home">
-<<<<<<< HEAD
-=======
     <h1>Recommended events:</h1>
     <event-list :events="events"></event-list>
->>>>>>> d9c2e12938938eeb4e0300a1ebb7e2cd46935668
   </div>
 </template>
 
