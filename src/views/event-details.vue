@@ -1,28 +1,20 @@
 <template>
   <section class="event-details flex">
       <div class="flex flex-column col-1">
-        <h2>{{event.title}}</h2>
+        <h1>{{event.title}}</h1>
         <div class="flex">
             admin pic, admin name
             <!-- <img :src="admin.pic" alt="event admin">
             <span>{{admin.name}}</span> -->
         </div>
-        <div class="flex">
-            <h4>{{event.time.day}}&nbsp;{{event.time.hour}}&nbsp;</h4>
-            <h4>{{event.location.address}}</h4>
-        </div>
-        <div class="flex">
+       
+        <div class="flex flex-column">
             <h4>Genre: {{event.genre}}&nbsp;</h4>
             <h4>Level: {{event.level}}&nbsp;</h4>
-            <h4 v-if="event.cost">cost: {{event.cost}}$</h4>
-            <h4 v-else>cost: free</h4>
+            
         </div>
-        <img :src="event.pic"/>
-        <el-button>discussions</el-button>
-      </div>
 
-      <div class="flex flex-column col-2">
-          <span v-if="loggedInUser._id">Join as:</span>
+     <span v-if="loggedInUser._id">Play with us as:</span>
           <span v-else >Login to join</span>
             <span>welcomed instruments:</span>
             <div class="flex instruments">
@@ -38,12 +30,26 @@
                 </el-button> 
                 </div>
             </div>
-        <h5>{{event.desc}}</h5>
-        <h5>
+        <h4>
             Free players: 
             {{event.freePlayers.length || 0}}/
             {{event.freePlayers.amount}}
-        </h5>
+        </h4>
+        <h4>{{event.desc}}</h4>
+
+        
+        <el-button>discussions</el-button>
+      </div>
+
+      <div class="flex flex-column col-2">
+           <div class="flex flex-column">
+            <h4>{{event.time.day}}&nbsp;{{event.time.hour}}&nbsp;</h4>
+            <h4>{{event.location.address}}</h4>
+        </div>
+          <h4 v-if="event.cost">cost: {{event.cost}}$</h4>
+            <h4 v-else>cost: free</h4>
+         <img class="event-img" :src="event.pic"/>
+        <div class="location">map</div>
       </div>
   </section>
 </template>
@@ -120,5 +126,36 @@ export default {
 </script>
 
 <style>
+    .event-details{
+        padding: 10px auto;
+    }
 
+    .col-1 {
+        padding-left: 30px;
+        background-color: whitesmoke;
+        border-radius: 5px;
+        margin: 0px 10px;
+    }
+
+    .col-2 {
+        background-color: whitesmoke;
+        border-radius: 5px;
+    }
+
+    div h4 {
+        margin: 10px 0;
+    }
+
+    .location, .event-img {
+        border: 1px solid black;
+        width: 90%;
+        height: 200px;
+        margin: 10px auto;
+    }
+    .event-details h1 {
+        border-bottom: 1px solid black;
+        font-size: 1.5em;
+        text-align: left;
+        margin-bottom: 20px;
+    }
 </style>

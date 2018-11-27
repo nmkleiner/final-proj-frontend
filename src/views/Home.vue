@@ -1,7 +1,7 @@
 <template>
   <div class="home">
   <!-- <nav-bar></nav-bar> -->
-  <!-- <near-places-map></near-places-map> -->
+  <near-places-map></near-places-map>
     <h1>Recommended events:</h1>
     <event-list :events="events"></event-list>
   </div>
