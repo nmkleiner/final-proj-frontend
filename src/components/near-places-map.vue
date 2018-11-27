@@ -9,6 +9,7 @@ const axios = require('axios');
 // const cors = require('cors');
 
 
+
 export default {
     data(){
         return {
@@ -17,13 +18,13 @@ export default {
     },
     methods: {
         getPlaces(){
-            return axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=32.089561,34.8627918&radius=10000&keyword=חדרי+חזרות&key=AIzaSyCYDc9_jhsMj7ahDHWpbJES2XZGfjkxRjI')
-            .then(res => res.date)
-            .then(places =>  console.log(places))  //this.places = places
+            console.log('fired!')
+            return axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=32.089561,34.8627918&radius=10000&keyword=חדרי+חזרות&key=AIzaSyDO8_gGN5DLINa4SLwfz5wMEK990KsDuIo')
+            .then(res => console.log(res.data.results))
         }
     },
     created() {
-        this.getPlaces()
+        // this.getPlaces()
     }
 }
 </script>
