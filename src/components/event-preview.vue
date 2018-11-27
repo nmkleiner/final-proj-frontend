@@ -10,7 +10,7 @@
         <div class="event-details">
             <div>{{event.title}}</div>
             <div>{{event.genre}}</div>
-            <router-link :to="'/event/' + event._id">Detailz</router-link>
+            <router-link :to="'/event/' + event._id">Details</router-link>
 
         </div>
     </section>
