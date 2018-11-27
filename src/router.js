@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-<<<<<<< HEAD
 import eventEdit from './views/event-edit.vue'
 import eventDetails from './views/event-details.vue'
-=======
 import signUp from './views/sign-up.vue'
->>>>>>> create-user
 
 Vue.use(Router)
 
@@ -20,7 +17,6 @@ export default new Router({
       component: Home
     },
     {
-<<<<<<< HEAD
       path: '/event/edit',
       name: 'event-edit',
       component: eventEdit
@@ -34,11 +30,11 @@ export default new Router({
       path: '/event/:eventId',
       name: 'event-details',
       component: eventDetails
-=======
+    },
+    {
       path: '/signup',
       name: 'signup',
       component: signUp
->>>>>>> create-user
     },
     {
       path: '/about',
