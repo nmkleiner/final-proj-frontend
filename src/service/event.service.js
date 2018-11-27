@@ -25,7 +25,8 @@ function query() {
 }
 
 function getEventById(eventId) {
-  return query().then(events => events.find(event => event.id === eventId));
+  const event = query().then(events => events.find(event => event._id === eventId));
+  return Promise.resolve(event)
 }
 
 
@@ -43,7 +44,7 @@ function loadEvents(searchKey) {
   
   function getEvents() {
     var events = [{
-      _id: 1,
+      _id: '1',
       adminId: 'xyz',
       location: {address: 'florentin 6, tel aviv'},
       time: {day: '27/11',hour: '19:34'},
@@ -61,14 +62,14 @@ function loadEvents(searchKey) {
         amount: 1,
         playersIds: [],
       }],
-      crowd: {
+      freePlayers: {
         amount: 3,
         membersIds: []
       },
       cost: 0,
     },
     {
-      _id: 2,
+      _id: '2',
       adminId: 'xyza',
       location: {address: 'florentin 8, tel aviv'},
       time: {day: '27/12',hour: '20:32'},
@@ -86,13 +87,13 @@ function loadEvents(searchKey) {
         amount: 2,
         playersIds: ['raf'],
       }],
-      crowd: {
+      freePlayers: {
         amount: 4,
         membersIds: ['asd','dsa']
       },
       cost: 45,
     },{
-      _id: 3,
+      _id: '3',
       adminId: 'xyzb',
       location: {address: 'florentin 10, tel aviv'},
       time: {day: '29/11',hour: '21:34'},
@@ -110,7 +111,7 @@ function loadEvents(searchKey) {
         amount: 3,
         playersIds: ['gfd','hgf'],
       }],
-      crowd: {
+      freePlayers: {
         amount: 0,
         membersIds: []
       },
