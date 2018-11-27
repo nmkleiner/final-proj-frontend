@@ -2,11 +2,15 @@ import eventService from '../service/event.service.js'
 
 export default {
     state: {
-        events: []
+        events: [],
+        currEvent: {}
     },
     mutations: {
         setEvents(state,{events}) {
             state.events = events
+        },
+        setCurrentEvent(state, {event}) {
+            state.currEvent = event
         }
     },
     actions: {
@@ -15,9 +19,17 @@ export default {
                 .then(events => {
                     commit({type:'setEvents', events})
                 })
+        },
+        getEventById({commit},{eventId}) {
+            return eventService.getEventById(eventId)
+                .then((event) => {
+                    commit({type: 'setCurrentEvent', event})
+                    return event
+                })
         }
     },
     getters: {
-        events: state => state.events  
+        events: state => state.events,
+        
     }
 }

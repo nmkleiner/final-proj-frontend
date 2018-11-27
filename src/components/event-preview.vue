@@ -1,6 +1,7 @@
 <template>
     <section class="event-preview">
-        <div class="pic-wrapper flex flex-column justify-center" :style="{backgroundImage: 'url(' + event.pic + ')'}">
+        <div class="pic-wrapper flex flex-column justify-center">
+            <img :src="event.pic" alt="event image">
             <div class="buttons-wrapper flex space-between">
                 <button class="carousel-arrow"><i class="fas fa-arrow-left"></i></button>
                 <button class="carousel-arrow"><i class="fas fa-arrow-right"></i></button>
@@ -9,6 +10,8 @@
         <div class="event-details">
             <div>{{event.title}}</div>
             <div>{{event.genre}}</div>
+            <router-link :to="'/event/' + event._id">Detailz</router-link>
+
         </div>
     </section>
 </template>
