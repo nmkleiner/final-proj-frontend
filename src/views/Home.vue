@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+  <nav-bar></nav-bar>
+  <near-places-map></near-places-map>
     <h1>Recommended events:</h1>
     <event-list :events="events"></event-list>
   </div>
@@ -9,11 +11,13 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import eventList from '@/components/event-list.vue'
+import navBar from '@/components/nav-bar.vue'
 
 export default {
   name: 'home',
   components: {
-    eventList
+    eventList,
+    navBar
     // HelloWorld
   },
   computed: {
