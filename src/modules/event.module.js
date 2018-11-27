@@ -30,6 +30,14 @@ export default {
     },
     getters: {
         events: state => state.events,
+        popularEvents(state) {
+             let eventsWithPop = state.events.map( event => {
+                 event.pop = event.allowedMembersCount - event.joinedMembersCount
+                 return event
+             })
+             return eventsWithPop;
+        },
+        // rockentEvents:
         
     }
 }
