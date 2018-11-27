@@ -116,7 +116,241 @@ function loadEvents(searchKey) {
         membersIds: []
       },
       cost: 20,
-    }]
+    },
+    {
+    _id: '4',
+    adminId: 'xyzb',
+    location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+    time: {day: '30/12',hour: '21:30'},
+    title: 'Playing Little Jonathan',
+    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+    genre: 'rock',
+    level: 'pro',
+    pic: '',
+    instruments:[{
+      instrument: 'guitar',
+      amount: 1,
+      playersIds: ['abc'],
+    },{
+      instrument: 'drums',
+      amount: 3,
+      playersIds: ['def'],
+    }],
+    freePlayers: {
+      amount: 2,
+      membersIds: []
+    },
+    cost: 20,
+  },
+  {
+    _id: '5',
+    adminId: 'abc',
+    location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+    time: {day: '30/11',hour: '21:30'},
+    title: 'Playing Little Jonathan',
+    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+    genre: 'rock',
+    level: 'pro',
+    pic: '',
+    instruments:[{
+      instrument: 'guitar',
+      amount: 2,
+      playersIds: ['abc'],
+    },{
+      instrument: 'drums',
+      amount: 1,
+      playersIds: ['bcd'],
+    }],
+    freePlayers: {
+      amount: 5,
+      membersIds: []
+    },
+    cost: 20,
+  },
+  {
+    _id: '6',
+    adminId: 'abc',
+    location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+    time: {day: '30/11',hour: '21:30'},
+    title: 'Playing Little Jonathan',
+    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+    genre: 'rock',
+    level: 'pro',
+    pic: '',
+    instruments:[{
+      instrument: 'guitar',
+      amount: 2,
+      playersIds: ['abc'],
+    },{
+      instrument: 'flute',
+      amount: 1,
+      playersIds: ['bcd'],
+    }],
+    freePlayers: {
+      amount: 5,
+      membersIds: []
+    },
+    cost: 0,
+  },
+  {
+    _id: '7',
+    adminId: 'abc',
+    location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+    time: {day: '30/11',hour: '21:30'},
+    title: 'Playing Little Jonathan',
+    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+    genre: 'rock',
+    level: 'pro',
+    pic: '',
+    instruments:[{
+      instrument: 'guitar',
+      amount: 4,
+      playersIds: ['abc'],
+    },{
+      instrument: 'flute',
+      amount: 1,
+      playersIds: ['bcd'],
+    }],
+    freePlayers: {
+      amount: 4,
+      membersIds: []
+    },
+    cost: 0,
+  },
+  {
+    _id: '8',
+    adminId: 'abc',
+    location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+    time: {day: '30/11',hour: '21:30'},
+    title: 'Playing Little Jonathan',
+    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+    genre: 'rock',
+    level: 'pro',
+    pic: '',
+    instruments:[{
+      instrument: 'guitar',
+      amount: 2,
+      playersIds: ['abc'],
+    },{
+      instrument: 'flute',
+      amount: 1,
+      playersIds: [],
+    }],
+    freePlayers: {
+      amount: 2,
+      membersIds: []
+    },
+    cost: 0,
+  },
+  {
+  _id: '9',
+    adminId: 'abc',
+    location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+    time: {day: '30/11',hour: '21:30'},
+    title: 'Playing Little Jonathan',
+    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+    genre: 'jazz',
+    level: 'pro',
+    pic: '',
+    instruments:[{
+      instrument: 'sax',
+      amount: 2,
+      playersIds: ['abc'],
+    },{
+      instrument: 'piano',
+      amount: 1,
+      playersIds: [],
+    }],
+    freePlayers: {
+      amount: 2,
+      membersIds: []
+    },
+    cost: 0,
+  },
+  {
+    _id: '10',
+      adminId: 'abc',
+      location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+      time: {day: '30/11',hour: '21:30'},
+      title: 'Playing Little Jonathan',
+      desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+      genre: 'jazz',
+      level: 'pro',
+      pic: '',
+      instruments:[{
+        instrument: 'sax',
+        amount: 2,
+        playersIds: ['abc'],
+      },
+      {
+        instrument: 'drums',
+        amount: 1,
+        playersIds: [],
+      }],
+      freePlayers: {
+        amount: 0,
+        membersIds: []
+      },
+      cost: 0,
+    },
+    {
+      _id: '11',
+        adminId: 'abc',
+        location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+        time: {day: '30/11',hour: '21:30'},
+        title: 'Playing Little Jonathan',
+        desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+        genre: 'jazz',
+        level: 'pro',
+        pic: '',
+        instruments:[{
+          instrument: 'sax',
+          amount: 2,
+          playersIds: ['abc'],
+        },
+        {
+          instrument: 'guitar',
+          amount: 1,
+          playersIds: ['bcd'],
+        }],
+        freePlayers: {
+          amount: 0,
+          membersIds: []
+        },
+        cost: 0,
+      },
+      {
+        _id: '12',
+          adminId: 'abc',
+          location: {address: 'florentin 10, tel aviv', lat: 32.0853, lng: 34.7818},
+          time: {day: '30/11',hour: '21:30'},
+          title: 'Playing Little Jonathan',
+          desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
+          genre: 'jazz',
+          level: 'pro',
+          pic: '',
+          instruments:[{
+            instrument: 'trumpet',
+            amount: 1,
+            playersIds: ['abc'],
+          },
+          {
+            instrument: 'sax',
+            amount: 2,
+            playersIds: ['bcd'],
+          },
+          {
+            instrument: 'guitar',
+            amount: 2,
+            playersIds: ['def'],
+          }],
+          freePlayers: {
+            amount: 0,
+            membersIds: []
+          },
+          cost: 0,
+        },
+]
 
     return events
 }
