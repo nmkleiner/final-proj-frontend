@@ -48,7 +48,7 @@
         </div>
           <h4 v-if="event.cost">cost: {{event.cost}}$</h4>
             <h4 v-else>cost: free</h4>
-         <img class="event-img" :src="event.pic"/>
+         <img class="event-img" src="https://picsum.photos/200/300/?random"/>
         <div class="location">map</div>
       </div>
   </section>
