@@ -22,6 +22,7 @@
     <div>
       <time-picker v-model="timePicked"></time-picker>
     </div>
+    <instrument-list></instrument-list>
     <div class="add-instruments-container">
       <div class="add-instrument">
         <i class="fas fa-plus"></i>
@@ -42,6 +43,7 @@
 
 <script>
 
+import instrumentList from '@/components/instrument-list.vue'
 import timePicker from '@/components/time-picker.vue'
 
 export default {
@@ -68,6 +70,7 @@ export default {
     },
     components: {
         timePicker,
+        instrumentList
     },
     computed: {
         
