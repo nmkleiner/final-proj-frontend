@@ -1,5 +1,5 @@
 <template>
-    <section class="instruments-list">
+    <section class="cmp-name">
         
     </section>
 </template>

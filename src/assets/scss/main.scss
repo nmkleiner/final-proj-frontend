@@ -1,4 +1,5 @@
 @import './libs';
+@import './reset.scss';
 @import './vars';
 @import './base';
 @import './helpers';
@@ -7,3 +8,4 @@
 @import './event-list';
 @import './event-preview';
 @import './time-picker';
+@import './event-details';
