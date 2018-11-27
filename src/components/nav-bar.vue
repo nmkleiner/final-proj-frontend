@@ -6,6 +6,7 @@
           <router-link to="#">Users</router-link>
           <router-link to="/event/edit">Create</router-link>
           <router-link to="/about">About</router-link>
+          <router-link to="/login">Login</router-link>
         </div>
         <a @click="setIsOpen" class="icon"><i class="fa fa-bars"></i></a>
 </div>

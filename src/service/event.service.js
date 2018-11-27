@@ -9,6 +9,7 @@ export default {
   getEventById,
   getEvents,
   loadEvents,
+  // login
   // nextEvent,
   // prevEvent
 };
