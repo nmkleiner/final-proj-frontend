@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import eventEdit from './views/event-edit.vue'
 
 Vue.use(Router)
 
@@ -12,6 +13,16 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/event/edit',
+      name: 'event-edit',
+      component: eventEdit
+    },
+    {
+      path: '/event/edit/:eventId',
+      name: 'event-edit',
+      component: eventEdit
     },
     {
       path: '/about',
