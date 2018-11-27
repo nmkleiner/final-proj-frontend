@@ -3,7 +3,7 @@ import { storageService } from "./storage.service.js";
 
 const EVENTS_KEY = "events";
 var eventsDB = [];
-const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
+// const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
 export default {
   query,
   getEventById,
@@ -49,15 +49,15 @@ function loadEvents(searchKey) {
       time: {day: '27/11',hour: '19:34'},
       title: 'Playing Lez Deppelin',
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'Rock',
-      level: 'Professional',
+      genre: 'rock',
+      level: 'professional',
       pic: 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
       instruments:[{
-        instrument: 'Guitar',
+        instrument: 'guitar',
         amount: 2,
         playersIds: ['xyz','abc'],
       },{
-        instrument: 'French horn',
+        instrument: 'french horn',
         amount: 1,
         playersIds: [],
       }],
@@ -74,15 +74,15 @@ function loadEvents(searchKey) {
       time: {day: '27/12',hour: '20:32'},
       title: 'Playing Goola Boola',
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'Country',
+      genre: 'country',
       level: 'amateur',
       pic: '../../public/img/events/2.jpg',
       instruments:[{
-        instrument: 'Drums',
+        instrument: 'drums',
         amount: 1,
         playersIds: [,'abcd'],
       },{
-        instrument: 'Trombone',
+        instrument: 'trombone',
         amount: 2,
         playersIds: ['raf'],
       }],
@@ -98,15 +98,15 @@ function loadEvents(searchKey) {
       time: {day: '29/11',hour: '21:34'},
       title: 'Playing Little Jonathan',
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'Children',
-      level: 'Amateur',
+      genre: 'children',
+      level: 'amateur',
       pic: '../../public/img/events/3.jpg',
       instruments:[{
-        instrument: 'Flute',
+        instrument: 'flute',
         amount: 1,
         playersIds: ['dfg'],
       },{
-        instrument: 'Clarinet',
+        instrument: 'clarinet',
         amount: 3,
         playersIds: ['gfd','hgf'],
       }],
