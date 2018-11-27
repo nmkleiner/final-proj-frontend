@@ -35,9 +35,22 @@ export default {
                  event.pop = event.allowedMembersCount - event.joinedMembersCount
                  return event
              })
+
              return eventsWithPop;
         },
-        // rockentEvents:
+        rockEvents(state) {
+            let rockEvents = state.events.filter( event => {
+                return event.genre === 'rock'
+            })
+            return rockEvents
+        },
+        guitarEvents(state) {
+            let rockEvents = state.events.filter( event => {
+                return event.instruments.some(instrument => instrument.instrument === 'guitar')
+            })
+            return rockEvents
+        },
+        // rockEvents:
         
     }
 }
