@@ -6,7 +6,10 @@
                 <button class="carousel-arrow"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
-        {{event.title}}
+        <div class="event-details">
+            <div>{{event.title}}</div>
+            <div>{{event.genre}}</div>
+        </div>
     </section>
 </template>
 
