@@ -81,35 +81,18 @@ export default {
         const eventId = this.$route.params.eventId
         this.$store.dispatch({type: 'getEventById', eventId})
             .then(event => this.event = event)
+
+        this.event.instruments.forEach(instrument => {
+        return instrument.playersIds.forEach(playerId => {
+            const user = userService.getById(playerId)
+            if (user) this.players.push(user)
+        })  
+    })
     },
     data() {
         return {
-            event: {
-                _id: 1,
-                adminId: 'xyz',
-                location: {address: 'florentin 6, tel aviv'},
-                time: {day: '27/11',hour: '19:34'},
-                title: 'Playing Lez Deppelin',
-                desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-                genre: 'rock',
-                level: 'professional',
-                pic: 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
-                instruments:[{
-                    instrument: 'guitar',
-                    amount: 2,
-                    playersIds: ['xyz','abc'],
-                },{
-                    instrument: 'french horn',
-                    amount: 1,
-                    playersIds: [],
-                }],
-                freePlayers: {
-                    amount: 3,
-                    membersIds: []
-                },
-                cost: 0,
-            } ,
-            players: [],//get from userService
+            event: {} ,
+            players: [],
             freePlayers: [], //get from userService
             admin: {}, // get from userService,
             // loggedInUser: {},
