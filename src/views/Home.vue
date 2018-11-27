@@ -9,7 +9,6 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
 import eventList from '@/components/event-list.vue'
 import navBar from '@/components/nav-bar.vue'
 import nearPlacesMap from '@/components/near-places-map.vue'
@@ -20,7 +19,6 @@ export default {
     eventList,
     navBar,
     nearPlacesMap
-    // HelloWorld
   },
   computed: {
     events() {

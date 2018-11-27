@@ -1,10 +1,10 @@
 <template>
     <div class="static topnav" :class="{'responsive': isOpen}">
         <a><i class="fab fa-html5 fa-lg"></i></a>
-        <a>Home</a>
-        <a>Users</a>
+        <router-link to="/">Home</router-link>
+        <router-link to="#">Users</router-link>
         <router-link to="/event/edit">Create</router-link>
-        <a>About</a>
+        <router-link to="/about">About</router-link>
         <a @click="setIsOpen" class="icon"><i class="fa fa-bars"></i></a>
 </div>
 </template>
