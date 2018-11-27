@@ -13,7 +13,7 @@
         <option value="other">Other</option>
     </select>
     <select v-model="event.level">
-        <option value="pro">Proffesional</option>
+        <option value="pro">Professional</option>
         <option value="fun">Fun</option>
     </select>
     <input type="number" v-model="event.cost">

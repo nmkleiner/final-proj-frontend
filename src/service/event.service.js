@@ -94,7 +94,7 @@ function loadEvents(searchKey) {
         membersIds: ['cde','def']
       },
       allowedMembersCount: 7,
-      joinedMembersCount: 4,
+      joinedMembersCount: 7,
       cost: 45,
     },{
       _id: '3',
@@ -120,7 +120,7 @@ function loadEvents(searchKey) {
         membersIds: []
       },
       allowedMembersCount: 7,
-      joinedMembersCount: 4,
+      joinedMembersCount: 6,
       cost: 20,
     },
     {

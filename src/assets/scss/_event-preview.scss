@@ -12,22 +12,22 @@
             border-radius: 5px 5px 0 0;
             border-bottom: 1px solid grey; 
         }
-        .buttons-wrapper {
-            // width: 210px;
-            // margin: 0 5px;
+        .upper-floating-wrapper {
+            padding: 10px;
+            position: absolute;
+            top: 20px;
+            span {
+                font-weight: 700;
+            }
+        }
+        .middle-floating-wrapper {
+            padding: 10px;
             position: absolute;
             img {
                 border-radius: 50%;
+                margin-right: 2px;
             }
         }
-        // .carousel-arrow {
-        //     border-radius: 50%;    
-        //     background-color: #fff;
-        //     padding: 5px;
-        //     opacity: 0;  
-        //     transition: .3s;  
-        //     cursor: pointer;
-        // }
     }
 
     .event-details {
