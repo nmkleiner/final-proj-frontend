@@ -1,14 +1,18 @@
-import { storageService } from "./storage.service.js";
-import { utilService } from "./util.service.js";
+// import { storageService } from "./storage.service.js";
+// import { utilService } from "./util.service.js";
 
-const USERS_KEY = "users";
+// const USERS_KEY = "users";
 var playersDB = [];
 generatePlayers()
 // const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
 export default {
   query,
+  getById,
 };
 
+function getById(id) {
+  return playersDB.find(player => player._id === id)
+}
 
 function query() {
   return Promise.resolve(playersDB)
@@ -32,7 +36,7 @@ function generatePlayers() {
       _id: 'abc',
       name: 'rocki',
       password: '123',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/rocki.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['guitar'],
@@ -43,7 +47,7 @@ function generatePlayers() {
       _id: 'bcd',
       name: 'mocki',
       password: '234',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/mocki.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['drums'],
@@ -54,7 +58,7 @@ function generatePlayers() {
       _id: 'cde',
       name: 'bobo',
       password: '123',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/bobo.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['flute'],
@@ -65,7 +69,7 @@ function generatePlayers() {
       _id: 'efg',
       name: 'robo',
       password: '123',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/robo.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['whistler'],
@@ -76,7 +80,7 @@ function generatePlayers() {
       _id: 'fgh',
       name: 'michael',
       password: '123',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/michael.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['trombone'],
@@ -87,7 +91,7 @@ function generatePlayers() {
       _id: 'ghi',
       name: 'pichael',
       password: '123',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/pichael.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['trumpet'],
@@ -98,7 +102,7 @@ function generatePlayers() {
       _id: 'hij',
       name: 'leon',
       password: '123',
-      pic: `https://api.adorable.io/avatars/64/${this.name}.png`,
+      pic: `https://api.adorable.io/avatars/64/leon.png`,
       partEventsIds: [],
       adminEventsIds: [],
       instruments: ['bass'],

@@ -11,7 +11,11 @@ import './assets/scss/main.scss'
 // Vue.use(VueCarousel);
 
 Vue.config.productionTip = false
+
+
 Vue.use(ElementUI);
+// Vue.crossorigin = true;
+Vue.crossOrigin = 'true'
 
 // import {Button} from 'element-ui';
 // Vue.use(Button);

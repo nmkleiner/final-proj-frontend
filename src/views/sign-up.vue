@@ -1,6 +1,7 @@
 <template>
+    <section>
+    <h1>sign up</h1>
     <form @submit.prevent="showData">
-        
             <div>
                 img
             </div>
@@ -35,7 +36,9 @@
             <textarea placeholder="tell us about yourself..."></textarea>
     
         <button>Submit</button>
+        <button>Back</button>
     </form>
+    </section>
 </template>
 
 <script>
@@ -63,6 +66,10 @@ export default {
 </script>
 
 <style>
+    h1{
+        font-size: 1.5em;
+        text-align: center;
+    }
     form {
         height: 100vh;
         margin: 0 auto;
