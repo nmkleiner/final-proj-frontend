@@ -16,7 +16,11 @@ export default {
   },
   mutations: {
     setLoggedInUser(state, { user }) {
-      state.loggedInUser = user;
+      state.loggedInUser = user; 
+    },
+    loginNewUser(state, { newUser }) {
+      console.log("new signedin user:", newUser.name);
+      state.loggedInUser = newUser.name;
     },
     logOutUser(state) {
       state.loggedInUser = "";
@@ -29,6 +33,11 @@ export default {
           commit({ type: "setLoggedInUser", user });
         }
         return user;
+    })
+    },
+    signUpUser({ commit }, { newUser }) {
+      userService.signupUser(newUser).then(() => {
+        commit({ type: "loginNewUser", newUser });
       });
     },
     logout({ commit }) {

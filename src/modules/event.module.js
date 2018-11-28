@@ -36,6 +36,20 @@ export default {
                     commit({type: 'setCurrentEvent', event})
                     return event
                 })
+        },
+        saveNewEvent({commit}, {event}) {
+            return eventService.saveEvent(event)
+            .then(() => {
+                console.log('event was saved')
+                //message: event was created
+            })
+        },
+        updateEvent({commit}, {event}){
+            return eventService.updateEvent(event)
+            .then(() => {
+                console.log('event was updated')
+                //message: event was updated
+            })
         }
     },
     getters: {

@@ -1,108 +1,78 @@
 <template>
-    <section>
-    <h1>sign up</h1>
-    <form @submit.prevent="showData">
-            <div>
-                img
-            </div>
-            <div><input type="text" placeholder="Full Name..." v-model="newUser.fullName"></div>
-            <div><input type="text" placeholder="Nick Name..." v-model="newUser.nickName"></div>
-            <div>
-                <select v-model="newUser.level">
-                    <option>Novice</option>
-                    <option>Pro</option>
-                </select>
-            </div>
-        
-        
-        <div class="instruments">
-            <h4>instruments you play on:</h4>
-            <input type="checkbox" id="guitar" value="Guitar" v-model="newUser.instruments">
-            <label for="guitar">Guitar</label>
-            <input type="checkbox" id="bass" value="Bass" v-model="newUser.instruments">
-            <label for="bass">Bass</label>
-            <input type="checkbox" id="drums" value="Drums" v-model="newUser.instruments">
-            <label for="drums">Drums</label>
-        </div>
-        <div class="musicPrefs">
-            <h4>favorite music:</h4>
-            <input type="checkbox" id="rock" value="Rock" v-model="newUser.instruments">
-            <label for="rock">Rock</label>
-            <input type="checkbox" id="classic" value="Classic" v-model="newUser.instruments">
-            <label for="classic">Classic</label>
-            <input type="checkbox" id="world" value="World" v-model="newUser.instruments">
-            <label for="world">World</label>
-        </div>
-            <textarea placeholder="tell us about yourself..."></textarea>
-    
+  <section class="signup-card-wrapper">
+    <form @submit.prevent="submitNewUser" class="signup-form-container">
+      <h1>sign up</h1>
+      <div class="signup-card-user-image-container">
+        <img
+          class="signup-user-image"
+          src="https://api.adorable.io/avatars/64/rocki.png"
+          alt="event admin"
+        >
+      </div>
+
+      <input type="text" placeholder="Full Name..." v-model="newUser.name">
+      <input type="password" placeholder="Password..." v-model="newUser.password">
+      <select v-model="newUser.level">
+        <option>amateur</option>
+        <option>professional</option>
+      </select>
+
+      <h4>instruments you play on:</h4>
+
+      <div class="signup-instruments">
+        <input type="checkbox" id="guitar" value="Guitar" v-model="newUser.instruments">
+        <label for="guitar">Guitar</label>
+        <input type="checkbox" id="bass" value="Bass" v-model="newUser.instruments">
+        <label for="bass">Bass</label>
+        <input type="checkbox" id="drums" value="Drums" v-model="newUser.instruments">
+        <label for="drums">Drums</label>
+      </div>
+      <div class="signup-musicPrefs">
+        <h4>favorite music:</h4>
+        <input type="checkbox" id="rock" value="Rock" v-model="newUser.favGenres">
+        <label for="rock">Rock</label>
+        <input type="checkbox" id="classic" value="Classic" v-model="newUser.favGenres">
+        <label for="classic">Classic</label>
+        <input type="checkbox" id="world" value="World" v-model="newUser.favGenres">
+        <label for="world">World</label>
+      </div>
+
+      <textarea v-model="newUser.bio" class="signup-bio" placeholder="tell us about yourself..."></textarea>
+      <div class="signup-button-wrapper">
         <button>Submit</button>
-        <button>Back</button>
+        <router-link  to='/'><el-button>Back</el-button></router-link> 
+      </div>
     </form>
-    </section>
+  </section>
 </template>
 
 <script>
 export default {
-    data(){
-        return {
-            newUser: {
-                userImgUrl : '',
-                fullName: '',
-                nickName: '',
-                instruments: [],
-                level:'',
-                musicCategory: [],
-                location: ''
-            }
-        }
-    },
-    methods: {
-        showData(){
-            console.log(this.newUser)
-        }
-       
-}
-}
+  data() {
+    return {
+      newUser: {
+        name: "",
+        password: "",
+        pic: '',
+        instruments: [],
+        level: 'amateur',
+        bio: '',
+        favGenres: [],
+        location: "",
+        partEventsIds: [],
+        adminEventsIds: []
+      }
+    };
+  },
+  methods: {
+    submitNewUser() {
+      console.log(this.newUser);
+      this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
+      this.$router.push('/');
+    }
+  }
+};
 </script>
 
 <style>
-    h1{
-        font-size: 1.5em;
-    }
-    form {
-        height: 100vh;
-        margin: 0 auto;
-        width: 80%;
-    }
-    form div {
-        width: 90%
-    }
-    input[type=text], textarea {
-        width: 100%;
-        padding: 12px;
-        margin: 10px;
-        border: 1px solid black;
-        border-radius: 4px;
-        resize: vertical;
-    }
-
-    .instruments, .musicPrefs {
-        padding: 12px;
-    }
-
-    select {
-        width: 30%;
-        padding: 12px;
-        margin: 10px;
-        border: 1px solid black;
-        border-radius: 4px;
-    }
-
-    textarea {
-        height: 20%;
-    }
-
-    h4 {
-        margin-bottom: 0;
-    }
 </style>
