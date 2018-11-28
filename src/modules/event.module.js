@@ -15,9 +15,22 @@ export default {
         },
         setRockEvents(state, {events}) {
             state.rockEvents = events
+        },
+        setUpdateEvent(state, {joinedEvent}){
+            var x = state.currEvent.instruments.find(item => {
+                return item.instrument === joinedEvent.instrument
+            })
+            console.log('from mutations', x);
         }
     },
     actions: {
+        joinEvent({commit, getters}, {joinedEvent}){
+            joinedEvent.currUserName = getters.loggedInUser;
+            console.log(joinedEvent)
+            commit({type: 'setUpdateEvent', joinedEvent})
+            eventService.saveEvent(this.currEvent)
+            .then(() => console.log('event was updated'))
+        },
         loadEvents({commit}) {
             return eventService.query()
                 .then(events => {

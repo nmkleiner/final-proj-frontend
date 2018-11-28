@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-import { storageService } from "./storage.service.js";
-import { promises } from "fs";
-// import { utilService } from "./util.service.js";
-=======
 const axios = require("axios")
->>>>>>> 998191a933da881546061094b15d92cbcfe93c87
 
 const BASE_URL = (process.env.NODE_ENV !== "development")
                     ? ""
@@ -16,12 +10,9 @@ export default {
   getEvents,
   loadEvents,
   saveEvent,
-<<<<<<< HEAD
   updateEvent,
-=======
   remove
 
->>>>>>> 998191a933da881546061094b15d92cbcfe93c87
   // login
   // nextEvent,
   // prevEvent
@@ -64,15 +55,7 @@ function loadEvents(searchKey) {
     );
     var prmData = prmRes.then(res => res.data);
     return prmData;
-  }
-  
-
-  function saveEvent(event){ 
-    // return axios.post('url', event)
-    console.log('from axios post: ',event)
-    return Promise.resolve()
-  }
-  
+  }  
 
   function updateEvent(event){
     //return axios.put('url', event)

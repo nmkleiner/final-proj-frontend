@@ -13,7 +13,7 @@
           >
         </div>
       </div>
-      <label for="title">Event Title</label>
+      <h4>Event Title</h4>
       <input type="text" id="title" v-model="event.title" placeholder="Event Title">
       <h4>select genre</h4>
       <select v-model="event.genre">
@@ -30,6 +30,7 @@
         <option value="pro">Professional</option>
         <option value="fun">Fun</option>
       </select>
+      <h4>Event Description</h4>
       <textarea v-model="event.desc" placeholder="Event Description"/>
       <instrument-list></instrument-list>
       <div class="add-instruments-container">
