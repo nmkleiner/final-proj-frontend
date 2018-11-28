@@ -104,6 +104,9 @@ export default {
       }
       console.log('from event details', joinedEvent);
       this.$store.dispatch({type: 'joinEvent', joinedEvent})
+      this.$store.dispatch({type: 'updateUserEvents', joinedEvent})
+      //message join event
+      this.$router.push('/')
     }
   },
   computed: {},

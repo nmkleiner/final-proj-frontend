@@ -24,6 +24,9 @@ export default {
     },
     logOutUser(state) {
       state.loggedInUser = "";
+    },
+    setUpdateUserEvent(state, { joinedEvent }){
+      state.loggedInUser.partEventsIds.push(joinedEvent.eventId)
     }
   },
   actions: {
@@ -42,6 +45,10 @@ export default {
     },
     logout({ commit }) {
       commit("logOutUser");
+    },
+    updateUserEvents({commit, state}, {joinedEvent}){
+      commit({type: 'setUpdateUserEvent', joinedEvent})
+      userService.updateUser(state.loggedInUser)
     }
   },
   getters: {

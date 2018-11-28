@@ -59,7 +59,7 @@ function loadEvents(searchKey) {
 
   function updateEvent(event){
     //return axios.put('url', event)
-    console.log('from axios put: ',event)
+    console.log('from axios put:')
     return Promise.resolve()
   }
   

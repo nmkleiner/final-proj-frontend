@@ -46,7 +46,7 @@ export default {
     created() {
         this.event.instruments.forEach(instrument => {
             return instrument.playersIds.forEach(playerId => {
-                console.log(playerId)
+                // console.log(playerId)
               const user = userService.getById(playerId)
               if (user) this.players.push(user)
           })  
