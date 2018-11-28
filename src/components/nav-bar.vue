@@ -1,10 +1,13 @@
 <template>
-    <div class="static topnav" :class="{'responsive': isOpen}">
-        <a><i class="fab fa-html5 fa-lg"></i></a>
-        <router-link to="/">Home</router-link>
-        <router-link to="#">Users</router-link>
-        <router-link to="/event/edit">Create</router-link>
-        <router-link to="/about">About</router-link>
+    <div class="nav-bar flex space-between" :class="{'responsive': isOpen}">
+        <a class="logo"><i class="fas fa-drum fa-lg"></i>musiGroops</a>
+        <div class="links">
+          <router-link to="/">Home</router-link>
+          <router-link to="#">Users</router-link>
+          <router-link to="/event/edit">Create</router-link>
+          <router-link to="/about">About</router-link>
+          <router-link to="/login">Login</router-link>
+        </div>
         <a @click="setIsOpen" class="icon"><i class="fa fa-bars"></i></a>
 </div>
 </template>
@@ -24,54 +27,62 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+  
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-.topnav {
+.nav-bar {
   font-family: 'Montserrat', sans-serif;  
   overflow: hidden;
-  background-color: snow;
-  border: 2px solid black;
-  border-radius: 5px;
-}
-
-.topnav a {
+  background-color: black;
+  
+  a {
   float: left;
   display: block;
-  color: darkslategray;
+  color: rgb(144, 241, 241);
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 20px;
   text-decoration: none;
   font-size: 17px;
-}
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  transition: .3s;
+  }
 
-.topnav a:hover {
-  background-color: yellowgreen;
-  color: black;
-}
+  a:hover {
+  border-bottom: 1px solid rgb(144, 241, 241);
+  }
+  .logo:hover {
+  border-bottom: 1px solid transparent;
+  }
 
-.topnav .icon {
+  .links a:last-child{
+  margin-right: 80px;
+  }
+
+  .icon {
   display: none;
-}
-
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
   }
 }
 
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
+
+@media screen and (max-width: 640px) {
+  .nav-bar a:not(.logo) {display: none;}
+  .nav-bar a.icon {
+    float: right;
+    display: block;
+  }
+  .nav-bar.responsive {position: relative;}
+  .nav-bar.responsive .icon {
     position: absolute;
     right: 0;
     top: 0;
   }
-  .topnav.responsive a {
+  .nav-bar.responsive a {
     float: none;
     display: block;
     text-align: left;
   }
 }
+
 </style>

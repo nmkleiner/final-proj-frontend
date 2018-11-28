@@ -1,0 +1,22 @@
+.home {
+    header {
+        height: 40vh;
+        width: 100%;
+        background-color: purple;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    
+    .carousel {
+        margin: 20px;
+        .slide {
+            padding: 10px;
+        }
+        .VueCarousel-pagination{
+            display: none;
+        }
+    }
+    
+}

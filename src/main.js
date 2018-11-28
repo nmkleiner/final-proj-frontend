@@ -8,10 +8,12 @@ import 'element-ui/lib/theme-chalk/index.css';
 import './assets/scss/main.scss'
 
 
-
+// import VueGlide from 'vue-glide-js'
+// Vue.use(VueGlide)
+import VueCarousel from 'vue-carousel';
+Vue.use(VueCarousel);
 
 Vue.config.productionTip = false
-
 
 Vue.use(ElementUI);
 // Vue.crossorigin = true;

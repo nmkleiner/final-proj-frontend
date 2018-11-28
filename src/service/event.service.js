@@ -9,6 +9,7 @@ export default {
   getEventById,
   getEvents,
   loadEvents,
+  // login
   // nextEvent,
   // prevEvent
 };
@@ -66,6 +67,8 @@ function loadEvents(searchKey) {
         amount: 3,
         membersIds: []
       },
+      allowedMembersCount: 6,
+      joinedMembersCount: 2,
       cost: 0,
     },
     {
@@ -81,21 +84,23 @@ function loadEvents(searchKey) {
       instruments:[{
         instrument: 'drums',
         amount: 1,
-        playersIds: [,'abcd'],
+        playersIds: ['abc'],
       },{
         instrument: 'trombone',
         amount: 2,
-        playersIds: ['raf'],
+        playersIds: ['bcd'],
       }],
       freePlayers: {
         amount: 4,
-        membersIds: ['asd','dsa']
+        membersIds: ['cde','def']
       },
+      allowedMembersCount: 7,
+      joinedMembersCount: 7,
       cost: 45,
     },{
       _id: '3',
-      adminId: 'xyzb',
-      location: {address: 'megido 6', city:'haifa'},
+      adminId: 'bcd',
+      location: {address: 'florentin 10, tel aviv'},
       time: {day: '29/11',hour: '21:34'},
       title: 'Playing Little Jonathan',
       desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
@@ -105,16 +110,18 @@ function loadEvents(searchKey) {
       instruments:[{
         instrument: 'flute',
         amount: 1,
-        playersIds: ['dfg'],
+        playersIds: ['bcd'],
       },{
         instrument: 'clarinet',
         amount: 3,
-        playersIds: ['gfd','hgf'],
+        playersIds: ['def','efg'],
       }],
       freePlayers: {
         amount: 0,
         membersIds: []
       },
+      allowedMembersCount: 7,
+      joinedMembersCount: 6,
       cost: 20,
     },
     {
@@ -140,6 +147,8 @@ function loadEvents(searchKey) {
       amount: 2,
       membersIds: []
     },
+    allowedMembersCount: 6,
+    joinedMembersCount: 2,
     cost: 20,
   },
   {
@@ -165,6 +174,8 @@ function loadEvents(searchKey) {
       amount: 5,
       membersIds: []
     },
+    allowedMembersCount: 8,
+    joinedMembersCount: 2,
     cost: 20,
   },
   {
@@ -190,6 +201,8 @@ function loadEvents(searchKey) {
       amount: 5,
       membersIds: []
     },
+    allowedMembersCount: 8,
+    joinedMembersCount: 3,
     cost: 0,
   },
   {
@@ -215,6 +228,8 @@ function loadEvents(searchKey) {
       amount: 4,
       membersIds: []
     },
+    allowedMembersCount: 9,
+    joinedMembersCount: 2,
     cost: 0,
   },
   {
@@ -240,6 +255,8 @@ function loadEvents(searchKey) {
       amount: 2,
       membersIds: []
     },
+    allowedMembersCount: 5,
+    joinedMembersCount: 1,
     cost: 0,
   },
   {
@@ -265,6 +282,8 @@ function loadEvents(searchKey) {
       amount: 2,
       membersIds: []
     },
+    allowedMembersCount: 5,
+    joinedMembersCount: 1,
     cost: 0,
   },
   {
@@ -291,6 +310,8 @@ function loadEvents(searchKey) {
         amount: 0,
         membersIds: []
       },
+      allowedMembersCount: 3,
+      joinedMembersCount: 1,
       cost: 0,
     },
     {
@@ -317,6 +338,8 @@ function loadEvents(searchKey) {
           amount: 0,
           membersIds: []
         },
+        allowedMembersCount: 3,
+        joinedMembersCount: 2,
         cost: 0,
       },
       {
@@ -348,6 +371,8 @@ function loadEvents(searchKey) {
             amount: 0,
             membersIds: []
           },
+          allowedMembersCount: 5,
+          joinedMembersCount: 3,
           cost: 0,
         },
 ]
