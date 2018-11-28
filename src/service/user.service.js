@@ -21,7 +21,6 @@ function signupUser(user){
 }
 
 function login ({ userName, password }) {
-  console.log(3)
   return axios.put(`${BASEURL}/login`, { userName, password })
     .then(res => res.data)
 }
@@ -54,7 +53,6 @@ function query() {
 function generatePlayers() {
   playersDB = [
     {
-      _id: 'abc',
       name: 'rocki',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/rocki.png`,
@@ -65,7 +63,6 @@ function generatePlayers() {
       level: 'professional',
     },
     {
-      _id: 'bcd',
       name: 'mocki',
       password: '234',
       pic: `https://api.adorable.io/avatars/64/mocki.png`,
@@ -76,7 +73,6 @@ function generatePlayers() {
       level: 'amateur',
     },
     {
-      _id: 'cde',
       name: 'bobo',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/bobo.png`,
@@ -87,7 +83,6 @@ function generatePlayers() {
       level: 'amateur',
     },
     {
-      _id: 'efg',
       name: 'robo',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/robo.png`,
@@ -98,7 +93,6 @@ function generatePlayers() {
       level: 'professional',
     },
     {
-      _id: 'fgh',
       name: 'michael',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/michael.png`,
@@ -109,7 +103,6 @@ function generatePlayers() {
       level: 'amateur',
     },
     {
-      _id: 'ghi',
       name: 'pichael',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/pichael.png`,
@@ -120,7 +113,6 @@ function generatePlayers() {
       level: 'professional',
     },
     {
-      _id: 'hij',
       name: 'leon',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/leon.png`,

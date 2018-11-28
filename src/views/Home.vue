@@ -1,62 +1,65 @@
 <template>
   <div class="home">
     <header>
-      <p>Hello<span v-if="!isLoggedInUser">!</span><span v-else> {{loggedInUser}}!</span> Find and Play with Other Musicians!</p>
+      <p>Hello
+        <span v-if="!isLoggedInUser">!</span>
+        <span v-else>{{loggedInUser.name}}!</span> Find and Play with Other Musicians!
+      </p>
     </header>
-
 
     <div v-if="loggedInUser" class="carousels-container loggedIn">
       
       
-      
-      <!-- <template v-for="genre in loggedInUser.genre" >
-        <section class="carousel-section favourite-genre" :key="genre" >
-          <h2>Events In Your Favourite Genre</h2>
+      <template v-for="genre in loggedInUser.favGenres">
+        <section class="carousel-section favourite-genre" :key="genre">
+          <h2>Especially for you, {{genre}} events:</h2>
           <event-carousel :events="events"/>
-          <a>Show All Events</a>
+          <a>Show All {{genre}} Events</a>
+          <hr>
         </section>
-        <hr :key="genre">
-      </template> -->
-
-
+      </template>
+      
+      <template v-for="instrument in loggedInUser.instruments">
+        <section class="carousel-section favourite-genre" :key="instrument">
+          <h2>Especially for you, events that need a {{instrument}} player:</h2>
+          <event-carousel :events="events"/>
+          <a>Show All {{instrument}} Events</a>
+          <hr>
+        </section>
+      </template>
 
 
       <section class="carousel-section rock-events">
         <h2>Rock Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Rock Events</a>
+        <hr>
       </section>
-      <hr>
       <section class="carousel-section guitar-events">
         <h2>Guitar Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Guitar Events</a>
-        <!-- {{guitarEventsToShow}} -->
+        <hr>
       </section>
-      <hr>
       <section class="carousel-section reggae-events">
         <h2>Reggae Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Reggae Events</a>
-        <!-- {{guitarEventsToShow}} -->
+        <hr>
       </section>
-      <hr>
       <section class="carousel-section world-music-events">
         <h2>World Music Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All World Music Events</a>
-        <!-- {{guitarEventsToShow}} -->
+        <hr>
       </section>
-      <hr>
       <section class="carousel-section progressive-rock-events">
         <h2>Progressive Rock Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Progressive Rock Events</a>
-        <!-- {{guitarEventsToShow}} -->
+        <hr>
       </section>
-      <hr>
     </div>
-
 
     <div v-else class="carousels-container guest">
       <section class="carousel-section almost-full-events">
@@ -75,31 +78,28 @@
         <h2>Guitar Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Guitar Events</a>
-        <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
       <section class="carousel-section reggae-events">
         <h2>Reggae Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Reggae Events</a>
-        <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
       <section class="carousel-section world-music-events">
         <h2>World Music Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All World Music Events</a>
-        <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
       <section class="carousel-section progressive-rock-events">
         <h2>Progressive Rock Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Progressive Rock Events</a>
-        <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
     </div>
+    {{loggedInUser}}
   </div>
 </template>
 
@@ -107,12 +107,12 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 // import nearPlacesMap from '@/components/near-places-map.vue'
-import eventList from '@/components/event-list.vue'
-import eventPreview from '@/components/event-preview.vue'
-import eventCarousel from '@/components/event-carousel.vue'
+import eventList from "@/components/event-list.vue";
+import eventPreview from "@/components/event-preview.vue";
+import eventCarousel from "@/components/event-carousel.vue";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
     eventList,
     eventPreview,
@@ -121,38 +121,37 @@ export default {
   },
   computed: {
     events() {
-      return this.$store.getters.events
+      return this.$store.getters.events;
     },
     popularEvents() {
-      return this.$store.getters.popularEvents
+      return this.$store.getters.popularEvents;
     },
     rockEvents() {
-      return this.$store.getters.rockEvents
+      return this.$store.getters.rockEvents;
     },
     guitarEvents() {
-      return this.$store.getters.guitarEvents
+      return this.$store.getters.guitarEvents;
     },
     rockEventsToShow() {
       if (this.rockEvents.length > 6) {
-        return this.rockEvents.slice(0, 6)
+        return this.rockEvents.slice(0, 6);
       }
     },
     guitarEventsToShow() {
       if (this.guitarEvents.length > 6) {
-        return this.guitarEvents.slice(0, 6)
+        return this.guitarEvents.slice(0, 6);
       }
     },
     isLoggedInUser() {
-      return this.$store.getters.isLoggedInUser
+      return this.$store.getters.isLoggedInUser;
     },
     loggedInUser() {
-      return this.$store.getters.loggedInUser
+      return this.$store.getters.loggedInUser;
     }
-    
   },
   created() {
     // this.$store.dispatch({type: 'loadRockEvents'})
-    this.$store.dispatch({type: 'loadEvents'})
-  },
-}
+    this.$store.dispatch({ type: "loadEvents" });
+  }
+};
 </script>

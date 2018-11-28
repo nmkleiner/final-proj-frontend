@@ -3,7 +3,7 @@
         <a class="logo"><i class="fas fa-drum fa-lg"></i>musiGroops</a>
         <div class="links">
           <router-link to="/">Home</router-link>
-          <router-link to="#">Users</router-link>
+          <router-link :to="'/user/' + loggedInUser._id">Profile</router-link>
           <router-link to="/event/edit">Create</router-link>
           <router-link to="/about">About</router-link>
           <a v-if="isLoggedInUser" @click="logout">Logout</a>

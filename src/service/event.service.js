@@ -76,7 +76,7 @@ function loadEvents(searchKey) {
       instruments:[{
         instrument: "guitar",
         amount: 2,
-        playersIds: ["xyz","abc"],
+        playersIds: ["5bfe891f35e8263350ceccb3","5bfe891f35e8263350ceccb4"],
       },{
         instrument: "french horn",
         amount: 1,
