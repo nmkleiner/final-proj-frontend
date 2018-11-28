@@ -1,5 +1,5 @@
 <template>
-    <section class="login-page">
+    <section class="login-page flex justify-center">
         <form class="flex flex-column align-center">
             <h2>Login to play</h2>
             <el-input v-model="login.userName" placeholder="username"></el-input>
@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
 .login-page{
-    width: 40vw;
+    width: 70vw;
     margin: 90px auto 0;
 
     form {
@@ -56,6 +56,12 @@ export default {
         input,button {
             margin: 0 0 10px;
         }
+    }
+}
+
+@media (min-width: 600px) {
+    .login-page {
+        max-width: 350px;
     }
 }
 </style>

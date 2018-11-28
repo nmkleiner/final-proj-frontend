@@ -5,20 +5,38 @@
     </header>
     
     <div class="almost-full-events">
-      <h2>Grab your place!</h2>
+      <h2>Almost fill grab your place!</h2>
       <event-carousel :events="events"/>
-      <p>Show All Events</p>
+      <a>Show All Events</a>
     </div>
     <div class="rock-events">
       <h2>Rock Sessions for you:</h2>
       <event-carousel :events="rockEventsToShow"/>
-      <p>Show All Rock Events</p>
+      <a>Show All Rock Events</a>
     </div>
     <div class="guitar-events">
       <h2>Guitar Sessions for you:</h2>
       <event-carousel :events="guitarEventsToShow"/>
-      <p>Show All Guitar Events</p>
-      {{guitarEventsToShow}}
+      <a>Show All Guitar Events</a>
+      <!-- {{guitarEventsToShow}} -->
+    </div>
+    <div class="reggae-events">
+      <h2>Reggae Sessions for you:</h2>
+      <event-carousel :events="guitarEventsToShow"/>
+      <a>Show All Reggae Events</a>
+      <!-- {{guitarEventsToShow}} -->
+    </div>
+    <div class="world-music-events">
+      <h2>World Music Sessions for you:</h2>
+      <event-carousel :events="guitarEventsToShow"/>
+      <a>Show All World Music Events</a>
+      <!-- {{guitarEventsToShow}} -->
+    </div>
+    <div class="progressive-rock-events">
+      <h2>Progressive Rock Sessions for you:</h2>
+      <event-carousel :events="guitarEventsToShow"/>
+      <a>Show All Progressive Rock Events</a>
+      <!-- {{guitarEventsToShow}} -->
     </div>
   </div>
 </template>
@@ -38,7 +56,6 @@ export default {
     eventPreview,
     eventCarousel
     // nearPlacesMap
-    // HelloWorld
   },
   computed: {
     events() {
@@ -54,13 +71,13 @@ export default {
       return this.$store.getters.guitarEvents
     },
     rockEventsToShow() {
-      if (this.rockEvents.length > 5) {
-        return this.rockEvents.slice(0, 5)
+      if (this.rockEvents.length > 6) {
+        return this.rockEvents.slice(0, 6)
       }
     },
     guitarEventsToShow() {
-      if (this.guitarEvents.length > 5) {
-        return this.guitarEvents.slice(0, 5)
+      if (this.guitarEvents.length > 6) {
+        return this.guitarEvents.slice(0, 6)
       }
     },
     

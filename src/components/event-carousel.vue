@@ -1,9 +1,9 @@
 <template>
   <section class="carousel">
-    <carousel :perPageCustom="[[586, 2], [768, 3], [1024, 4]]"
+    <carousel :perPageCustom="[[586, 2], [768, 3], [1024, 3]]"
     :mouse-drag="true"
     :navigationEnabled="true">
-      <slide v-for="event in events" :key="event._id">
+      <slide class="slide" v-for="event in events" :key="event._id">
         <event-preview :event="event"></event-preview>
       </slide>
     </carousel>
@@ -19,26 +19,8 @@ export default {
     components: {
       eventPreview
     },
-    data() {
-        return {
-
-        }
-    },
-    methods: {
-
-    },
-    computed: {
-
-    },
-    watch: {
-
-    },
-    created() {
-        
-    }
 }
 </script>
 
 <style>
-
 </style>

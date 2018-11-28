@@ -8,11 +8,15 @@
         align-items: center;
     }
 
-    div {
-        padding: 10px;
-    }
-
+    
     .carousel {
         margin: 20px;
+        .slide {
+            padding: 10px;
+        }
+        .VueCarousel-pagination{
+            display: none;
+        }
     }
+    
 }
