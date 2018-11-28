@@ -1,4 +1,5 @@
 import { storageService } from "./storage.service.js";
+import { promises } from "fs";
 // import { utilService } from "./util.service.js";
 
 const EVENTS_KEY = "events";
@@ -9,6 +10,8 @@ export default {
   getEventById,
   getEvents,
   loadEvents,
+  saveEvent,
+  updateEvent,
   // login
   // nextEvent,
   // prevEvent
@@ -41,7 +44,19 @@ function loadEvents(searchKey) {
     return prmData;
   }
   
+
+  function saveEvent(event){ 
+    // return axios.post('url', event)
+    console.log('from axios post: ',event)
+    return Promise.resolve()
+  }
   
+
+  function updateEvent(event){
+    //return axios.put('url', event)
+    console.log('from axios put: ',event)
+    return Promise.resolve()
+  }
   
   function getEvents() {
     var events = [{

@@ -8,10 +8,16 @@ generatePlayers()
 export default {
   query,
   getById,
+  signupUser
 };
 
 function getById(id) {
   return playersDB.find(player => player._id === id)
+}
+
+function signupUser(user){
+  playersDB.push(user);
+  return Promise.resolve();
 }
 
 function query() {
