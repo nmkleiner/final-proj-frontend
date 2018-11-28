@@ -3,7 +3,6 @@
     <header>
       <p>Find and Play with Other Musicians!</p>
     </header>
-<<<<<<< HEAD
     <div class="carousels-container">
       <section class="almost-full-events">
         <h2>Almost full grab your place!</h2>
@@ -45,23 +44,6 @@
         <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
-=======
-    
-    <div class="almost-full-events">
-      <h2>Grab your place!</h2>
-      <event-carousel :events="events"/>
-      <p>Show All Events</p>
-    </div>
-    <div class="rock-events">
-      <h2>Rock Sessions for you:</h2>
-      <event-carousel :events="rockEventsToShow"/>
-      <p>Show All Rock Events</p>
-    </div>
-    <div class="guitar-events">
-      <h2>Guitar Sessions for you:</h2>
-      <event-carousel :events="guitarEventsToShow"/>
-      <p>Show All Guitar Events</p>
->>>>>>> updateService
     </div>
   </div>
 </template>
