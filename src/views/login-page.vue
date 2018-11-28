@@ -24,7 +24,6 @@ export default {
     },
     methods: {
         submit() {
-            console.log(1)
             this.$store.dispatch({type: 'login', loginData: this.login})
                 .then((user) => {
                     if (!user) this.isWrong = true
