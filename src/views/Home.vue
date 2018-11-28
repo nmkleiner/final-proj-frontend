@@ -18,7 +18,6 @@
       <h2>Guitar Sessions for you:</h2>
       <event-carousel :events="guitarEventsToShow"/>
       <p>Show All Guitar Events</p>
-      {{guitarEventsToShow}}
     </div>
   </div>
 </template>
@@ -66,6 +65,7 @@ export default {
     
   },
   created() {
+    // this.$store.dispatch({type: 'loadRockEvents'})
     this.$store.dispatch({type: 'loadEvents'})
   },
 }
