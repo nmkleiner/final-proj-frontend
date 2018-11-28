@@ -96,6 +96,7 @@ export default {
     
   },
   created() {
+    // this.$store.dispatch({type: 'loadRockEvents'})
     this.$store.dispatch({type: 'loadEvents'})
   },
 }
