@@ -1,7 +1,6 @@
-// import { storageService } from "./storage.service.js";
-// import { utilService } from "./util.service.js";
+const axios = require("axios")
+var BASEURL = (process.env.NODE_ENV !== 'development') ? '/api' : '//localhost:3000/api'
 
-// const USERS_KEY = "users";
 var playersDB = [];
 generatePlayers()
 // const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
@@ -15,13 +14,20 @@ function getById(id) {
   return playersDB.find(player => player._id === id)
 }
 
-function login(loginData) {
-// login data is obj with userName & password
-// need to go to server, find user, compare passwords, return success or fail
-  // console.log(loginData)
-  return Promise.resolve()
-
+function login ({ userName, password }) {
+  console.log(3)
+  return axios.put(`${BASEURL}/login`, { userName, password })
+    .then(res => res.data)
 }
+
+
+// function login(loginData) {
+// // login data is obj with userName & password
+// // need to go to server, find user, compare passwords, return success or fail
+//   // console.log(loginData)
+//   return Promise.resolve()
+
+// }
 
 function query() {
   return Promise.resolve(playersDB)

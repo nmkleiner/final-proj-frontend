@@ -4,6 +4,7 @@
             <h2>Login to play</h2>
             <el-input v-model="login.userName" placeholder="username"></el-input>
             <el-input v-model="login.password" type="password" placeholder="password"></el-input>
+            <span v-if="isWrong">Wrong password / username</span>
             <el-button type="primary" @click="submit" round>login</el-button>
             <a>forgot your password?</a>
         </form>
@@ -17,15 +18,22 @@ export default {
             login: {
                 userName: '',
                 password: ''
-            }
+            },
+            isWrong: false
         }
     },
     methods: {
         submit() {
+            console.log(1)
             this.$store.dispatch({type: 'login', loginData: this.login})
-                .then(() => {
+                .then((user) => {
+                    if (!user) this.isWrong = true
+                    else {
+                    this.isWrong = false
                     this.$router.push('/')
+                    }
                 })
+      
         }
     },
 }

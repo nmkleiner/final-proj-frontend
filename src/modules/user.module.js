@@ -2,11 +2,15 @@ import userService from '../service/user.service.js'
 
 export default {
     state: {
-        loggedInUser: 'raj'
+        loggedInUser: {
+            userName: '',
+            _id: '',
+            password: ''
+        }
     },
     mutations: {
-        setLoggedInUser(state, {loginData}) {
-            state.loggedInUser = loginData.userName
+        setLoggedInUser(state, {user}) {
+            state.loggedInUser = user
         },
         logOutUser(state) {
             state.loggedInUser = ''
@@ -14,18 +18,21 @@ export default {
     },
     actions: {
         login({commit},{loginData}) {
-                return userService.login(loginData)
-                    .then(() => {
-                        commit({type: 'setLoggedInUser', loginData})
-                        return;
-                    })
+            console.log(2)
+            return userService.login(loginData)
+                .then((user) => {
+                    if (user) {
+                        commit({type: 'setLoggedInUser', user})
+                    }
+                    return user;
+                })
         },
         logout({commit}){
             commit('logOutUser')
         }
     },
     getters: {
-        isLoggedInUser: state => !!state.loggedInUser,
+        isLoggedInUser: state => !!state.loggedInUser._id,
         loggedInUser: state => state.loggedInUser
     }
 }
