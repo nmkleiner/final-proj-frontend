@@ -8,9 +8,12 @@ export default {
     setLoggedInUser(state, { loginDetails }) {
       state.loggedInUser = loginDetails.userName;
     },
-    loginNewUser(state, {newUser}) {
-        console.log('new signedin user:', newUser.name)
-        state.loggedInUser = newUser.name
+    loginNewUser(state, { newUser }) {
+      console.log("new signedin user:", newUser.name);
+      state.loggedInUser = newUser.name;
+    },
+    logOutUser(state) {
+      state.loggedInUser = "";
     }
   },
   actions: {
@@ -20,11 +23,16 @@ export default {
       });
     },
     signUpUser({ commit }, { newUser }) {
-        userService.signupUser(newUser)
-        .then(() => {
-            commit({ type: "loginNewUser", newUser })
-        })
+      userService.signupUser(newUser).then(() => {
+        commit({ type: "loginNewUser", newUser });
+      });
+    },
+    logout({ commit }) {
+      commit("logOutUser");
     }
   },
-  getters: {}
+  getters: {
+    isLoggedInUser: state => !!state.loggedInUser._id,
+    loggedInUser: state => state.loggedInUser
+  }
 };

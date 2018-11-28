@@ -1,38 +1,60 @@
+<<<<<<< HEAD
 import { storageService } from "./storage.service.js";
 import { promises } from "fs";
 // import { utilService } from "./util.service.js";
+=======
+const axios = require("axios")
+>>>>>>> 998191a933da881546061094b15d92cbcfe93c87
 
-const EVENTS_KEY = "events";
+const BASE_URL = (process.env.NODE_ENV !== "development")
+                    ? ""
+                    : "//localhost:3000";
 var eventsDB = [];
-// const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
 export default {
   query,
   getEventById,
   getEvents,
   loadEvents,
   saveEvent,
+<<<<<<< HEAD
   updateEvent,
+=======
+  remove
+
+>>>>>>> 998191a933da881546061094b15d92cbcfe93c87
   // login
   // nextEvent,
   // prevEvent
 };
 
 
-function query() {
-  // var events = storageService.load(EVENTS_KEY);
-  // if (!events) {
-  //   events = generateEvents();
-  //   storageService.store(EVENTS_KEY, events);
+function query(filter = {}) {
+  // var queryParams  = new URLSearchParams()
+  // if (filter.byGenre) {
+  //   queryParams.append("genre", filter.byGenre)
   // }
-  // eventsDB = events;
-  return Promise.resolve(getEvents());
+  return axios.get(`${BASE_URL}/event`)
+        .then(res => res.data)
+  // return Promise.resolve(getEvents())
 }
 
 function getEventById(eventId) {
-  const event = query().then(events => events.find(event => event._id === eventId));
-  return Promise.resolve(event)
+  return axios.get(`${BASE_URL}/event/${eventId}`)
+        .then(res => res.data)
 }
 
+function remove(eventId) {
+  return axios.delete(`${BASE_URL}/event/${eventId}`)
+      // .then(res => res.data)
+}
+
+function saveEvent(event) {
+  if (event._id) {
+      return axios.put(`${BASE_URL}/event/${event._id}`, event)
+  } else {
+      return axios.post(`${BASE_URL}/event`, event)
+  }
+}
 
 function loadEvents(searchKey) {
   // GET https://www.googleapis.com/events/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
@@ -60,21 +82,20 @@ function loadEvents(searchKey) {
   
   function getEvents() {
     var events = [{
-      _id: '1',
-      adminId: 'xyz',
-      location: {address: 'florentin 6', city:'tel aviv'},
-      time: {day: '27/11',hour: '19:34'},
-      title: 'Playing Lez Deppelin',
-      desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'rock',
-      level: 'professional',
-      pic: 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
+      adminId: "xyz",
+      location: {address: "florentin 6", city:"tel aviv"},
+      time: {day: "27/11",hour: "19:34"},
+      title: "Playing Lez Deppelin",
+      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+      genre: "rock",
+      level: "professional",
+      pic: "https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png",
       instruments:[{
-        instrument: 'guitar',
+        instrument: "guitar",
         amount: 2,
-        playersIds: ['xyz','abc'],
+        playersIds: ["xyz","abc"],
       },{
-        instrument: 'french horn',
+        instrument: "french horn",
         amount: 1,
         playersIds: [],
       }],
@@ -87,49 +108,47 @@ function loadEvents(searchKey) {
       cost: 0,
     },
     {
-      _id: '2',
-      adminId: 'xyza',
-      location: {address: 'florentin 8', city:'tel aviv'},
-      time: {day: '27/12',hour: '20:32'},
-      title: 'Playing Goola Boola',
-      desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'country',
-      level: 'amateur',
-      pic: 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
+      adminId: "xyza",
+      location: {address: "florentin 8", city:"tel aviv"},
+      time: {day: "27/12",hour: "20:32"},
+      title: "Playing Goola Boola",
+      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+      genre: "country",
+      level: "amateur",
+      pic: "https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png",
       instruments:[{
-        instrument: 'drums',
+        instrument: "drums",
         amount: 1,
-        playersIds: ['abc'],
+        playersIds: ["abc"],
       },{
-        instrument: 'trombone',
+        instrument: "trombone",
         amount: 2,
-        playersIds: ['bcd'],
+        playersIds: ["bcd"],
       }],
       freePlayers: {
         amount: 4,
-        membersIds: ['cde','def']
+        membersIds: ["cde","def"]
       },
       allowedMembersCount: 7,
       joinedMembersCount: 7,
       cost: 45,
     },{
-      _id: '3',
-      adminId: 'bcd',
-      location: {address: 'florentin 10, tel aviv'},
-      time: {day: '29/11',hour: '21:34'},
-      title: 'Playing Little Jonathan',
-      desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'children',
-      level: 'amateur',
-      pic: 'https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png',
+      adminId: "bcd",
+      location: {address: "florentin 10, tel aviv"},
+      time: {day: "29/11",hour: "21:34"},
+      title: "Playing Little Jonathan",
+      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+      genre: "children",
+      level: "amateur",
+      pic: "https://www.chaarat.com/wp-content/uploads/2017/08/placeholder-user.png",
       instruments:[{
-        instrument: 'flute',
+        instrument: "flute",
         amount: 1,
-        playersIds: ['bcd'],
+        playersIds: ["bcd"],
       },{
-        instrument: 'clarinet',
+        instrument: "clarinet",
         amount: 3,
-        playersIds: ['def','efg'],
+        playersIds: ["def","efg"],
       }],
       freePlayers: {
         amount: 0,
@@ -140,23 +159,22 @@ function loadEvents(searchKey) {
       cost: 20,
     },
     {
-    _id: '4',
-    adminId: 'xyzb',
-    location: {address: 'mahne yehuda 112', city:'jerusalem', lat: 32.0853, lng: 34.7818},
-    time: {day: '30/12',hour: '21:30'},
-    title: 'Playing Little Jonathan',
-    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-    genre: 'rock',
-    level: 'pro',
-    pic: '../../public/img/events/3.jpg', 
+    adminId: "xyzb",
+    location: {address: "mahne yehuda 112", city:"jerusalem", lat: 32.0853, lng: 34.7818},
+    time: {day: "30/12",hour: "21:30"},
+    title: "Playing Little Jonathan",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+    genre: "rock",
+    level: "pro",
+    pic: "../../public/img/events/3.jpg", 
     instruments:[{
-      instrument: 'guitar',
+      instrument: "guitar",
       amount: 1,
-      playersIds: ['abc'],
+      playersIds: ["abc"],
     },{
-      instrument: 'drums',
+      instrument: "drums",
       amount: 3,
-      playersIds: ['def'],
+      playersIds: ["def"],
     }],
     freePlayers: {
       amount: 2,
@@ -167,23 +185,22 @@ function loadEvents(searchKey) {
     cost: 20,
   },
   {
-    _id: '5',
-    adminId: 'abc',
-    location: {address: 'mahne yehuda 51', city:'jerusalem', lat: 32.0853, lng: 34.7818},
-    time: {day: '30/11',hour: '21:30'},
-    title: 'Playing Little Jonathan',
-    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-    genre: 'rock',
-    level: 'pro',
-    pic: '',
+    adminId: "abc",
+    location: {address: "mahne yehuda 51", city:"jerusalem", lat: 32.0853, lng: 34.7818},
+    time: {day: "30/11",hour: "21:30"},
+    title: "Playing Little Jonathan",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+    genre: "rock",
+    level: "pro",
+    pic: "",
     instruments:[{
-      instrument: 'guitar',
+      instrument: "guitar",
       amount: 2,
-      playersIds: ['abc'],
+      playersIds: ["abc"],
     },{
-      instrument: 'drums',
+      instrument: "drums",
       amount: 1,
-      playersIds: ['bcd'],
+      playersIds: ["bcd"],
     }],
     freePlayers: {
       amount: 5,
@@ -194,23 +211,22 @@ function loadEvents(searchKey) {
     cost: 20,
   },
   {
-    _id: '6',
-    adminId: 'abc',
-    location: {address: '5th avenue 1020', city:'new york', lat: 32.0853, lng: 34.7818},
-    time: {day: '30/11',hour: '21:30'},
-    title: 'Playing Little Jonathan',
-    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-    genre: 'rock',
-    level: 'pro',
-    pic: '',
+    adminId: "abc",
+    location: {address: "5th avenue 1020", city:"new york", lat: 32.0853, lng: 34.7818},
+    time: {day: "30/11",hour: "21:30"},
+    title: "Playing Little Jonathan",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+    genre: "rock",
+    level: "pro",
+    pic: "",
     instruments:[{
-      instrument: 'guitar',
+      instrument: "guitar",
       amount: 2,
-      playersIds: ['abc'],
+      playersIds: ["abc"],
     },{
-      instrument: 'flute',
+      instrument: "flute",
       amount: 1,
-      playersIds: ['bcd'],
+      playersIds: ["bcd"],
     }],
     freePlayers: {
       amount: 5,
@@ -221,23 +237,22 @@ function loadEvents(searchKey) {
     cost: 0,
   },
   {
-    _id: '7',
-    adminId: 'abc',
-    location: {address: 'derech hayam 21', city:'haifa', lat: 32.0853, lng: 34.7818},
-    time: {day: '30/11',hour: '21:30'},
-    title: 'Playing Little Jonathan',
-    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-    genre: 'rock',
-    level: 'pro',
-    pic: '',
+    adminId: "abc",
+    location: {address: "derech hayam 21", city:"haifa", lat: 32.0853, lng: 34.7818},
+    time: {day: "30/11",hour: "21:30"},
+    title: "Playing Little Jonathan",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+    genre: "rock",
+    level: "pro",
+    pic: "",
     instruments:[{
-      instrument: 'guitar',
+      instrument: "guitar",
       amount: 4,
-      playersIds: ['abc'],
+      playersIds: ["abc"],
     },{
-      instrument: 'flute',
+      instrument: "flute",
       amount: 1,
-      playersIds: ['bcd'],
+      playersIds: ["bcd"],
     }],
     freePlayers: {
       amount: 4,
@@ -248,21 +263,20 @@ function loadEvents(searchKey) {
     cost: 0,
   },
   {
-    _id: '8',
-    adminId: 'abc',
-    location: {address: 'reger 78', city:'beer sheva', lat: 32.0853, lng: 34.7818},
-    time: {day: '30/11',hour: '21:30'},
-    title: 'Playing Little Jonathan',
-    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-    genre: 'rock',
-    level: 'pro',
-    pic: '',
+    adminId: "abc",
+    location: {address: "reger 78", city:"beer sheva", lat: 32.0853, lng: 34.7818},
+    time: {day: "30/11",hour: "21:30"},
+    title: "Playing Little Jonathan",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+    genre: "rock",
+    level: "pro",
+    pic: "",
     instruments:[{
-      instrument: 'guitar',
+      instrument: "guitar",
       amount: 2,
-      playersIds: ['abc'],
+      playersIds: ["abc"],
     },{
-      instrument: 'flute',
+      instrument: "flute",
       amount: 1,
       playersIds: [],
     }],
@@ -275,21 +289,20 @@ function loadEvents(searchKey) {
     cost: 0,
   },
   {
-  _id: '9',
-    adminId: 'abc',
-    location: {address: 'aba hillel 24', city:'ramat gan', lat: 32.0853, lng: 34.7818},
-    time: {day: '30/11',hour: '21:30'},
-    title: 'Playing Little Jonathan',
-    desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-    genre: 'jazz',
-    level: 'pro',
-    pic: '',
+    adminId: "abc",
+    location: {address: "aba hillel 24", city:"ramat gan", lat: 32.0853, lng: 34.7818},
+    time: {day: "30/11",hour: "21:30"},
+    title: "Playing Little Jonathan",
+    desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+    genre: "jazz",
+    level: "pro",
+    pic: "",
     instruments:[{
-      instrument: 'sax',
+      instrument: "sax",
       amount: 2,
-      playersIds: ['abc'],
+      playersIds: ["abc"],
     },{
-      instrument: 'piano',
+      instrument: "piano",
       amount: 1,
       playersIds: [],
     }],
@@ -302,22 +315,21 @@ function loadEvents(searchKey) {
     cost: 0,
   },
   {
-    _id: '10',
-      adminId: 'abc',
-      location: {address: 'jessi cohen 69', city:'holon', lat: 32.0853, lng: 34.7818},
-      time: {day: '30/11',hour: '21:30'},
-      title: 'Playing Little Jonathan',
-      desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-      genre: 'jazz',
-      level: 'pro',
-      pic: '',
+      adminId: "abc",
+      location: {address: "jessi cohen 69", city:"holon", lat: 32.0853, lng: 34.7818},
+      time: {day: "30/11",hour: "21:30"},
+      title: "Playing Little Jonathan",
+      desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+      genre: "jazz",
+      level: "pro",
+      pic: "",
       instruments:[{
-        instrument: 'sax',
+        instrument: "sax",
         amount: 2,
-        playersIds: ['abc'],
+        playersIds: ["abc"],
       },
       {
-        instrument: 'drums',
+        instrument: "drums",
         amount: 1,
         playersIds: [],
       }],
@@ -330,24 +342,23 @@ function loadEvents(searchKey) {
       cost: 0,
     },
     {
-      _id: '11',
-        adminId: 'abc',
-        location: {address: 'bialik 22', city:'ramat gan', lat: 32.0853, lng: 34.7818},
-        time: {day: '30/11',hour: '21:30'},
-        title: 'Playing Little Jonathan',
-        desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-        genre: 'jazz',
-        level: 'pro',
-        pic: '',
+        adminId: "abc",
+        location: {address: "bialik 22", city:"ramat gan", lat: 32.0853, lng: 34.7818},
+        time: {day: "30/11",hour: "21:30"},
+        title: "Playing Little Jonathan",
+        desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+        genre: "jazz",
+        level: "pro",
+        pic: "",
         instruments:[{
-          instrument: 'sax',
+          instrument: "sax",
           amount: 2,
-          playersIds: ['abc'],
+          playersIds: ["abc"],
         },
         {
-          instrument: 'guitar',
+          instrument: "guitar",
           amount: 1,
-          playersIds: ['bcd','efg','fgh'],
+          playersIds: ["bcd","efg","fgh"],
         }],
         freePlayers: {
           amount: 0,
@@ -358,29 +369,28 @@ function loadEvents(searchKey) {
         cost: 0,
       },
       {
-        _id: '12',
-          adminId: 'abc',
-          location: {address: 'mahne yehuda 182', city:'jerusalem', lat: 32.0853, lng: 34.7818},
-          time: {day: '30/11',hour: '21:30'},
-          title: 'Playing Little Jonathan',
-          desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!',
-          genre: 'jazz',
-          level: 'pro',
-          pic: '',
+          adminId: "abc",
+          location: {address: "mahne yehuda 182", city:"jerusalem", lat: 32.0853, lng: 34.7818},
+          time: {day: "30/11",hour: "21:30"},
+          title: "Playing Little Jonathan",
+          desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
+          genre: "jazz",
+          level: "pro",
+          pic: "",
           instruments:[{
-            instrument: 'trumpet',
+            instrument: "trumpet",
             amount: 1,
-            playersIds: ['abc','bcd'],
+            playersIds: ["abc","bcd"],
           },
           {
-            instrument: 'sax',
+            instrument: "sax",
             amount: 2,
-            playersIds: ['efg'],
+            playersIds: ["efg"],
           },
           {
-            instrument: 'guitar',
+            instrument: "guitar",
             amount: 2,
-            playersIds: ['def','fgh'],
+            playersIds: ["def","fgh"],
           }],
           freePlayers: {
             amount: 0,
@@ -396,12 +406,12 @@ function loadEvents(searchKey) {
 }
 
 // function createEvent() {
-//     var imgBaseUrl = 'http://coding-academy.org/events-photos/'
+//     var imgBaseUrl = "http://coding-academy.org/events-photos/"
 //     var event = {
 //         id: utilService.makeId(),
 //         title: utilService.makeLorem(10),
 //         publishedDate: utilService.getRandomInt(1900, 2000),
-//         thumbnail: imgBaseUrl + utilService.getRandomInt(1, 21) + '.jpg',
+//         thumbnail: imgBaseUrl + utilService.getRandomInt(1, 21) + ".jpg",
 //     }
 //     return event;
 // }

@@ -3,7 +3,7 @@
         <router-link :to="'/event/' + event._id">
             <div class="pic-wrapper flex flex-column justify-center">
                 <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
-                <img class="main-img" src="https://picsum.photos/200/300/?blur&random" alt="event image">
+                <img class="main-img" src="https://picsum.photos/200/300/?random" alt="event image">
                 <div class="upper-floating-wrapper">
                     <span :style="{color: status.color}">{{status.txt}}</span>
                 </div>
@@ -16,12 +16,12 @@
                 </div>
             </div>
         </router-link>
-        <div class="event-details flex flex-column space-between">
-            <div class="flex space-between">
+        <div class="details flex flex-column space-between">
+            <div class="details-row flex space-between">
                 <div>{{event.title}}</div>
                 <div>{{event.genre}}</div>
             </div>
-            <div class="flex space-between">
+            <div class="details-row flex space-between">
                 <div>{{event.level}}</div>
                 <div class="flex flex-row">
                     <div>{{event.time.day}}&nbsp;</div>
@@ -54,7 +54,7 @@ export default {
     computed: {
         status() {
             const ratio = this.event.joinedMembersCount / +this.event.allowedMembersCount
-            if (ratio < 0.4) return {txt: 'Waiting for players', color: 'green'}
+            if (ratio < 0.4) return {txt: 'Waiting for players', color: 'lightgreen'}
             else if(ratio < 0.8) return {txt: 'Kinda full', color: 'white'}
             else if(ratio < 1) return {txt: 'Almost full', color: 'yellow'}
             return	{txt: 'Event full', color: 'red'}
