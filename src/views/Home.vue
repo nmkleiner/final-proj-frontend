@@ -3,40 +3,47 @@
     <header>
       <p>Find and Play with Other Musicians!</p>
     </header>
-    
-    <div class="almost-full-events">
-      <h2>Almost fill grab your place!</h2>
-      <event-carousel :events="events"/>
-      <a>Show All Events</a>
-    </div>
-    <div class="rock-events">
-      <h2>Rock Sessions for you:</h2>
-      <event-carousel :events="rockEventsToShow"/>
-      <a>Show All Rock Events</a>
-    </div>
-    <div class="guitar-events">
-      <h2>Guitar Sessions for you:</h2>
-      <event-carousel :events="guitarEventsToShow"/>
-      <a>Show All Guitar Events</a>
-      <!-- {{guitarEventsToShow}} -->
-    </div>
-    <div class="reggae-events">
-      <h2>Reggae Sessions for you:</h2>
-      <event-carousel :events="guitarEventsToShow"/>
-      <a>Show All Reggae Events</a>
-      <!-- {{guitarEventsToShow}} -->
-    </div>
-    <div class="world-music-events">
-      <h2>World Music Sessions for you:</h2>
-      <event-carousel :events="guitarEventsToShow"/>
-      <a>Show All World Music Events</a>
-      <!-- {{guitarEventsToShow}} -->
-    </div>
-    <div class="progressive-rock-events">
-      <h2>Progressive Rock Sessions for you:</h2>
-      <event-carousel :events="guitarEventsToShow"/>
-      <a>Show All Progressive Rock Events</a>
-      <!-- {{guitarEventsToShow}} -->
+    <div class="carousels-container">
+      <section class="almost-full-events">
+        <h2>Almost full grab your place!</h2>
+        <event-carousel :events="events"/>
+        <a>Show All Events</a>
+      </section>
+      <hr>
+      <section class="rock-events">
+        <h2>Rock Sessions for you:</h2>
+        <event-carousel :events="guitarEventsToShow"/>
+        <a>Show All Rock Events</a>
+      </section>
+      <hr>
+      <section class="guitar-events">
+        <h2>Guitar Sessions for you:</h2>
+        <event-carousel :events="guitarEventsToShow"/>
+        <a>Show All Guitar Events</a>
+        <!-- {{guitarEventsToShow}} -->
+      </section>
+      <hr>
+      <section class="reggae-events">
+        <h2>Reggae Sessions for you:</h2>
+        <event-carousel :events="guitarEventsToShow"/>
+        <a>Show All Reggae Events</a>
+        <!-- {{guitarEventsToShow}} -->
+      </section>
+      <hr>
+      <section class="world-music-events">
+        <h2>World Music Sessions for you:</h2>
+        <event-carousel :events="guitarEventsToShow"/>
+        <a>Show All World Music Events</a>
+        <!-- {{guitarEventsToShow}} -->
+      </section>
+      <hr>
+      <section class="progressive-rock-events">
+        <h2>Progressive Rock Sessions for you:</h2>
+        <event-carousel :events="guitarEventsToShow"/>
+        <a>Show All Progressive Rock Events</a>
+        <!-- {{guitarEventsToShow}} -->
+      </section>
+      <hr>
     </div>
   </div>
 </template>

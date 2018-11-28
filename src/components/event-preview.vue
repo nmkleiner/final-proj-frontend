@@ -16,12 +16,12 @@
                 </div>
             </div>
         </router-link>
-        <div class="event-details flex flex-column space-between">
-            <div class="flex space-between">
+        <div class="details flex flex-column space-between">
+            <div class="details-row flex space-between">
                 <div>{{event.title}}</div>
                 <div>{{event.genre}}</div>
             </div>
-            <div class="flex space-between">
+            <div class="details-row flex space-between">
                 <div>{{event.level}}</div>
                 <div class="flex flex-row">
                     <div>{{event.time.day}}&nbsp;</div>

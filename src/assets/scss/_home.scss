@@ -8,15 +8,30 @@
         align-items: center;
     }
 
-    
-    .carousel {
-        margin: 20px;
-        .slide {
-            padding: 10px;
-        }
-        .VueCarousel-pagination{
-            display: none;
-        }
+    a {
+        color: rgb(51, 51, 255);
+        cursor: pointer;
     }
-    
+
+    .carousels-container{
+        padding: 0 20px 30px;
+        h2{
+            margin: 0;
+        }
+        section {
+            padding: 20px 0;
+        }
+        .carousel {
+            margin: 0px 20px;
+            .slide {
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+            }
+            .VueCarousel-pagination{
+                display: none;
+            }
+        }
+        
+    }
 }

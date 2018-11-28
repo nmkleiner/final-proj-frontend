@@ -3,7 +3,7 @@
     border-radius: 5px;
     transition: .3s;
     width: fit-content;
-    
+    position: relative;
     .pic-wrapper {
         width: fit-content;
         .main-img {
@@ -15,7 +15,8 @@
         .upper-floating-wrapper {
             padding: 10px;
             position: absolute;
-            top: 20px;
+            top: 15px;
+            width: 100%;
             span {
                 font-weight: 700;
             }
@@ -30,8 +31,12 @@
         }
     }
 
-    .event-details {
+    .details {
         height: fit-content;
+        padding: 10px;
+        .details-row:first-child{
+            padding-bottom: 10px;
+        }
     }
 }
 
