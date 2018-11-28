@@ -1,29 +1,83 @@
-.event-details {
-    padding: 10px;
-    .col-1 {
-        flex-basis: 45%;
-        padding: 10px;
-        img {
-            width: 300px;
-            height: 200px;
-        }
-        button {
-            width: fit-content;
-        }
+.cards-wrapper {
+  padding: 30px;
+  background-color: lighten($brand-grey-light, 10%);
+  flex-direction: column;
+  
+  @media screen and (min-width: 600px) {
+    flex-direction: row;
+    
+  }
+}
+
+.card-container {
+  background-color: $brand-white;
+  padding: 30px;
+  margin-bottom: 30px;
+  @media screen and (min-width: 600px) {
+    width: 48.6%;
+    margin-bottom: 0;
+  }
+  border:1px solid darken($brand-grey-light, 5%);
+  border-radius: 6px;
+  box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.05);
+}
+
+.card-organizer-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-organizer-image-container {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.card-organizer-name{
+    margin-left: 20px;
+}
+
+.card-item-container{
+    border-top: 1px solid $brand-grey-light;
+    margin-top: 20px;
+}
+
+.instruments-container{
+    width: 100%;
+    display: flex;
+}
+
+.instrument-item-container{
+    padding: 15px;
+    border: 1px solid $brand-grey-light;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    &:not(:first-child){
+        margin-left: 15px;
     }
-    .col-2{
-        flex-basis: 45%;
-        padding: 10px;
-        .instrument{
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-            div{
-                margin: 0 5px;
-            }
-            .instrument-pic{
-                cursor: pointer;
-            }
-        }
+}
+
+.card-description{
+    margin-bottom: 30px;
+}
+
+.event-details{
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.event-detail-list-item{
+    padding: 5px 0;
+    border-top: 1px solid $brand-grey-light;
+    &:last-child{
+        border-bottom: 1px solid $brand-grey-light;
     }
+}
+
+
+.event-photo, .map {
+    width:100%; 
 }

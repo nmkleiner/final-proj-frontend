@@ -1,5 +1,41 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body{
+    font-size: 16px;
+    font-family: 'Roboto Slab', serif;
+}
 
-html {
+// Colors:
+$brand-white: #fff;
+$brand-text-color: darken($brand-white, 60%);
+$brand-grey-light: darken($brand-white, 15%);
+
+
+//Headings
+h1,h2,h3,h4,h5,h6{
+    margin: 15px 0;
     font-family: 'Montserrat', sans-serif;
 }
+
+h1{
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h4{
+    font-weight: 700;
+    font-size: 1rem;
+    color: darken($brand-white, 80%)
+}
+
+//Paragraphs
+p{
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: $brand-text-color;
+}
+

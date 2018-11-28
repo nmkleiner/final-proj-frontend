@@ -68,7 +68,6 @@ export default {
 <style>
     h1{
         font-size: 1.5em;
-        text-align: center;
     }
     form {
         height: 100vh;
