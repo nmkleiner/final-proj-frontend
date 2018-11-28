@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <header>
-      <p>Find and Play with Other Musicians!</p>
+      <p>Hello<span v-if="!isLoggedInUser">!</span><span v-else> {{loggedInUser}}!</span> Find and Play with Other Musicians!</p>
     </header>
     <div class="carousels-container">
       <section class="almost-full-events">
@@ -87,6 +87,12 @@ export default {
         return this.guitarEvents.slice(0, 6)
       }
     },
+    isLoggedInUser() {
+      return this.$store.getters.isLoggedInUser
+    },
+    loggedInUser() {
+      return this.$store.getters.loggedInUser
+    }
     
   },
   created() {

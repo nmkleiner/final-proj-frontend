@@ -6,7 +6,8 @@
           <router-link to="#">Users</router-link>
           <router-link to="/event/edit">Create</router-link>
           <router-link to="/about">About</router-link>
-          <router-link to="/login">Login</router-link>
+          <a v-if="isLoggedInUser" @click="logout">Logout</a>
+          <router-link v-else to="/login">Login</router-link>
         </div>
         <a @click="setIsOpen" class="icon"><i class="fa fa-bars"></i></a>
 </div>
@@ -22,7 +23,18 @@ export default {
     methods: {
         setIsOpen(){
             return this.isOpen = !this.isOpen;
+        },
+        logout() {
+          this.$store.dispatch({type: 'logout'})
         }
+    },
+    computed: {
+      isLoggedInUser() {
+        return this.$store.getters.isLoggedInUser
+      },
+      loggedInUser() {
+        return this.$store.getters.loggedInUser
+      }
     }
 };
 </script>
@@ -66,7 +78,7 @@ export default {
 }
 
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 730px) {
   .nav-bar a:not(.logo) {display: none;}
   .nav-bar a.icon {
     float: right;

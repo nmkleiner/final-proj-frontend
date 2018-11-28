@@ -8,10 +8,19 @@ generatePlayers()
 export default {
   query,
   getById,
+  login
 };
 
 function getById(id) {
   return playersDB.find(player => player._id === id)
+}
+
+function login(loginData) {
+// login data is obj with userName & password
+// need to go to server, find user, compare passwords, return success or fail
+  // console.log(loginData)
+  return Promise.resolve()
+
 }
 
 function query() {
