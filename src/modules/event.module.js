@@ -3,6 +3,7 @@ import eventService from '../service/event.service.js'
 export default {
     state: {
         events: [],
+        rockEvents: [],
         currEvent: {}
     },
     mutations: {
@@ -11,6 +12,9 @@ export default {
         },
         setCurrentEvent(state, {event}) {
             state.currEvent = event
+        },
+        setRockEvents(state, {events}) {
+            state.rockEvents = events
         }
     },
     actions: {
@@ -20,6 +24,12 @@ export default {
                     commit({type:'setEvents', events})
                 })
         },
+        // loadRockEvents({commit}) {
+        //     return eventService.query({byGenre: 'rock'})
+        //         .then(events => {
+        //             commit({type:'setRockEvents', events})
+        //         })
+        // },
         getEventById({commit},{eventId}) {
             return eventService.getEventById(eventId)
                 .then((event) => {

@@ -1,35 +1,49 @@
-import { storageService } from "./storage.service.js";
-// import { utilService } from "./util.service.js";
+const axios = require('axios')
 
-const EVENTS_KEY = "events";
+const BASE_URL = (process.env.NODE_ENV !== 'development')
+                    ? ''
+                    : '//localhost:3000';
 var eventsDB = [];
-// const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
 export default {
   query,
   getEventById,
   getEvents,
   loadEvents,
+  saveEvent,
+  remove
+
   // login
   // nextEvent,
   // prevEvent
 };
 
 
-function query() {
-  // var events = storageService.load(EVENTS_KEY);
-  // if (!events) {
-  //   events = generateEvents();
-  //   storageService.store(EVENTS_KEY, events);
+function query(filter = {}) {
+  // var queryParams  = new URLSearchParams()
+  // if (filter.byGenre) {
+  //   queryParams.append('genre', filter.byGenre)
   // }
-  // eventsDB = events;
-  return Promise.resolve(getEvents());
+  return axios.get(`${BASE_URL}/event`)
+        .then(res => res.data)
 }
 
 function getEventById(eventId) {
-  const event = query().then(events => events.find(event => event._id === eventId));
-  return Promise.resolve(event)
+  return axios.get(`${BASE_URL}/event/${eventId}`)
+        .then(res => res.data)
 }
 
+function remove(eventId) {
+  return axios.delete(`${BASE_URL}/event/${eventId}`)
+      // .then(res => res.data)
+}
+
+function saveEvent(event) {
+  if (event._id) {
+      return axios.put(`${BASE_URL}/event/${event._id}`, event)
+  } else {
+      return axios.post(`${BASE_URL}/event`, event)
+  }
+}
 
 function loadEvents(searchKey) {
   // GET https://www.googleapis.com/events/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
