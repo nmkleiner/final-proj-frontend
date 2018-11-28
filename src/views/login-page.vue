@@ -22,18 +22,12 @@ export default {
     },
     methods: {
         submit() {
-            this.$store.dispatch({type: 'login', loginDetails: this.login})
+            this.$store.dispatch({type: 'login', loginData: this.login})
+                .then(() => {
+                    this.$router.push('/')
+                })
         }
     },
-    computed: {
-
-    },
-    watch: {
-
-    },
-    created() {
-
-}
 }
 </script>
 
@@ -41,7 +35,7 @@ export default {
 .login-page{
     width: 70vw;
     margin: 90px auto 0;
-
+    padding-bottom: 100px; 
     form {
         height: fit-content;
         h2 {

@@ -1,23 +1,31 @@
-import userService from '../service/event.service.js'
+import userService from '../service/user.service.js'
 
 export default {
     state: {
-        loggedInUser: ''
+        loggedInUser: 'raj'
     },
     mutations: {
-        setLoggedInUser(state, {loginDetails}) {
-            state.loggedInUser = loginDetails.userName
+        setLoggedInUser(state, {loginData}) {
+            state.loggedInUser = loginData.userName
+        },
+        logOutUser(state) {
+            state.loggedInUser = ''
         }
     },
     actions: {
-        login({commit},{loginDetails}) {
-            userService.login(loginDetails)
-                .then(() => {
-                    commit({type: 'setLoggedInUser', loginDetails})
-                })
+        login({commit},{loginData}) {
+                return userService.login(loginData)
+                    .then(() => {
+                        commit({type: 'setLoggedInUser', loginData})
+                        return;
+                    })
+        },
+        logout({commit}){
+            commit('logOutUser')
         }
     },
     getters: {
-        
+        isLoggedInUser: state => !!state.loggedInUser,
+        loggedInUser: state => state.loggedInUser
     }
 }

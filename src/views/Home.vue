@@ -1,43 +1,43 @@
 <template>
   <div class="home">
     <header>
-      <p>Find and Play with Other Musicians!</p>
+      <p>Hello<span v-if="!isLoggedInUser">!</span><span v-else> {{loggedInUser}}!</span> Find and Play with Other Musicians!</p>
     </header>
     <div class="carousels-container">
-      <section class="almost-full-events">
+      <section class="carousel-section almost-full-events">
         <h2>Almost full grab your place!</h2>
         <event-carousel :events="events"/>
         <a>Show All Events</a>
       </section>
       <hr>
-      <section class="rock-events">
+      <section class="carousel-section rock-events">
         <h2>Rock Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Rock Events</a>
       </section>
       <hr>
-      <section class="guitar-events">
+      <section class="carousel-section guitar-events">
         <h2>Guitar Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Guitar Events</a>
         <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
-      <section class="reggae-events">
+      <section class="carousel-section reggae-events">
         <h2>Reggae Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Reggae Events</a>
         <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
-      <section class="world-music-events">
+      <section class="carousel-section world-music-events">
         <h2>World Music Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All World Music Events</a>
         <!-- {{guitarEventsToShow}} -->
       </section>
       <hr>
-      <section class="progressive-rock-events">
+      <section class="carousel-section progressive-rock-events">
         <h2>Progressive Rock Sessions for you:</h2>
         <event-carousel :events="guitarEventsToShow"/>
         <a>Show All Progressive Rock Events</a>
@@ -87,6 +87,12 @@ export default {
         return this.guitarEvents.slice(0, 6)
       }
     },
+    isLoggedInUser() {
+      return this.$store.getters.isLoggedInUser
+    },
+    loggedInUser() {
+      return this.$store.getters.loggedInUser
+    }
     
   },
   created() {
