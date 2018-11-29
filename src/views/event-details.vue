@@ -26,6 +26,7 @@
         <div class="instruments-container">
           <div class="instrument-item-container" @click="joinTheEvent(instrument.instrument)" v-for="instrument in event.instruments" :key="instrument.instrument">
             <i :title="instrument.instrument" class="fas fa-drum"></i>
+            {{instrument.instrument}}
           </div>
         </div>
 
@@ -109,13 +110,15 @@ export default {
       this.$router.push('/')
     }
   },
-  computed: {},
-  watch: {},
+  computed: {
+    loggedInUser() {
+      return this.$store.getters.loggedInUser
+    }
+  },
   created() {
     document.body.scrollIntoView()
     const eventId = this.$route.params.eventId;
-    this.$store
-      .dispatch({ type: "getEventById", eventId })
+    this.$store.dispatch({ type: "getEventById", eventId })
       .then(event => (this.event = event));
   },
   data() {
@@ -125,7 +128,6 @@ export default {
       freePlayers: [], //get from userService
       admin: {}, // get from userService,
       // loggedInUser: {},
-      loggedInUser: { _id: "xyz" }
     };
   }
 };

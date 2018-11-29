@@ -33,9 +33,15 @@ export default {
       commit("logOutUser");
       return Promise.resolve()
     },
+
     updateUserEvents({commit, state}, {joinedEvent}){
+      console.log(joinedEvent)
       commit({type: 'setUpdateUserEvent', joinedEvent})
       userService.updateUser(state.loggedInUser)
+    },
+
+    getUserById({commit},{userId}) {
+      return userService.getById(userId)
     }
   },
   getters: {

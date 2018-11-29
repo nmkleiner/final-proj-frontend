@@ -127,7 +127,8 @@ export default {
       this.$store.dispatch({ type: 'updateEvent', event: this.event });
     },
     addInstrument(instrument) {
-      this.event.instruments.push(instrument)
+      const instObj = {instrument , amount: 1, playerIds: []}
+      this.event.instruments.push(instObj)
     }
   },
   created() {
