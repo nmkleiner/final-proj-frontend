@@ -1,14 +1,19 @@
 <template>
   <section class="cards-wrapper flex space-between">
     <div class="card-container">
-      <h1>{{event.title}}</h1>
+      <h1>
+        {{event.title}}
+      </h1>
+
       <div class="flex align-center">
         <div class="card-organizer-image-container flex justify-center align-center">
           <img class="circle-icon" :src="admin.pic " alt="event admin" :title="admin.name">
         </div>
-        <h4 class="card-organizer-name capitalize">{{event.adminName}}</h4>
-        <!-- <img :src="admin.pic" alt="event admin"> -->
-        <!-- <span>{{admin.name}}</span>-->
+        <h4 class="card-organizer-name capitalize">{{event.adminName}}&nbsp;</h4>
+        <template v-if="isLoggedInUserAdmin">
+          <el-button @click="goEdit" type="success" round >Edit Event</el-button>
+          <el-button type="danger" round >Cancel Event</el-button>
+        </template>
       </div>
 
       <div class="card-item-container">
@@ -21,15 +26,15 @@
       <div class="card-item-container">
         <h2 v-if="loggedInUser._id">Play with us as:</h2>
 
-        <span v-else>Login to join</span>
+        <span v-else>Login to participate</span>
 
         <h4>welcomed instruments:</h4>
         <div class="instruments-container">
           <div
             class="instrument-item-container"
             @click="joinTheEvent(instrument.instrument)"
-            v-for="instrument in event.instruments"
-            :key="instrument.instrument"
+            v-for="(instrument,idx) in event.instruments"
+            :key="idx"
           >
             <i :title="instrument.instrument" class="fas fa-drum"></i>
             {{instrument.instrument}}
@@ -39,9 +44,9 @@
         <!-- <div>{{instrument.amount}}x</div>
         <el-button @click="joinAs(instrument.instrument)">{{instrument.instrument}}</el-button>-->
       </div>
-
       <div class="card-item-container">
-        <h4>Free players:
+        <h4>Free participants:
+
           <!-- {{event.freePlayers.length || 0}}/
           {{event.freePlayers.amount}}-->
         </h4>
@@ -53,6 +58,8 @@
             </router-link>
           </template> 
         </h4>
+        <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
+
         <p class="card-description">{{event.desc}}</p>
 
         <el-button>discussions</el-button>
@@ -135,7 +142,11 @@ export default {
       this.$store.dispatch({ type: "updateUserEvents", joinedEvent });
       this.$store.dispatch({ type: "joinEvent", joinedEvent });
       //message join event
-      this.$router.push("/");
+      this.$router.push('/');
+    },
+    goEdit() {
+      const eventId = this.event._id
+      this.$router.push(`/event/edit/${eventId}`)
     }
   },
   computed: {
@@ -152,9 +163,13 @@ export default {
       // get event admin 
       .then(() => {
         const adminId = this.event.adminId
+        
         this.$store.dispatch({type: 'getUserById', userId: adminId})
         .then(admin => {
           this.admin = admin
+          if (this.admin._id === this.loggedInUser._id) {
+            this.isLoggedInUserAdmin = true
+          }
         })
       })
 
@@ -162,6 +177,7 @@ export default {
       .then(() => {
         this.event.instruments.forEach(instrument => {
           return instrument.playerIds.forEach(playerId => {
+            if(!playerId) return;
             this.$store.dispatch({type: 'getUserById', userId: playerId})
               .then(player => {
                 this.players.push(player)
@@ -184,7 +200,8 @@ export default {
       event: this.$store.getters.currEvent,
       players: [], //get from userService
       freePlayers: [], //get from userService
-      admin: {}, // get from userService,
+      admin: {},
+      isLoggedInUserAdmin: false,
       // loggedInUser: {},
       markers: [
         {

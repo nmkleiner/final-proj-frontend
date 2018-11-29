@@ -15,6 +15,8 @@ export default {
 };
 
 function getById(id) {
+  // console.log('getby ID', id);
+  
   axios.get(`${BASE_URL}/player/${id}`)
   return axios.get(`${BASE_URL}/player/${id}`)
     .then(res => res.data)

@@ -55,7 +55,7 @@
       <el-button @click="saveNewEvent">Save Event</el-button>
       <el-button @click="deleteEvent">Delete Event</el-button>
       <router-link to="/">Cancel</router-link>
-      {{event}}
+      <!-- {{event}} -->
     </div>
 
     </form>

@@ -2,13 +2,12 @@
     <section class="login-page flex justify-center">
         <form class="flex flex-column align-center">
             <h2>Login to play</h2>
-            <el-input v-model="login.userName" placeholder="username"></el-input>
-            <el-input v-model="login.password" type="password" placeholder="password"></el-input>
+            <el-input v-model="loginData.userName" placeholder="username"></el-input>
+            <el-input v-model="loginData.password" type="password" placeholder="password"></el-input>
             <span v-if="isWrong">Wrong password / username</span>
             <div class="flex">
             <el-button type="primary" @click="submit" round>login</el-button>
             <el-button type="primary" @click="signup" round>sign up</el-button>
-
             </div>
             <a>forgot your password?</a>
         </form>
@@ -19,7 +18,7 @@
 export default {
     data() {
         return {
-            login: {
+            loginData: {
                 userName: '',
                 password: ''
             },
@@ -28,7 +27,7 @@ export default {
     },
     methods: {
         submit() {
-            this.$store.dispatch({type: 'login', loginData: this.login})
+            this.$store.dispatch({type: 'login', loginData: this.loginData})
                 .then((user) => {
                     if (!user) this.isWrong = true
                     else {

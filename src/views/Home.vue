@@ -12,7 +12,7 @@
       
       <template v-for="genre in loggedInUser.favGenres">
         <section class="carousel-section favourite-genre" :key="genre">
-          <h2>Especially for you, {{genre}} events:</h2>
+          <h2>Especially for you, {{genre}} music events:</h2>
           <event-carousel :events="events"/>
           <a>Show All {{genre}} Events</a>
           <hr>
