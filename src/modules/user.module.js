@@ -8,17 +8,15 @@ export default {
     setLoggedInUser(state, { user }) {
       state.loggedInUser = user; 
     },
-<<<<<<< HEAD
     loginNewUser(state, { newUser }) {
       console.log("new signedin user:", newUser);
       state.loggedInUser = newUser;
     },
-=======
->>>>>>> 267ec9520d911bf44c503d9d066c7fc42f8d9d43
     logOutUser(state) {
       state.loggedInUser = "";
     },
     setUpdateUserEvent(state, { joinedEvent }){
+      console.log('from user module mut setUpdateUserEvent', joinedEvent)
       state.loggedInUser.partEventsIds.push(joinedEvent.eventId)
     }
   },
@@ -41,6 +39,7 @@ export default {
       return Promise.resolve()
     },
     updateUserEvents({commit, state}, {joinedEvent}){
+      console.log('from user module act updateUserEvents', joinedEvent)
       commit({type: 'setUpdateUserEvent', joinedEvent})
       userService.updateUser(state.loggedInUser)
     }
