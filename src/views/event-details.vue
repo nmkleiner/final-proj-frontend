@@ -1,5 +1,5 @@
 <template>
-  <section class="cards-wrapper flex space-between">
+  <section v-if="event" class="cards-wrapper flex space-between">
     <div class="card-container">
       <h1>
         {{event.title}}
@@ -33,8 +33,13 @@
           <div
             class="instrument-item-container"
             @click="joinTheEvent(instrument.instrument)"
+<<<<<<< HEAD
             v-for="(instrument,idx) in event.instruments"
             :key="idx"
+=======
+            v-for="(instrument, index) in event.instruments"
+            :key="index"
+>>>>>>> 49ccb9c3fc2571b68f8685672364726f44cb17db
           >
             <i :title="instrument.instrument" class="fas fa-drum"></i>
             {{instrument.instrument}}
@@ -89,14 +94,16 @@
       <h4>Map</h4>
       <!-- <img src="https://i.stack.imgur.com/amkT6.png" alt="" > -->
       <GmapMap
+        v-if="center"
         ref="mapRef"
         class="static map"
-        :center="{lat: 32.089561, lng: 34.8627918}"
-        :zoom="15"
+        :zoom="18"
+        :center=center
         map-type-id="roadmap"
         style="height: 300px"
       >
         <GmapMarker
+          v-if="markers.position"
           :key="index"
           v-for="(m, index) in markers"
           :position="m.position"
@@ -109,6 +116,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 import userService from '@/service/user.service.js'
 export default {
   methods: {
@@ -147,6 +155,20 @@ export default {
     goEdit() {
       const eventId = this.event._id
       this.$router.push(`/event/edit/${eventId}`)
+    },
+    getCoorFromAddress(location){
+      var currEventLocStr = `${location.address.replace(/[^a-zA-Z0-9]/g,'+')}+${location.city.replace(/[^a-zA-Z0-9]/g,'+')}`
+      return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`)
+      .then(res => {
+        console.log(this.$refs.mapRef)
+        var latlng = res.data.results[0].geometry.location
+        this.center = latlng
+        this.markers.position.push(latlng)
+        return latlng
+        }).then(latlng => {
+          this.$refs.mapRef.panTo(latlng)
+        })
+      // console.log(currEventLocStr);
     }
   },
   computed: {
@@ -158,7 +180,10 @@ export default {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
     this.$store.dispatch({ type: "getEventById", eventId })
-      .then(event => (this.event = event))
+      .then(event => {
+        this.getCoorFromAddress(event.location)
+        return (this.event = event)
+        })
 
       // get event admin 
       .then(() => {
@@ -205,9 +230,10 @@ export default {
       // loggedInUser: {},
       markers: [
         {
-          position: { lat: 32.089561, lng: 34.8627918 }
+          position: null
         }
-      ]
+      ],
+      center: null
     };
   }
 };
