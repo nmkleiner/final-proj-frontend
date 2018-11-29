@@ -4,7 +4,7 @@ export default {
     state: {
         events: [],
         rockEvents: [],
-        currEvent: {}
+        currEvent: null
     },
     mutations: {
         setEvents(state,{events}) {
