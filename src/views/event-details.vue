@@ -33,13 +33,8 @@
           <div
             class="instrument-item-container"
             @click="joinTheEvent(instrument.instrument)"
-<<<<<<< HEAD
-            v-for="(instrument,idx) in event.instruments"
-            :key="idx"
-=======
             v-for="(instrument, index) in event.instruments"
             :key="index"
->>>>>>> 49ccb9c3fc2571b68f8685672364726f44cb17db
           >
             <i :title="instrument.instrument" class="fas fa-drum"></i>
             {{instrument.instrument}}
