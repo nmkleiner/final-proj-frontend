@@ -2,25 +2,11 @@ import userService from "../service/user.service.js";
 
 export default {
   state: {
-    loggedInUser: {
-      _id: "abc",
-      name: "rocki",
-      password: "123",
-      pic: "https://api.adorable.io/avatars/64/rocki.png",
-      partEventsIds: [],
-      adminEventsIds: [],
-      instruments: ["guitar"],
-      favGenres: ["rock", "country"],
-      level: "professional"
-    }
+    loggedInUser: {}
   },
   mutations: {
     setLoggedInUser(state, { user }) {
       state.loggedInUser = user; 
-    },
-    loginNewUser(state, { newUser }) {
-      console.log("new signedin user:", newUser.name);
-      state.loggedInUser = newUser.name;
     },
     logOutUser(state) {
       state.loggedInUser = "";
@@ -35,17 +21,18 @@ export default {
         return user;
     })
     },
-    signUpUser({ commit }, { newUser }) {
+    signUpUser({ commit }, { newUser }) {      
       userService.signupUser(newUser).then(() => {
-        commit({ type: "loginNewUser", newUser });
+        commit({ type: "setLoggedInUser", user: newUser });
       });
     },
     logout({ commit }) {
       commit("logOutUser");
+      return Promise.resolve()
     }
   },
   getters: {
-    isLoggedInUser: state => !!state.loggedInUser._id,
+    isLoggedInUser: state => !!state.loggedInUser.name,
     loggedInUser: state => state.loggedInUser
   }
 };

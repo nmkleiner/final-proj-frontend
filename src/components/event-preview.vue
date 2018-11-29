@@ -44,12 +44,12 @@ export default {
         }
     },
     created() {
+        // get's a players array for this preview
         this.event.instruments.forEach(instrument => {
-            return instrument.playersIds.forEach(playerId => {
-                console.log(playerId)
-              const user = userService.getById(playerId)
-              if (user) this.players.push(user)
-          })  
+        //     return instrument.playersIds.forEach(playerId => {
+        //       const user = userService.getById(playerId)
+        //       if (user) this.players.push(user)
+        //   })  
         })
     },
     computed: {

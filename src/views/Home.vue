@@ -31,31 +31,31 @@
 
       <section class="carousel-section rock-events">
         <h2>Rock Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Rock Events</a>
         <hr>
       </section>
       <section class="carousel-section guitar-events">
         <h2>Guitar Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Guitar Events</a>
         <hr>
       </section>
       <section class="carousel-section reggae-events">
         <h2>Reggae Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Reggae Events</a>
         <hr>
       </section>
       <section class="carousel-section world-music-events">
         <h2>World Music Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All World Music Events</a>
         <hr>
       </section>
       <section class="carousel-section progressive-rock-events">
         <h2>Progressive Rock Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Progressive Rock Events</a>
         <hr>
       </section>
@@ -70,31 +70,31 @@
       <hr>
       <section class="carousel-section rock-events">
         <h2>Rock Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Rock Events</a>
       </section>
       <hr>
       <section class="carousel-section guitar-events">
         <h2>Guitar Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Guitar Events</a>
       </section>
       <hr>
       <section class="carousel-section reggae-events">
         <h2>Reggae Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Reggae Events</a>
       </section>
       <hr>
       <section class="carousel-section world-music-events">
         <h2>World Music Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All World Music Events</a>
       </section>
       <hr>
       <section class="carousel-section progressive-rock-events">
         <h2>Progressive Rock Sessions for you:</h2>
-        <event-carousel :events="guitarEventsToShow"/>
+        <event-carousel :events="events"/>
         <a>Show All Progressive Rock Events</a>
       </section>
       <hr>
@@ -150,6 +150,7 @@ export default {
     }
   },
   created() {
+    document.body.scrollIntoView()
     // this.$store.dispatch({type: 'loadRockEvents'})
     this.$store.dispatch({ type: "loadEvents" });
   }

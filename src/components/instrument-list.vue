@@ -1,8 +1,9 @@
 <template>
   <section class="instruments-list">
-    <div v-for="(instrument, idx) in instruments" :key="instrument.name" @click="toggleInstrument(idx)"
-    :class="instrumentStatus">
-      <img :src="instruments.src" alt="">
+    <div v-for="(currInstrument, idx) in instruments" :key="currInstrument.name" @click="toggleInstrument(idx)">
+      <el-button @click="$emit('add-instrument',currInstrument.name)">{{currInstrument.name}}</el-button>
+      <!-- <img :src="instruments.src" alt=""> -->
+
     </div>
   </section>
 </template>
@@ -17,15 +18,15 @@ export default {
     },
     methods: {
       toggleInstrument(instrumentIdx) {
-        instruments[instrumentIdx].isSelected = !instruments[instrumentIdx].isSelected;
+        this.instruments[instrumentIdx].isSelected = !this.instruments[instrumentIdx].isSelected;
       }
     },
     computed: {
-      instrumentStatus() {
-        return {
-          selected: instrument.isSelected
-        }
-      }
+      // instrumentStatus() {
+      //   return {
+      //     selected: instrument.isSelected
+      //   }
+      // }
     },
     watch: {
 

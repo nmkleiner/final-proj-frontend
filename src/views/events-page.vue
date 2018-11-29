@@ -28,7 +28,7 @@ export default {
 
     },
     created() {
-        
+        document.body.scrollIntoView()
     }
 }
 </script>

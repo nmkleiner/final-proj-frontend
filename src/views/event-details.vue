@@ -8,7 +8,7 @@
         <div class="card-organizer-image-container flex justify-center align-center">
           <img class="card-organizer-image" src="https://api.adorable.io/avatars/64/rocki.png" alt="event admin">
         </div>
-        <h4 class="card-organizer-name">Aharon Aharonson</h4>
+        <h4 class="card-organizer-name capitalize">{{event.adminName}}</h4>
         <!-- <img :src="admin.pic" alt="event admin"> -->
         <!-- <span>{{admin.name}}</span>-->
       </div>
@@ -36,8 +36,8 @@
       <div class="card-item-container">
         <h4>
           Free players:
-          {{event.freePlayers.length || 0}}/
-          {{event.freePlayers.amount}}
+          <!-- {{event.freePlayers.length || 0}}/
+          {{event.freePlayers.amount}} -->
         </h4>
         <p class="card-description">{{event.desc}}</p>
 
@@ -53,7 +53,7 @@
           <span>{{event.time.day}}&nbsp;{{event.time.hour}}&nbsp;</span>
         </li>
         <li class="event-detail-list-item">
-          <span>{{event.location.address}}</span>
+          <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
         </li>
         <li class="event-detail-list-item">
           <span v-if="event.cost">cost: {{event.cost}}$</span>
@@ -101,6 +101,7 @@ export default {
   computed: {},
   watch: {},
   created() {
+    document.body.scrollIntoView()
     const eventId = this.$route.params.eventId;
     this.$store
       .dispatch({ type: "getEventById", eventId })
@@ -108,36 +109,7 @@ export default {
   },
   data() {
     return {
-      event: {
-        _id: 1,
-        adminId: "xyz",
-        location: { address: "florentin 6, tel aviv" },
-        time: { day: "27/11", hour: "19:34" },
-        title: "Playing Lez Deppelin",
-        desc:
-          "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio in maiores, laborum placeat ipsam ea. In cupiditate sed necessitatibus libero cumque inventore distinctio quidem. Possimus delectus ullam numquam officiis ea!",
-        genre: "rock",
-        level: "professional",
-        pic:
-          "",
-        instruments: [
-          {
-            instrument: "guitar",
-            amount: 2,
-            playersIds: ["xyz", "abc"]
-          },
-          {
-            instrument: "french horn",
-            amount: 1,
-            playersIds: []
-          }
-        ],
-        freePlayers: {
-          amount: 3,
-          membersIds: []
-        },
-        cost: 0
-      },
+      event: this.$store.getters.currEvent,
       players: [], //get from userService
       freePlayers: [], //get from userService
       admin: {}, // get from userService,

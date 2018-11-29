@@ -37,13 +37,23 @@ export default {
                     return event
                 })
         },
+
+
         saveNewEvent({commit}, {event}) {
+            console.log(event)
             return eventService.saveEvent(event)
             .then(() => {
                 console.log('event was saved')
                 //message: event was created
             })
         },
+
+
+
+
+
+
+
         updateEvent({commit}, {event}){
             return eventService.updateEvent(event)
             .then(() => {
@@ -54,6 +64,7 @@ export default {
     },
     getters: {
         events: state => state.events,
+        currEvent: state => state.currEvent,
         popularEvents(state) {
              let eventsWithPop = state.events.map( event => {
                  event.pop = event.allowedMembersCount - event.joinedMembersCount

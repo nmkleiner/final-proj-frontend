@@ -1,5 +1,5 @@
 const axios = require("axios")
-var BASEURL = (process.env.NODE_ENV !== 'development') ? '/api' : '//localhost:3000/api'
+var BASEURL = (process.env.NODE_ENV !== 'development') ? '' : '//localhost:3000'
 
 var playersDB = [];
 generatePlayers()
@@ -7,24 +7,18 @@ generatePlayers()
 export default {
   query,
   getById,
-<<<<<<< HEAD
-  signupUser
-=======
+  signupUser,
   login
->>>>>>> 998191a933da881546061094b15d92cbcfe93c87
 };
 
 function getById(id) {
   return playersDB.find(player => player._id === id)
 }
 
-<<<<<<< HEAD
 function signupUser(user){
-  playersDB.push(user);
-  return Promise.resolve();
+  return axios.post(`${BASEURL}/signup`, user)
 }
 
-=======
 function login ({ userName, password }) {
   return axios.put(`${BASEURL}/login`, { userName, password })
     .then(res => res.data)
@@ -39,7 +33,6 @@ function login ({ userName, password }) {
 
 // }
 
->>>>>>> 998191a933da881546061094b15d92cbcfe93c87
 function query() {
   return Promise.resolve(playersDB)
 
