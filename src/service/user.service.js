@@ -15,7 +15,9 @@ export default {
 };
 
 function getById(id) {
-  return playersDB.find(player => player._id === id)
+  axios.get(`${BASE_URL}/player/${id}`)
+  .then(player => console.log(player))
+  return axios.get(`${BASE_URL}/player/${id}`)
 }
 
 function signupUser(user){
@@ -28,34 +30,14 @@ function login ({ userName, password }) {
 }
 
 function updateUser(user) {
-  console.log('before axios update', user)
   const userId = user._id
   return axios.put(`${BASE_URL}/player/${userId}`, user)
   .then(res => console.log('after axios update', res.data))
 }
 
-// function login(loginData) {
-// // login data is obj with userName & password
-// // need to go to server, find user, compare passwords, return success or fail
-//   // console.log(loginData)
-//   return Promise.resolve()
-
-// }
-
 function query() {
   return Promise.resolve(playersDB)
 
-  // var users = storageService.load(USERS_KEY);
-  // if (!users) {
-  //   users = generateBooks();
-  //   storageService.store(USERS_KEY, users);
-  // }
-  // usersDB = users;
-  // return new Promise((resolve, reject) => {
-  //   setTimeout(() => {
-  //     resolve(usersDB);
-  //   }, 500);
-  // });
 }
 
 function generatePlayers() {

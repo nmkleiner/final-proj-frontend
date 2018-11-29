@@ -25,11 +25,15 @@ export default {
     },
     actions: {
         joinEvent({commit, getters, state}, {joinedEvent}){
+            
             joinedEvent.currUser = getters.loggedInUser;
             commit({type: 'setUpdateEvent', joinedEvent})
             eventService.saveEvent(state.currEvent)
             .then(() => console.log('event was updated'))
         },
+
+
+
         loadEvents({commit}) {
             return eventService.query()
                 .then(events => {
@@ -52,10 +56,8 @@ export default {
 
 
         saveNewEvent({commit}, {event}) {
-            console.log(event)
             return eventService.saveEvent(event)
             .then(() => {
-                console.log('event was saved')
                 //message: event was created
             })
         },
