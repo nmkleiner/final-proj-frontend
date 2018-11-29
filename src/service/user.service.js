@@ -29,7 +29,7 @@ function login ({ userName, password }) {
 }
 
 function updateUser(user) {
-  console.log('after axios update', user)
+  console.log('before axios update', user)
   const userId = user._id
   return axios.put(`${BASE_URL}/player/${userId}`, user)
   .then(res => consoelo.log('after axios update', res.data))

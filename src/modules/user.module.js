@@ -19,8 +19,8 @@ export default {
       state.loggedInUser = user; 
     },
     loginNewUser(state, { newUser }) {
-      console.log("new signedin user:", newUser.name);
-      state.loggedInUser = newUser.name;
+      console.log("new signedin user:", newUser);
+      state.loggedInUser = newUser;
     },
     logOutUser(state) {
       state.loggedInUser = "";
