@@ -6,7 +6,7 @@
       <h1>{{event.title}}</h1>
       <div class="flex align-center">
         <div class="card-organizer-image-container flex justify-center align-center">
-          <img class="card-organizer-image" src="https://api.adorable.io/avatars/64/rocki.png" alt="event admin">
+          <img class="circle-icon" :src="admin.pic " alt="event admin" :title="admin.name">
         </div>
         <h4 class="card-organizer-name capitalize">{{event.adminName}}</h4>
         <!-- <img :src="admin.pic" alt="event admin"> -->
@@ -40,6 +40,14 @@
           <!-- {{event.freePlayers.length || 0}}/
           {{event.freePlayers.amount}} -->
         </h4>
+        <h4>
+          Players attending:<br>
+          <template v-for="player in players">
+            <router-link :to="'/user/' + player._id" :key="player._id">
+              <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
+            </router-link>
+          </template> 
+        </h4>
         <p class="card-description">{{event.desc}}</p>
 
         <el-button>discussions</el-button>
@@ -51,10 +59,10 @@
       
       <ul class="event-details">
         <li class="event-detail-list-item">
-          <span>{{event.time.day}}&nbsp;{{event.time.hour}}&nbsp;</span>
+          <!-- <span>{{event.time.day}}&nbsp;</span> -->
         </li>
         <li class="event-detail-list-item">
-          <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
+          <!-- <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span> -->
         </li>
         <li class="event-detail-list-item">
           <span v-if="event.cost">cost: {{event.cost}}$</span>
@@ -67,13 +75,14 @@
       
       <h4>Map</h4>
       <img src="https://i.stack.imgur.com/amkT6.png" alt="" class="map">
-
+      
     </div>
 
   </section>
 </template>
 
 <script>
+import userService from '@/service/user.service.js'
 export default {
   methods: {
     joinAs(instrument = null) {
@@ -119,12 +128,24 @@ export default {
     const eventId = this.$route.params.eventId;
     this.$store.dispatch({ type: "getEventById", eventId })
       .then(event => (this.event = event))
-      .then((success) => {
+
+      // get event admin 
+      .then(() => {
+        const adminId = this.event.adminId
+        this.$store.dispatch({type: 'getUserById', userId: adminId})
+        .then(admin => {
+          this.admin = admin
+        })
+      })
+
         // get's a players array for this preview
+      .then(() => {
         this.event.instruments.forEach(instrument => {
-          return instrument.playersIds.forEach(playerId => {
-            const user = userService.getById(playerId)
-              if (user) this.players.push(user)
+          return instrument.playerIds.forEach(playerId => {
+            this.$store.dispatch({type: 'getUserById', userId: playerId})
+              .then(player => {
+                this.players.push(player)
+              })
             })  
           })
     })

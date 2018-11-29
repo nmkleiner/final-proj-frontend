@@ -4,12 +4,13 @@
         <div class="links">
           <router-link to="/">Home</router-link>
           <router-link v-if="isLoggedInUser" :to="'/user/' + loggedInUser._id">Profile</router-link>
-          <router-link to="/event/edit">Create</router-link>
+          <router-link v-if="isLoggedInUser" to="/event/edit">Create</router-link>
           <router-link to="/about">About</router-link>
           <a v-if="isLoggedInUser" @click="logout">Logout</a>
           <router-link v-else to="/login">Login</router-link>
         </div>
         <a @click="setIsOpen" class="icon"><i class="fa fa-bars"></i></a>
+        
 </div>
 </template>
 

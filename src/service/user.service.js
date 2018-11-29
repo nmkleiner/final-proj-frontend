@@ -16,8 +16,8 @@ export default {
 
 function getById(id) {
   axios.get(`${BASE_URL}/player/${id}`)
-  .then(player => console.log(player))
   return axios.get(`${BASE_URL}/player/${id}`)
+    .then(res => res.data)
 }
 
 function signupUser(user){
