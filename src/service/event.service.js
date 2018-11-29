@@ -47,6 +47,12 @@ function saveEvent(event) {
   }
 }
 
+// function updateEvent(event){
+//   //return axios.put('url', event)
+//   console.log('from axios put: ',event)
+//   return Promise.resolve()
+// }
+
 function loadEvents(searchKey) {
   // GET https://www.googleapis.com/events/v1/volumes?q=flowers+inauthor:keyes&key=yourAPIKey
   
@@ -55,7 +61,8 @@ function loadEvents(searchKey) {
     );
     var prmData = prmRes.then(res => res.data);
     return prmData;
-  }  
+  }
+  
 
   function updateEvent(event){
     //return axios.put('url', event)

@@ -50,6 +50,8 @@
 export default {
   data() {
     return {
+      
+      
       newUser: {
         name: "",
         password: "",
@@ -66,12 +68,14 @@ export default {
   },
   methods: {
     submitNewUser() {
-      console.log(this.newUser);
+      this.newUser.pic = `https://api.adorable.io/avatars/64/${this.newUser.name}.png`
+      // get location too
       this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
-      this.$router.push('/');
+        .then(() => {this.$router.push('/')})
     }
   }
 };
+      
 </script>
 
 <style>

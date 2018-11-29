@@ -19,8 +19,7 @@ function getById(id) {
 }
 
 function signupUser(user){
-  playersDB.push(user);
-  return Promise.resolve();
+  return axios.post(`${BASEURL}/signup`, user)
 }
 
 function login ({ userName, password }) {

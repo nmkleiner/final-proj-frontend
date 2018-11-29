@@ -32,7 +32,7 @@
       </select>
       <h4>Event Description</h4>
       <textarea v-model="event.desc" placeholder="Event Description"/>
-      <instrument-list></instrument-list>
+      <instrument-list @add-instrument="addInstrument"></instrument-list>
       <div class="add-instruments-container">
         <div class="add-instrument">
           <i class="fas fa-plus"></i>
@@ -43,7 +43,7 @@
     <div class="edit-event-container">
       <input type="date" v-model="event.time.day">
       <div>
-        <time-picker v-model="timePicked"></time-picker>
+        <time-picker v-model="event.time.hour"></time-picker>
       </div>
       <input type="number" v-model="event.cost">
       <div class="img-n-address-container">
@@ -51,10 +51,13 @@
           <img src alt>
           <button>Upload image</button>
         </div>
-        <div class="address-container"></div>
+        <div class="address-container">
+          <el-input v-model="event.location.city" placeholder="city"></el-input>
+          <el-input v-model="event.location.address" placeholder="street & number"></el-input>
+        </div>
       </div>
-      <button @click="saveEvent">Save Event</button>
-      <button @click="deleteEvent">Delete Event</button>
+      <el-button @click="saveNewEvent">Save Event</el-button>
+      <el-button @click="deleteEvent">Delete Event</el-button>
       <router-link to="/">Cancel</router-link>
       {{event}}
     </div>
@@ -64,58 +67,81 @@
 </template>
 
 <script>
-import instrumentList from "@/components/instrument-list.vue";
-import timePicker from "@/components/time-picker.vue";
+import instrumentList from '@/components/instrument-list.vue';
+import timePicker from '@/components/time-picker.vue';
 
 export default {
-  name: "edit-event",
+  name: 'edit-event',
   data() {
     return {
-      timePicked: {
-        hour: 1,
-        minute: 0,
-        format: "AM"
-      },
       event: {
-        title: "",
-        desc: "",
-        genre: "",
-        level: "",
-        pic: "",
-        instruments: [],
+        time: {
+          hour: {
+            hour: 1,
+          minute: 0,
+          format: 'AM',
+          },
+          day: ''
+        },
+        adminId: '',
+        title: '',
+        desc: '',
+        genre: '',
+        level: '',
+        pic: '',
+        instruments: [{
+          instrument: '',
+          amount: 0,
+          playersIds: []
+        }],
         cost: 0,
-        location: { address: "" },
-        time: { day: "", hour: this.timePicked }
-      }
+        location: { address: '', city: '' },
+        time: { day: '', hour: this.timePicked }
+      },
     };
   },
   components: {
     timePicker,
     instrumentList
   },
-  computed: {},
+  computed: {
+    loggedInUser() {
+      return this.$store.getters.loggedInUser
+    }
+    
+  },
   methods: {
     deleteEvent() {
-      console.log("Deleteing Event");
+      console.log('Deleteing Event');
       // this.$store.dispatch({type: 'removeEvent', event: this.event})
     },
     saveNewEvent() {
-      console.log("Saving Event");
-      // this.$store.dispatch({type: 'saveNewEvent', event: this.event})
+      this.$store.dispatch({type: 'saveNewEvent', event: this.event})
+        .then(() => {
+          // tell user event was added
+          this.$router.push(`/`)
+        })
     },
     updateEvent() {
-      console.log("updating event");
-      this.$store.dispatch({ type: "updateEvent", event: this.event });
+      console.log('updating event');
+      this.$store.dispatch({ type: 'updateEvent', event: this.event });
+    },
+    addInstrument(instrument) {
+      this.event.instruments.push(instrument)
     }
   },
   created() {
-    // const eventId = this.$route.params.eventId;
-    // if (eventId) {
-    // this.$store.dispatch({ type: "getEventById", eventId })
-    //     .then(event => {
-    //         this.event = event;
-    //     });
-    // }
+    document.body.scrollIntoView()
+    console.log(this.loggedInUser)
+    this.event.adminId = this.loggedInUser._id
+    this.event.adminName = this.loggedInUser.name
+    const eventId = this.$route.params.eventId;
+    if (eventId) {
+    this.$store.dispatch({ type: 'getEventById', eventId })
+        .then(event => {
+            this.event = event;
+        });
+    }
   }
 };
 </script>
