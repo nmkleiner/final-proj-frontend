@@ -120,7 +120,7 @@ export default {
           // TODO:cannot join
         }
       }
-      console.log(this.event.instruments);
+      // console.log(this.event.instruments);
     },
     joinTheEvent(instrument) {
       var joinedEvent = {
@@ -141,9 +141,23 @@ export default {
   created() {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
+<<<<<<< HEAD
     this.$store
       .dispatch({ type: "getEventById", eventId })
       .then(event => (this.event = event));
+=======
+    this.$store.dispatch({ type: "getEventById", eventId })
+      .then(event => (this.event = event))
+      .then((success) => {
+        // get's a players array for this preview
+        this.event.instruments.forEach(instrument => {
+          return instrument.playersIds.forEach(playerId => {
+            const user = userService.getById(playerId)
+              if (user) this.players.push(user)
+            })  
+          })
+    })
+>>>>>>> df0c3504cd8807e8056d1f67a5d38e6d3ec97298
   },
   mounted() {
     // At this point, the child GmapMap has been mounted, but
