@@ -1,7 +1,7 @@
 <template>
     <section class="user-profile flex flex-column">
             <h1 class="align-self-center">Hello {{user.name}}</h1>
-            <img class="user-icon align-self-center" src="https://api.adorable.io/avatars/64/rocki.png">
+            <img class="circle-icon align-self-center" :src="user.pic">
         <div class="main-container flex flex-column">
             <h4>Your profile details:</h4>
             <p>Bio: {{user.bio}}</p>

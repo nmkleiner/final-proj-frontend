@@ -4,19 +4,15 @@
 
     <div class="edit-event-container">
       <div class="edit-event-user-container">
-        <h4>user name</h4>
+        <h4>{{loggedInUser.name}}</h4>
         <div class="edit-event-user-image-container">
-          <img
-            class="edit-event-image"
-            src="https://api.adorable.io/avatars/64/rocki.png"
-            alt="event admin"
-          >
+          <img class="edit-event-image" :src="loggedInUser.pic" alt="event admin">
         </div>
       </div>
       <h4>Event Title</h4>
       <input type="text" id="title" v-model="event.title" placeholder="Event Title">
       <h4>select genre</h4>
-      <select v-model="event.genre">
+      <select v-model="event.genre"> 
         <option value="rock">Rock</option>
         <option value="country">Country</option>
         <option value="jazz">Jazz</option>
@@ -103,6 +99,9 @@ export default {
   computed: {
     loggedInUser() {
       return this.$store.getters.loggedInUser
+    },
+    isLoggedInUser() {
+        return this.$store.getters.isLoggedInUser
     }
     
   },
@@ -128,7 +127,9 @@ export default {
     }
   },
   created() {
+    if (!this.isLoggedInUser) this.$router.push('/')
     document.body.scrollIntoView()
+
     this.event.adminId = this.loggedInUser._id
     this.event.adminName = this.loggedInUser.name
     const eventId = this.$route.params.eventId;

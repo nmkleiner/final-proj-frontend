@@ -10,7 +10,7 @@
                 <div class="middle-floating-wrapper flex">
                     <template v-for="player in players">
                         <router-link :to="'/user/' + player._id" :key="player._id">
-                            <img :key="player._id" :title="player.name" :src="player.pic">
+                            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
                         </router-link>
                     </template>
                 </div>
@@ -41,15 +41,18 @@ export default {
     data() {
         return {
             players: [],
+            playersToShow: []
         }
     },
     created() {
         // get's a players array for this preview
         this.event.instruments.forEach(instrument => {
-        //     return instrument.playersIds.forEach(playerId => {
-        //       const user = userService.getById(playerId)
-        //       if (user) this.players.push(user)
-        //   })  
+            return instrument.playerIds.forEach(playerId => {
+              userService.getById(playerId)
+                .then(user => {
+                    if (user) this.players.push(user)
+                })
+            })  
         })
     },
     computed: {
@@ -59,7 +62,7 @@ export default {
             else if(ratio < 0.8) return {txt: 'Kinda full', color: 'white'}
             else if(ratio < 1) return {txt: 'Almost full', color: 'yellow'}
             return	{txt: 'Event full', color: 'red'}
-        }
+        },
     }
 }
 </script>
