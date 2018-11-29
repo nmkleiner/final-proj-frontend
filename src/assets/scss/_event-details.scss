@@ -67,6 +67,9 @@
 .event-details{
     list-style: none;
     margin-bottom: 30px;
+    span {
+        margin-right: 10px;
+    }
 }
 
 .event-detail-list-item{
@@ -76,6 +79,11 @@
         border-bottom: 1px solid $brand-grey-light;
     }
 }
+
+.join-button{
+    margin-left: 50px;
+}
+
 
 
 .event-photo, .map {
