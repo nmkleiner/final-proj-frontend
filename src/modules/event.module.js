@@ -70,7 +70,6 @@ export default {
         updateEvent({commit}, {event}){
             return eventService.updateEvent(event)
             .then(() => {
-                console.log('event was updated')
                 //message: event was updated
             })
         }

@@ -103,9 +103,8 @@ export default {
         instrument,
         eventId: this.$route.params.eventId
       }
-      console.log('from event details', joinedEvent);
-      this.$store.dispatch({type: 'joinEvent', joinedEvent})
       this.$store.dispatch({type: 'updateUserEvents', joinedEvent})
+      this.$store.dispatch({type: 'joinEvent', joinedEvent})
       //message join event
       this.$router.push('/')
     }

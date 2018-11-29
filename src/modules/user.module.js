@@ -2,19 +2,37 @@ import userService from "../service/user.service.js";
 
 export default {
   state: {
-    loggedInUser: {}
+    loggedInUser: {
+      "_id":  "5bff07f73411145ee03351b7",
+      "name": "noam", 
+      "password": "12",
+      "pic": "https://api.adorable.io/avatars/64/noam.png",
+      "instruments": [
+          "Drums",
+          "Bass",
+          "Guitar"
+      ],
+      "level": "amateur",
+      "bio": "very tired",
+      "favGenres": [
+          "Rock",
+          "Classic",
+          "World"
+      ],
+      "location": "",
+      "partEventsIds": [
+          "5bff9d8786fed21fc472518e"
+      ],
+      "adminEventsIds": []
+  }
   },
   mutations: {
     setLoggedInUser(state, { user }) {
       state.loggedInUser = user; 
     },
-<<<<<<< HEAD
     loginNewUser(state, { newUser }) {
-      console.log("new signedin user:", newUser);
       state.loggedInUser = newUser;
     },
-=======
->>>>>>> 267ec9520d911bf44c503d9d066c7fc42f8d9d43
     logOutUser(state) {
       state.loggedInUser = "";
     },
@@ -42,7 +60,6 @@ export default {
     },
 
     updateUserEvents({commit, state}, {joinedEvent}){
-      console.log(joinedEvent)
       commit({type: 'setUpdateUserEvent', joinedEvent})
       userService.updateUser(state.loggedInUser)
     },
