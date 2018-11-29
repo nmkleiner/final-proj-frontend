@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     deleteEvent() {
-      console.log('Deleteing Event');
+      // console.log('Deleteing Event');
       // this.$store.dispatch({type: 'removeEvent', event: this.event})
     },
     saveNewEvent() {
@@ -123,7 +123,7 @@ export default {
         })
     },
     updateEvent() {
-      console.log('updating event');
+      // console.log('updating event');
       this.$store.dispatch({ type: 'updateEvent', event: this.event });
     },
     addInstrument(instrument) {
@@ -133,7 +133,6 @@ export default {
   },
   created() {
     document.body.scrollIntoView()
-    console.log(this.loggedInUser)
     this.event.adminId = this.loggedInUser._id
     this.event.adminName = this.loggedInUser.name
     const eventId = this.$route.params.eventId;

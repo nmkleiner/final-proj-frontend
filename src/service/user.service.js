@@ -32,7 +32,7 @@ function login ({ userName, password }) {
 function updateUser(user) {
   const userId = user._id
   return axios.put(`${BASE_URL}/player/${userId}`, user)
-  .then(res => console.log('after axios update', res.data))
+  // .then(res => console.log('after axios update', res.data))
 }
 
 function query() {
