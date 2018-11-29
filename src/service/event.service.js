@@ -10,6 +10,7 @@ export default {
   getEvents,
   loadEvents,
   saveEvent,
+  updateEvent,
   remove
 
   // login
@@ -62,6 +63,12 @@ function loadEvents(searchKey) {
     return prmData;
   }
   
+
+  function updateEvent(event){
+    //return axios.put('url', event)
+    console.log('from axios put:')
+    return Promise.resolve()
+  }
   
   function getEvents() {
     var events = [{

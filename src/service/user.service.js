@@ -1,5 +1,11 @@
 const axios = require("axios")
+<<<<<<< HEAD
 var BASEURL = (process.env.NODE_ENV !== 'development') ? '' : '//localhost:3000'
+=======
+const BASE_URL = (process.env.NODE_ENV !== "development")
+                    ? ""
+                    : "//localhost:3000";
+>>>>>>> cee6da44a4ca24dded105568148ecba17a34093a
 
 var playersDB = [];
 generatePlayers()
@@ -8,6 +14,7 @@ export default {
   query,
   getById,
   signupUser,
+  updateUser,
   login
 };
 
@@ -20,10 +27,16 @@ function signupUser(user){
 }
 
 function login ({ userName, password }) {
-  return axios.put(`${BASEURL}/login`, { userName, password })
+  return axios.put(`${BASE_URL}/login`, { userName, password })
     .then(res => res.data)
 }
 
+function updateUser(user) {
+  console.log('after axios update', user)
+  const userId = user._id
+  return axios.put(`${BASE_URL}/player/${userId}`, user)
+  .then(res => consoelo.log('after axios update', res.data))
+}
 
 // function login(loginData) {
 // // login data is obj with userName & password

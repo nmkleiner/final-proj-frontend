@@ -24,8 +24,8 @@
         
         <h4>welcomed instruments:</h4>
         <div class="instruments-container">
-          <div class="instrument-item-container" v-for="instrument in event.instruments" :key="instrument.instrument">
-            <i class="fas fa-drum"></i>
+          <div class="instrument-item-container" @click="joinTheEvent(instrument.instrument)" v-for="instrument in event.instruments" :key="instrument.instrument">
+            <i :title="instrument.instrument" class="fas fa-drum"></i>
           </div>
         </div>
 
@@ -96,6 +96,17 @@ export default {
         }
       }
       console.log(this.event.instruments);
+    },
+    joinTheEvent(instrument){
+      var joinedEvent = {
+        instrument,
+        eventId: this.$route.params.eventId
+      }
+      console.log('from event details', joinedEvent);
+      this.$store.dispatch({type: 'joinEvent', joinedEvent})
+      this.$store.dispatch({type: 'updateUserEvents', joinedEvent})
+      //message join event
+      this.$router.push('/')
     }
   },
   computed: {},
