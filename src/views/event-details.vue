@@ -62,10 +62,10 @@
     <div class="card-container">
       <ul class="event-details">
         <li class="event-detail-list-item">
-          <!-- <span>{{event.time.day}}&nbsp;</span> -->
+          <span>{{event.time.day}}&nbsp;</span>
         </li>
         <li class="event-detail-list-item">
-          <!-- <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span> -->
+          <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
         </li>
         <li class="event-detail-list-item">
           <span v-if="event.cost">cost: {{event.cost}}$</span>
