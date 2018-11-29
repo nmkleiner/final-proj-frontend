@@ -20,6 +20,7 @@
           <el-button type="danger" round>Cancel Event</el-button>
         </template>
       </div>
+<<<<<<< HEAD
       <transition name="fade">
         <div class="card-item-container" v-if="isJoining">
           <h2 v-if="loggedInUser._id">Play with us as:</h2>
@@ -35,6 +36,31 @@
               <i :title="instrument.instrument" class="fas fa-drum"></i>
               {{instrument.instrument}}
             </div>
+=======
+
+      <div class="card-item-container">
+        <h4>Genre: {{event.genre}}&nbsp;</h4>
+      </div>
+      <div class="card-item-container">
+        <h4>Level: {{event.level}}&nbsp;</h4>
+      </div>
+
+      <div class="card-item-container">
+        <h2 v-if="loggedInUser._id">Play with us as:</h2>
+
+        <span v-else>Login to participate</span>
+
+        <h4>welcomed instruments:</h4>
+        <div class="instruments-container">
+          <div
+            class="instrument-item-container"
+            @click="joinTheEvent(instrument.instrument)"
+            v-for="(instrument, index) in event.instruments"
+            :key="index"
+          >
+            <i :title="instrument.instrument" class="fas fa-drum"></i>
+            {{instrument.instrument}}
+>>>>>>> ddb1b37400aafe7d0a270523b6d4f18bedda1edd
           </div>
           <!-- <div>{{instrument.amount}}x</div> -->
           <!-- <el-button @click="joinAs(instrument.instrument)">{{instrument.instrument}}</el-button> -->
