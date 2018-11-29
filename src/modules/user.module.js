@@ -61,6 +61,11 @@ export default {
     },
 
     updateUserEvents({commit, state}, {joinedEvent}){
+<<<<<<< HEAD
+      console.log('from user module act updateUserEvents', joinedEvent)
+      console.log(joinedEvent)
+=======
+>>>>>>> f73d2558823b38f95fbe9b8ae652c3047df25b5c
       commit({type: 'setUpdateUserEvent', joinedEvent})
       userService.updateUser(state.loggedInUser)
     },
