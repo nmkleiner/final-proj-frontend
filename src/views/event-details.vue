@@ -141,11 +141,6 @@ export default {
   created() {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
-<<<<<<< HEAD
-    this.$store
-      .dispatch({ type: "getEventById", eventId })
-      .then(event => (this.event = event));
-=======
     this.$store.dispatch({ type: "getEventById", eventId })
       .then(event => (this.event = event))
       .then((success) => {
@@ -157,7 +152,6 @@ export default {
             })  
           })
     })
->>>>>>> df0c3504cd8807e8056d1f67a5d38e6d3ec97298
   },
   mounted() {
     // At this point, the child GmapMap has been mounted, but
