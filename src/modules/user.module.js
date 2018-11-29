@@ -3,27 +3,27 @@ import userService from "../service/user.service.js";
 export default {
   state: {
     loggedInUser: {
-      "_id":  "5bff07f73411145ee03351b7",
-      "name": "noam", 
-      "password": "12",
-      "pic": "https://api.adorable.io/avatars/64/noam.png",
-      "instruments": [
-          "Drums",
-          "Bass",
-          "Guitar"
-      ],
-      "level": "amateur",
-      "bio": "very tired",
-      "favGenres": [
-          "Rock",
-          "Classic",
-          "World"
-      ],
-      "location": "",
-      "partEventsIds": [
-          "5bff9d8786fed21fc472518e"
-      ],
-      "adminEventsIds": []
+      // "_id":  "5bff07f73411145ee03351b7",
+      // "name": "noam", 
+      // "password": "12",
+      // "pic": "https://api.adorable.io/avatars/64/noam.png",
+      // "instruments": [
+      //     "Drums",
+      //     "Bass",
+      //     "Guitar"
+      // ],
+      // "level": "amateur",
+      // "bio": "very tired",
+      // "favGenres": [
+      //     "Rock",
+      //     "Classic",
+      //     "World"
+      // ],
+      // "location": "",
+      // "partEventsIds": [
+      //     "5bff9d8786fed21fc472518e"
+      // ],
+      // "adminEventsIds": []
   }
   },
   mutations: {
@@ -37,7 +37,7 @@ export default {
       state.loggedInUser = "";
     },
     setUpdateUserEvent(state, { joinedEvent }){
-      console.log('from user module mut setUpdateUserEvent', joinedEvent)
+      // console.log('from user module mut setUpdateUserEvent', joinedEvent)
       state.loggedInUser.partEventsIds.push(joinedEvent.eventId)
     }
   },
@@ -61,11 +61,6 @@ export default {
     },
 
     updateUserEvents({commit, state}, {joinedEvent}){
-<<<<<<< HEAD
-      console.log('from user module act updateUserEvents', joinedEvent)
-      console.log(joinedEvent)
-=======
->>>>>>> f73d2558823b38f95fbe9b8ae652c3047df25b5c
       commit({type: 'setUpdateUserEvent', joinedEvent})
       userService.updateUser(state.loggedInUser)
     },

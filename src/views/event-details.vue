@@ -96,7 +96,7 @@ export default {
           // TODO:cannot join
         }
       }
-      console.log(this.event.instruments);
+      // console.log(this.event.instruments);
     },
     joinTheEvent(instrument){
       var joinedEvent = {
@@ -118,7 +118,16 @@ export default {
     document.body.scrollIntoView()
     const eventId = this.$route.params.eventId;
     this.$store.dispatch({ type: "getEventById", eventId })
-      .then(event => (this.event = event));
+      .then(event => (this.event = event))
+      .then((success) => {
+        // get's a players array for this preview
+        this.event.instruments.forEach(instrument => {
+          return instrument.playersIds.forEach(playerId => {
+            const user = userService.getById(playerId)
+              if (user) this.players.push(user)
+            })  
+          })
+    })
   },
   data() {
     return {

@@ -40,7 +40,7 @@ function remove(eventId) {
 }
 
 function saveEvent(event) {
-  console.log('event service save event:', event)
+  // console.log('event service save event:', event)
   if (event._id) {
       return axios.put(`${BASE_URL}/event/${event._id}`, event)
   } else {

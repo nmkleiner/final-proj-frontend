@@ -89,11 +89,7 @@ export default {
         genre: '',
         level: '',
         pic: '',
-        instruments: [{
-          instrument: '',
-          amount: 0,
-          playersIds: []
-        }],
+        instruments: [],
         cost: 0,
         location: { address: '', city: '' },
         time: { day: '', hour: this.timePicked }
