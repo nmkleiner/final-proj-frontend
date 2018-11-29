@@ -21,7 +21,7 @@ function getById(id) {
 }
 
 function signupUser(user){
-  return axios.post(`${BASEURL}/signup`, user)
+  return axios.post(`${BASE_URL}/signup`, user)
 }
 
 function login ({ userName, password }) {

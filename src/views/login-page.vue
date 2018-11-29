@@ -5,7 +5,11 @@
             <el-input v-model="login.userName" placeholder="username"></el-input>
             <el-input v-model="login.password" type="password" placeholder="password"></el-input>
             <span v-if="isWrong">Wrong password / username</span>
+            <div class="flex">
             <el-button type="primary" @click="submit" round>login</el-button>
+            <el-button type="primary" @click="signup" round>sign up</el-button>
+
+            </div>
             <a>forgot your password?</a>
         </form>
     </section>
@@ -33,6 +37,9 @@ export default {
                     }
                 })
       
+        },
+        signup() {
+            this.$router.push('/signup')
         }
     },
     created() {
