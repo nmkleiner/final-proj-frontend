@@ -19,7 +19,8 @@ export default {
         setUpdateEvent(state, {joinedEvent}){
             state.currEvent.instruments.find(item => {
                 return item.instrument === joinedEvent.instrument
-            }).playersIds.push(joinedEvent.currUser._id)
+            }).push(joinedEvent.currUser._id)
+           
         }
     },
     actions: {

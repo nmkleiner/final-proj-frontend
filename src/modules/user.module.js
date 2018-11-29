@@ -37,6 +37,7 @@ export default {
       state.loggedInUser = "";
     },
     setUpdateUserEvent(state, { joinedEvent }){
+      console.log('from user module mut setUpdateUserEvent', joinedEvent)
       state.loggedInUser.partEventsIds.push(joinedEvent.eventId)
     }
   },
