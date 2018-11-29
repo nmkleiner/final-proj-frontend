@@ -6,7 +6,14 @@ import store from './store'
 import './registerServiceWorker'
 import 'element-ui/lib/theme-chalk/index.css';
 import './assets/scss/main.scss'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4',
+    libraries: 'places'
+  },
+})
 
 // import VueGlide from 'vue-glide-js'
 // Vue.use(VueGlide)

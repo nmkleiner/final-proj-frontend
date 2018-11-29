@@ -1,6 +1,6 @@
 <template>
     <div class="nav-bar flex space-between" :class="{'responsive': isOpen}">
-        <a class="logo"><i class="fas fa-drum fa-lg"></i>musiGroops</a>
+        <router-link class="logo" to="/"><i class="fas fa-drum fa-lg"></i>musiGroops</router-link>
         <div class="links">
           <router-link to="/">Home</router-link>
           <router-link v-if="isLoggedInUser" :to="'/user/' + loggedInUser._id">Profile</router-link>

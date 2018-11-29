@@ -1,54 +1,61 @@
 <template>
   <section class="cards-wrapper flex space-between">
-
     <div class="card-container">
-      
       <h1>{{event.title}}</h1>
       <div class="flex align-center">
         <div class="card-organizer-image-container flex justify-center align-center">
-          <img class="card-organizer-image" src="https://api.adorable.io/avatars/64/rocki.png" alt="event admin">
+          <img
+            class="card-organizer-image"
+            src="https://api.adorable.io/avatars/64/rocki.png"
+            alt="event admin"
+          >
         </div>
         <h4 class="card-organizer-name capitalize">{{event.adminName}}</h4>
         <!-- <img :src="admin.pic" alt="event admin"> -->
         <!-- <span>{{admin.name}}</span>-->
       </div>
 
-      
-      <div class="card-item-container"><h4>Genre: {{event.genre}}&nbsp;</h4></div>
-      <div class="card-item-container"><h4>Level: {{event.level}}&nbsp;</h4></div>
+      <div class="card-item-container">
+        <h4>Genre: {{event.genre}}&nbsp;</h4>
+      </div>
+      <div class="card-item-container">
+        <h4>Level: {{event.level}}&nbsp;</h4>
+      </div>
 
       <div class="card-item-container">
         <h2 v-if="loggedInUser._id">Play with us as:</h2>
-        
+
         <span v-else>Login to join</span>
-        
+
         <h4>welcomed instruments:</h4>
         <div class="instruments-container">
-          <div class="instrument-item-container" @click="joinTheEvent(instrument.instrument)" v-for="instrument in event.instruments" :key="instrument.instrument">
+          <div
+            class="instrument-item-container"
+            @click="joinTheEvent(instrument.instrument)"
+            v-for="instrument in event.instruments"
+            :key="instrument.instrument"
+          >
             <i :title="instrument.instrument" class="fas fa-drum"></i>
             {{instrument.instrument}}
           </div>
         </div>
 
-          <!-- <div>{{instrument.amount}}x</div>
-          <el-button @click="joinAs(instrument.instrument)">{{instrument.instrument}}</el-button> -->
+        <!-- <div>{{instrument.amount}}x</div>
+        <el-button @click="joinAs(instrument.instrument)">{{instrument.instrument}}</el-button>-->
       </div>
-      
+
       <div class="card-item-container">
-        <h4>
-          Free players:
+        <h4>Free players:
           <!-- {{event.freePlayers.length || 0}}/
-          {{event.freePlayers.amount}} -->
+          {{event.freePlayers.amount}}-->
         </h4>
         <p class="card-description">{{event.desc}}</p>
 
         <el-button>discussions</el-button>
       </div>
-
     </div>
 
     <div class="card-container">
-      
       <ul class="event-details">
         <li class="event-detail-list-item">
           <span>{{event.time.day}}&nbsp;{{event.time.hour}}&nbsp;</span>
@@ -61,15 +68,32 @@
           <span v-else>cost: free</span>
         </li>
       </ul>
-      
+
       <h4>Event Photo</h4>
-      <img class="event-photo" src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80">
-      
+      <img
+        class="event-photo"
+        src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80"
+      >
+
       <h4>Map</h4>
-      <img src="https://i.stack.imgur.com/amkT6.png" alt="" class="map">
-
+      <!-- <img src="https://i.stack.imgur.com/amkT6.png" alt="" > -->
+      <GmapMap
+        ref="mapRef"
+        class="static map"
+        :center="{lat: 32.089561, lng: 34.8627918}"
+        :zoom="15"
+        map-type-id="roadmap"
+        style="height: 300px"
+      >
+        <GmapMarker
+          :key="index"
+          v-for="(m, index) in markers"
+          :position="m.position"
+          :clickable="true"
+          @click="center=m.position"
+        />
+      </GmapMap>
     </div>
-
   </section>
 </template>
 
@@ -98,27 +122,37 @@ export default {
       }
       console.log(this.event.instruments);
     },
-    joinTheEvent(instrument){
+    joinTheEvent(instrument) {
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId
-      }
-      this.$store.dispatch({type: 'updateUserEvents', joinedEvent})
-      this.$store.dispatch({type: 'joinEvent', joinedEvent})
+      };
+      this.$store.dispatch({ type: "updateUserEvents", joinedEvent });
+      this.$store.dispatch({ type: "joinEvent", joinedEvent });
       //message join event
-      this.$router.push('/')
+      this.$router.push("/");
     }
   },
   computed: {
     loggedInUser() {
-      return this.$store.getters.loggedInUser
+      return this.$store.getters.loggedInUser;
     }
   },
   created() {
-    document.body.scrollIntoView()
+    document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
-    this.$store.dispatch({ type: "getEventById", eventId })
+    this.$store
+      .dispatch({ type: "getEventById", eventId })
       .then(event => (this.event = event));
+  },
+  mounted() {
+    // At this point, the child GmapMap has been mounted, but
+    // its map has not been initialized.
+    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
+    // this.$refs.mapRef.$mapPromise.then(map => {
+    //   console.log("map promise");
+    //   return map.panTo({ lat: 32.089561, lng: 34.8627918 });
+    // });
   },
   data() {
     return {
@@ -127,6 +161,11 @@ export default {
       freePlayers: [], //get from userService
       admin: {}, // get from userService,
       // loggedInUser: {},
+      markers: [
+        {
+          position: { lat: 32.089561, lng: 34.8627918 }
+        }
+      ]
     };
   }
 };
