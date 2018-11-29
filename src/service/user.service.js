@@ -1,11 +1,7 @@
 const axios = require("axios")
-<<<<<<< HEAD
-var BASEURL = (process.env.NODE_ENV !== 'development') ? '' : '//localhost:3000'
-=======
 const BASE_URL = (process.env.NODE_ENV !== "development")
                     ? ""
                     : "//localhost:3000";
->>>>>>> cee6da44a4ca24dded105568148ecba17a34093a
 
 var playersDB = [];
 generatePlayers()
