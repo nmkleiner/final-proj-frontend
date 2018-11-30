@@ -9,7 +9,7 @@
     <div class="details flex flex-column space-between">
       
       <div class="middle-floating-wrapper flex">
-        <template v-if="players.length" v-for="player in players">
+        <template v-if="players.length" v-for="player in playersToShow">
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
@@ -18,18 +18,12 @@
 
       <span :style="{color: status.color}">{{status.txt}}</span>
       
-      <div class="details-row flex space-between">
         <div>{{event.title}}</div>
         <div>{{event.genre}}</div>
-      </div>
       
-      <div class="details-row flex space-between">
         <div>{{event.level}}</div>
-        <div class="flex flex-row">
           <div>{{event.time.day}}&nbsp;</div>
           <div>{{event.location.city}}</div>
-        </div>
-      </div>
       
     </div>
   </section>
@@ -44,7 +38,6 @@ export default {
   data() {
     return {
       players: [],
-      playersToShow: []
     };
   },
   created() {
@@ -68,6 +61,9 @@ export default {
       else if (ratio < 0.8) return { txt: "Kinda full", color: "white" };
       else if (ratio < 1) return { txt: "Almost full", color: "yellow" };
       return { txt: "Event full", color: "red" };
+    },
+    playersToShow() {
+      return this.players.slice(0, 4);
     }
   }
 };
