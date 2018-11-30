@@ -4,7 +4,7 @@
       <p>Hello
         <span v-if="!isLoggedInUser">!</span>
         <span v-else>{{loggedInUser.name}}!</span> Find and Play with Other Musicians!
-        <iframe autoplay=1 src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=0"  frameborder="0"></iframe>
+        <iframe width="100%" height="300" src="//www.youtube.com/embed/HspKIEa1qwk?t=30s&autoplay=1&controls=0" frameborder="0" allowfullscreen></iframe>
       </p>
     </header>
 
