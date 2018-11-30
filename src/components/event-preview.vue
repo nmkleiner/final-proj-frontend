@@ -4,23 +4,25 @@
       <div class="pic-wrapper flex flex-column justify-center">
         <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
         <img class="main-img" src="https://picsum.photos/200/300/?random" alt="event image">
-        <div class="upper-floating-wrapper">
-          <span :style="{color: status.color}">{{status.txt}}</span>
-        </div>
-        <div class="middle-floating-wrapper flex">
-          <template v-if="players.length" v-for="player in players">
-            <router-link :to="'/user/' + player._id" :key="player._id">
-              <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
-            </router-link>
-          </template>
-        </div>
       </div>
     </router-link>
     <div class="details flex flex-column space-between">
+      
+      <div class="middle-floating-wrapper flex">
+        <template v-if="players.length" v-for="player in players">
+          <router-link :to="'/user/' + player._id" :key="player._id">
+            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
+          </router-link>
+        </template>
+      </div>
+
+      <span :style="{color: status.color}">{{status.txt}}</span>
+      
       <div class="details-row flex space-between">
         <div>{{event.title}}</div>
         <div>{{event.genre}}</div>
       </div>
+      
       <div class="details-row flex space-between">
         <div>{{event.level}}</div>
         <div class="flex flex-row">
@@ -28,6 +30,7 @@
           <div>{{event.location.city}}</div>
         </div>
       </div>
+      
     </div>
   </section>
 </template>

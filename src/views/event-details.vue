@@ -1,9 +1,7 @@
 <template>
   <section v-if="event" class="cards-wrapper flex space-between">
     <div class="card-container">
-      <h1>
-        {{event.title}}
-      </h1>
+      <h1>{{event.title}}</h1>
 
       <div class="flex align-center">
         <div class="card-organizer-image-container flex justify-center align-center">
@@ -11,8 +9,8 @@
         </div>
         <h4 class="card-organizer-name capitalize">{{event.adminName}}&nbsp;</h4>
         <template v-if="isLoggedInUserAdmin">
-          <el-button @click="goEdit" type="success" round >Edit Event</el-button>
-          <el-button type="danger" round >Cancel Event</el-button>
+          <el-button @click="goEdit" type="success" round>Edit Event</el-button>
+          <el-button type="danger" round>Cancel Event</el-button>
         </template>
       </div>
 
@@ -46,17 +44,16 @@
       </div>
       <div class="card-item-container">
         <h4>Free participants:
-
           <!-- {{event.freePlayers.length || 0}}/
           {{event.freePlayers.amount}}-->
         </h4>
-        <h4>
-          Players attending:<br>
+        <h4>Players attending:
+          <br>
           <template v-for="player in players">
             <router-link :to="'/user/' + player._id" :key="player._id">
               <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
             </router-link>
-          </template> 
+          </template>
         </h4>
         <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
 
@@ -93,7 +90,7 @@
         ref="mapRef"
         class="static map"
         :zoom="18"
-        :center=center
+        :center="center"
         map-type-id="roadmap"
         style="height: 300px"
       >
@@ -111,8 +108,8 @@
 </template>
 
 <script>
-const axios = require('axios');
-import userService from '@/service/user.service.js'
+const axios = require("axios");
+import userService from "@/service/user.service.js";
 export default {
   methods: {
     joinAs(instrument = null) {
@@ -145,24 +142,31 @@ export default {
       this.$store.dispatch({ type: "updateUserEvents", joinedEvent });
       this.$store.dispatch({ type: "joinEvent", joinedEvent });
       //message join event
-      this.$router.push('/');
+      this.$router.push("/");
     },
     goEdit() {
-      const eventId = this.event._id
-      this.$router.push(`/event/edit/${eventId}`)
+      const eventId = this.event._id;
+      this.$router.push(`/event/edit/${eventId}`);
     },
-    getCoorFromAddress(location){
-      var currEventLocStr = `${location.address.replace(/[^a-zA-Z0-9]/g,'+')}+${location.city.replace(/[^a-zA-Z0-9]/g,'+')}`
-      return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`)
-      .then(res => {
-        console.log(this.$refs.mapRef)
-        var latlng = res.data.results[0].geometry.location
-        this.center = latlng
-        this.markers.position.push(latlng)
-        return latlng
-        }).then(latlng => {
-          this.$refs.mapRef.panTo(latlng)
+    getCoorFromAddress(location) {
+      var currEventLocStr = `${location.address.replace(
+        /[^a-zA-Z0-9]/g,
+        "+"
+      )}+${location.city.replace(/[^a-zA-Z0-9]/g, "+")}`;
+      return axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`
+        )
+        .then(res => {
+          console.log(this.$refs.mapRef);
+          var latlng = res.data.results[0].geometry.location;
+          this.center = latlng;
+          this.markers.position.push(latlng);
+          return latlng;
         })
+        .then(latlng => {
+          this.$refs.mapRef.panTo(latlng);
+        });
       // console.log(currEventLocStr);
     }
   },
@@ -174,37 +178,58 @@ export default {
   created() {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
-    this.$store.dispatch({ type: "getEventById", eventId })
-      .then(event => {
-        this.getCoorFromAddress(event.location)
-        return (this.event = event)
-        })
 
-      // get event admin 
-      .then(() => {
-        const adminId = this.event.adminId
-        
-        this.$store.dispatch({type: 'getUserById', userId: adminId})
-        .then(admin => {
-          this.admin = admin
-          if (this.admin._id === this.loggedInUser._id) {
-            this.isLoggedInUserAdmin = true
-          }
-        })
+    this.$store
+      .dispatch({ type: "getEventById", eventId })
+      .then(event => {
+        this.getCoorFromAddress(event.location);
+        return (this.event = event);
       })
 
-        // get's a players array for this preview
+      // get event admin
       .then(() => {
+        const adminId = this.event.adminId;
+
+        this.$store
+          .dispatch({ type: "getUserById", userId: adminId })
+          .then(admin => {
+            this.admin = admin;
+            if (this.admin._id === this.loggedInUser._id) {
+              console.log("user is admin");
+              this.isLoggedInUserAdmin = true;
+            }
+          });
+      })
+
+      // get's a players array for this preview
+      .then(() => {
+        var userPrms = [];
         this.event.instruments.forEach(instrument => {
           return instrument.playerIds.forEach(playerId => {
-            if(!playerId) return;
-            this.$store.dispatch({type: 'getUserById', userId: playerId})
-              .then(player => {
-                this.players.push(player)
-              })
-            })  
-          })
-    })
+            if (!playerId) return;
+            console.log(
+              this.$store.dispatch({ type: "getUserById", userId: playerId })
+            );
+            userPrms.push(
+              this.$store.dispatch({ type: "getUserById", userId: playerId })
+            );
+            // this.$store.dispatch({type: 'getUserById', userId: playerId})
+
+            // .then(player => {
+            //   console.log('Playerrr', player );
+
+            //   this.players.push(player)
+            // })
+          });
+        });
+        console.log(userPrms);
+        return Promise.all(userPrms);
+      })
+      .then(users => {
+        console.log('users', users);
+        
+        this.players = users;
+      });
   },
   mounted() {
     // At this point, the child GmapMap has been mounted, but

@@ -14,7 +14,18 @@
     }
 
     .carousels-container{
-        padding: 0 20px 30px;
+        @media (min-width: 600px) {
+            padding: 0 20px 30px;
+        }
+        padding: 0;
+        .isMobile{
+            display: inline;
+            font-size: 0.7rem;
+            margin-left: 10px;
+            @media (min-width: 600px) {
+                display: none;
+            }
+        }
         h2{
             margin: 0;
         }
@@ -25,14 +36,29 @@
             }
         }
         .carousel {
+            
+            @media (min-width: 600px) {
             margin: 0px 20px;
+            }
+            margin: 0px;
+            
             .slide {
+                
+                @media (min-width: 600px) {
                 padding: 10px;
+                }
+                padding: 0px;
                 display: flex;
                 justify-content: center;
             }
             .VueCarousel-pagination{
                 display: none;
+            }
+            .VueCarousel-navigation-button[data-v-453ad8cd] {
+                display: none;
+                @media (min-width: 600px) {
+                    display: block;
+                }
             }
         }
         

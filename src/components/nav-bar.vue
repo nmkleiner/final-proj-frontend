@@ -1,11 +1,10 @@
 <template>
-    <div class="nav-bar flex space-between" :class="{'responsive': isOpen}">
-        <router-link class="logo" to="/"><i class="fas fa-drum fa-lg"></i>musiGroops</router-link>
+    <div class="nav-bar flex space-between" :class="{'responsive': isOpen, 'guest': !isLoggedInUser}">
+        <router-link class="logo" to="/"><i class="fas fa-drum fa-lg"></i> MUSIGROUPS</router-link>
         <div class="links">
-          <router-link to="/">Home</router-link>
           <router-link v-if="isLoggedInUser" :to="'/user/' + loggedInUser._id">Profile</router-link>
           <router-link v-if="isLoggedInUser" to="/event/edit">Create</router-link>
-          <router-link to="/about">About</router-link>
+          <!-- <router-link to="/about">About</router-link> -->
           <a v-if="isLoggedInUser" @click="logout">Logout</a>
           <router-link v-else to="/login">Login</router-link>
         </div>
@@ -50,8 +49,9 @@ export default {
   overflow: hidden;
   background-color: black;
   
+
   a {
-  float: left;
+    float: left;
   display: block;
   color: rgb(144, 241, 241);
   text-align: center;
@@ -64,19 +64,38 @@ export default {
   }
 
   a:hover {
-  border-bottom: 1px solid rgb(144, 241, 241);
+    border-bottom: 1px solid rgb(144, 241, 241);
   }
   .logo:hover {
-  border-bottom: 1px solid transparent;
+    border-bottom: 1px solid transparent;
   }
 
   .links a:last-child{
-  margin-right: 80px;
+    margin-right: 20px;
   }
 
   .icon {
-  display: none;
+    display: none;
   }
+}
+.nav-bar.guest{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  a {
+    color: black;
+    font-weight: 700;
+  }
+  a:hover {
+    border-bottom: 1px solid black; 
+  }
+  .logo:hover {
+    border-bottom: 1px solid transparent;
+  }
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 
@@ -85,6 +104,12 @@ export default {
   .nav-bar a.icon {
     float: right;
     display: block;
+  }
+  .nav-bar.guest a.icon {
+    display: none;
+  }
+  .nav-bar.guest a {
+    display: inline;
   }
   .nav-bar.responsive {position: relative;}
   .nav-bar.responsive .icon {

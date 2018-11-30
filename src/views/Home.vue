@@ -1,10 +1,12 @@
 <template>
   <div class="home">
     <header>
-      <p>Hello
-        <span v-if="!isLoggedInUser">!</span>
-        <span v-else>{{loggedInUser.name}}!</span> Find and Play with Other Musicians!
-      </p>
+      <i class="fas fa-drum"></i>MUSIGROUPS
+      An App that helps you
+      find musicians to play along with!
+      <youtube :video-id="videoId" :player-vars="playerVars" @playing="playing"></youtube>
+      <iframe :src="videoId"></iframe>
+<!-- width="100%"  -->
     </header>
 
     <div v-if="loggedInUser" class="carousels-container loggedIn">
@@ -12,7 +14,10 @@
       
       <template v-for="genre in loggedInUser.favGenres">
         <section class="carousel-section favourite-genre" :key="genre">
-          <h2>Especially for you, {{genre}} music events:</h2>
+          <h2>Especially for you, {{genre}} music events:<br>
+            <span class="isMobile">Swipe to see more</span>
+          </h2>
+
           <event-carousel :events="events"/>
           <a>Show All {{genre}} Events</a>
           <hr>
@@ -21,7 +26,9 @@
       
       <template v-for="instrument in loggedInUser.instruments">
         <section class="carousel-section favourite-genre" :key="instrument">
-          <h2>Especially for you, events that need a {{instrument}} player:</h2>
+          <h2>Especially for you, events that need a {{instrument}} player:<br>
+            <span class="isMobile">Swipe to see more</span>
+          </h2>
           <event-carousel :events="events"/>
           <a>Show All {{instrument}} Events</a>
           <hr>
@@ -30,31 +37,41 @@
 
 
       <section class="carousel-section rock-events">
-        <h2>Rock Sessions for you:</h2>
+        <h2>Rock Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Rock Events</a>
         <hr>
       </section>
       <section class="carousel-section guitar-events">
-        <h2>Guitar Sessions for you:</h2>
+        <h2>Guitar Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Guitar Events</a>
         <hr>
       </section>
       <section class="carousel-section reggae-events">
-        <h2>Reggae Sessions for you:</h2>
+        <h2>Reggae Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Reggae Events</a>
         <hr>
       </section>
       <section class="carousel-section world-music-events">
-        <h2>World Music Sessions for you:</h2>
+        <h2>World Music Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All World Music Events</a>
         <hr>
       </section>
       <section class="carousel-section progressive-rock-events">
-        <h2>Progressive Rock Sessions for you:</h2>
+        <h2>Progressive Rock Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Progressive Rock Events</a>
         <hr>
@@ -63,37 +80,49 @@
 
     <div v-else class="carousels-container guest">
       <section class="carousel-section almost-full-events">
-        <h2>Almost full grab your place!</h2>
+        <h2>Almost full grab your place!<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Events</a>
       </section>
       <hr>
       <section class="carousel-section rock-events">
-        <h2>Rock Sessions for you:</h2>
+        <h2>Rock Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Rock Events</a>
       </section>
       <hr>
       <section class="carousel-section guitar-events">
-        <h2>Guitar Sessions for you:</h2>
+        <h2>Guitar Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Guitar Events</a>
       </section>
       <hr>
       <section class="carousel-section reggae-events">
-        <h2>Reggae Sessions for you:</h2>
+        <h2>Reggae Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Reggae Events</a>
       </section>
       <hr>
       <section class="carousel-section world-music-events">
-        <h2>World Music Sessions for you:</h2>
+        <h2>World Music Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All World Music Events</a>
       </section>
       <hr>
       <section class="carousel-section progressive-rock-events">
-        <h2>Progressive Rock Sessions for you:</h2>
+        <h2>Progressive Rock Sessions for you:<br>
+          <span class="isMobile">Swipe to see more</span>
+        </h2>
         <event-carousel :events="events"/>
         <a>Show All Progressive Rock Events</a>
       </section>
@@ -153,6 +182,14 @@ export default {
     document.body.scrollIntoView()
     // this.$store.dispatch({type: 'loadRockEvents'})
     this.$store.dispatch({ type: "loadEvents" });
+  },
+  data() {
+    return {
+      videoId: 'lG0Ys-2d4MA',
+      playerVars: {
+        autoplay: 1,
+      }
+    }
   }
-};
+}
 </script>
