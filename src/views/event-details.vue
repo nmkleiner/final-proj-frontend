@@ -87,6 +87,7 @@
 
     <div class="card-container">
       <el-button>discussions</el-button>
+      <!-- <feed-comp></feed-comp> -->
       <h4>Players attending:
         <br>
         <template v-for="player in players">
@@ -109,6 +110,7 @@
 const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
+import feedComp from "@/components/feed-comp.vue"
 export default {
   data() {
     return {
@@ -242,7 +244,8 @@ export default {
     // });
   },
   components: {
-    gmapMap
+    gmapMap,
+    feedComp
   }
 };
 </script>

@@ -4,9 +4,15 @@ import ElementUI from 'element-ui';
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/index.css'
 import './assets/scss/main.scss'
+import socketio from 'socket.io-client'
+import VueSocketIO from 'vue-socket.io'
 import * as VueGoogleMaps from 'vue2-google-maps'
+
+// export const SocketInstance = socketio('http://localhost:3000');
+
+// Vue.use(VueSocketIO, SocketInstance)
 
 Vue.use(VueGoogleMaps, {
   load: {
