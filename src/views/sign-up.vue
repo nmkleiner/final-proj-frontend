@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import utilService from '@/service/util.service.js'
 export default {
   data() {
     return {
@@ -68,7 +69,10 @@ export default {
   },
   methods: {
     submitNewUser() {
-      this.newUser.pic = `https://api.adorable.io/avatars/64/${this.newUser.name}.png`
+      const num = utilService.getRandomIntInclusive(1,90)
+      const gender = (utilService.getRandomIntInclusive(0,1))? 'women': 'men'
+      this.newUser.pic = `https://randomuser.me/api/portraits/med/${gender}/${num}.jpg`
+      
       // get location too
       this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
         .then(() => {this.$router.push('/')})

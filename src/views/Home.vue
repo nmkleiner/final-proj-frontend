@@ -1,11 +1,9 @@
 <template>
   <div class="home">
-    <header>
-      <p>Hello
-        <span v-if="!isLoggedInUser">!</span>
-        <span v-else>{{loggedInUser.name}}!</span> Find and Play with Other Musicians!
-        <iframe width="100%" height="300" src="//www.youtube.com/embed/HspKIEa1qwk?t=30s&autoplay=1&controls=0" frameborder="0" allowfullscreen></iframe>
-      </p>
+    <header class="flex">
+      <div class="welcome-text">Welcome! here you can find professional & amateur musicians to play your favorite music with.</div>
+      
+        <iframe width="100%" style="height: 100%" src="//www.youtube.com/embed/HspKIEa1qwk?t=30&autoplay=1&controls=0" frameborder="0" allowfullscreen></iframe>
     </header>
 
     <div v-if="loggedInUser" class="carousels-container loggedIn">

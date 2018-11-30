@@ -79,11 +79,11 @@ export default {
   }
 }
 .nav-bar.guest{
+  // height:300px;
   display: flex;
   justify-content: space-between;
   width: 100%;
   a {
-    color: black;
     font-weight: 700;
   }
   a:hover {
