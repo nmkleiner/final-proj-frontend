@@ -16,14 +16,14 @@
         </template>
       </div>
 
-      <span :style="{color: status.color}">{{status.txt}}</span>
       
-        <div>{{event.title}}</div>
-        <div>{{event.genre}}</div>
+      <span class="bold">{{event.title}}</span>
       
-        <div>{{event.level}}</div>
-          <div>{{event.time.day}}&nbsp;</div>
-          <div>{{event.location.city}}</div>
+      <span class="capitalize">{{event.genre}} music
+        <i class="fas fa-music"></i> {{event.level}} 
+        <i class="fas fa-music"></i> <span :style="{color: status.color}"> {{status.txt}}</span>
+      </span>
+      <span class="capitalize">{{event.location.city}} <i class="fas fa-music"></i> {{event.time.day}}</span>
       
     </div>
   </section>
