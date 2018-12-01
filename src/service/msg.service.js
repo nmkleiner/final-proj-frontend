@@ -36,7 +36,8 @@ const send = (msg) => {
 }
 
 function createEmptyMsg(nickname = 'jhon doe', txt = '') {
-    return { txt, processed: false, from: nickname };
+    console.log('createEmptyMsg: ', nickname )
+    return { txt, from: nickname };
 }
 
 // function msgType() {
@@ -44,6 +45,7 @@ function createEmptyMsg(nickname = 'jhon doe', txt = '') {
 // }
 
 function roomJoin(roomName) {
+    console.log('chat room-joined', roomName)
     socket.emit('chat room-joined', roomName)
 }
 
@@ -51,7 +53,6 @@ export default {
     // msgType,
     getMsgs,
     send,
-    
     createEmptyMsg,
     roomJoin
 }

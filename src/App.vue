@@ -10,11 +10,11 @@
 <script>
 
 import navBar from '@/components/nav-bar.vue'
-import msgMsg from '@/components/msg-msg.vue'
+// import msgMsg from '@/components/msg-msg.vue'
 export default {
   components: {
     navBar,
-    msgMsg
+    // msgMsg
   }
 }
 </script>

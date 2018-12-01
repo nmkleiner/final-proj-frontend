@@ -1,5 +1,5 @@
 import eventService from "../service/event.service.js";
-import bus, { MSG } from "../bus.js";
+// import bus, { MSG } from "../bus.js";
 export default {
   state: {
     events: [],

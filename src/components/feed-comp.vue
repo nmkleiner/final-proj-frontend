@@ -35,24 +35,14 @@ export default {
       typeMsg: ""
     };
   },
-  created() {
-    const room = this.$route.params.eventId;
-    msgService.roomJoin(room);
-    this.nickName = this.$store.getters.loggedInUser.name;
-    this.newMsg = msgService.createEmptyMsg(this.nickName);
-    this.msgs = msgService.getMsgs();
-  },
-  mounted(){
-    this.scrollToEnd();
-  },
   methods: {
     msgClass(msg) {
       return msg.from !== this.nickName ? "received" : "sent";
     },
     send() {
-      this.scrollToEnd()
       msgService.send(this.newMsg);
-      this.newMsg = msgService.createEmptyMsg(this.nickname);
+      this.newMsg = msgService.createEmptyMsg(this.nickName);
+      this.scrollToEnd()
     },
     msgType() {
       msgService.msgType();
@@ -62,7 +52,18 @@ export default {
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
     }
-  }
+  },
+  created() {
+    const room = this.$route.params.eventId;
+    msgService.roomJoin(room);
+    this.nickName = this.$store.getters.loggedInUser.name;
+    console.log('nickname:', this.nickName)
+    this.newMsg = msgService.createEmptyMsg(this.nickName);
+    this.msgs = msgService.getMsgs();
+  },
+  mounted(){
+    this.scrollToEnd();
+  },
 };
 </script>
 
