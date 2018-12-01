@@ -1,9 +1,9 @@
 <template>
-    <section class="user-profile flex flex-column">
-            <h1 class="align-self-center">Hello {{user.name}}</h1>
+    <section class="user-profile flex flex-column capitalize">
+            <h1 class="align-self-center">{{user.name}}</h1>
             <img class="circle-icon align-self-center" :src="user.pic">
-        <div class="main-container flex flex-column">
-            <h4>Your profile details:</h4>
+        <div class="main-container flex flex-column ">
+            <h4>{{user.name}}'s' profile details:</h4>
             <p>Bio: {{user.bio}}</p>
             <h3>Level: {{user.level}}</h3>
             <h3>Instruments: 
@@ -17,7 +17,7 @@
                     {{genre}} 
                 </i>.
             </h3>
-            <h3>Events you created:</h3>
+            <h3>Events created by {{user.name}}:</h3>
             <i v-for="event in userAdminEvents" :key="event._id">
                 <router-link :to="'/event/' + event._id">
                 {{event.title}} 
@@ -25,7 +25,7 @@
                 </router-link>
             </i>
             
-            <h3>Events you joined:</h3>
+            <h3>Events {{user.name}} joined:</h3>
             <i v-for="event in userPartEvents" :key="event._id">
                 <router-link :to="'/event/' + event._id">
                 {{event.title}} 
@@ -42,31 +42,37 @@ export default {
         return {
             userAdminEvents: [],
             userPartEvents: [],
-            // userFromQuery: '' if user from query !== loggedinuser, this page should look different different
+            user: ''
         }
     },
     computed: {
       isLoggedInUser() {
         return this.$store.getters.isLoggedInUser
       },
-      user() {
+      loggedInUser() {
         return this.$store.getters.loggedInUser
       }
     },
     created() {
-        this.userFromQuery
         document.body.scrollIntoView()
-        this.user.adminEventsIds.forEach(eventId => {
-            this.$store.dispatch({type: 'getEventById', eventId})
-            .then(event => {
-                this.userAdminEvents.push(event)
-            })            
-        });
+        const userId = this.$route.params.userId
 
-        this.user.partEventsIds.forEach(eventId => {
-            this.$store.dispatch({type: 'getEventById', eventId})
-            .then(event => {
-                this.userPartEvents.push(event)
+        this.$store.dispatch({type: 'getUserById', userId})
+            .then(user => this.user = user)
+            .then(() => {
+
+                this.user.adminEventsIds.forEach(eventId => {
+                    this.$store.dispatch({type: 'getEventById', eventId})
+                .then(event => {
+                    this.userAdminEvents.push(event)
+                })            
+            });
+
+            this.user.partEventsIds.forEach(eventId => {
+                this.$store.dispatch({type: 'getEventById', eventId})
+                .then(event => {
+                    this.userPartEvents.push(event)
+                })
             })
         })
 

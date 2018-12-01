@@ -17,7 +17,7 @@
         <option>professional</option>
       </select>
 
-      <h4>instruments you play on:</h4>
+      <h4>Instruments you play:</h4>
 
       <div class="signup-instruments">
         <input type="checkbox" id="guitar" value="Guitar" v-model="newUser.instruments">

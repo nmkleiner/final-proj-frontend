@@ -52,7 +52,8 @@
           <el-input v-model="event.location.address" placeholder="street & number"></el-input>
         </div>
       </div>
-      <el-button @click="saveNewEvent">Save Event</el-button>
+      <el-button v-if="!isUpdateEvent" @click="saveNewEvent">Save Event</el-button>
+      <el-button v-else @click="updateEvent">Update Event</el-button>
       <el-button @click="deleteEvent">Delete Event</el-button>
       <router-link to="/">Cancel</router-link>
       <!-- {{event}} -->
@@ -102,6 +103,9 @@ export default {
     },
     isLoggedInUser() {
         return this.$store.getters.isLoggedInUser
+    },
+    isUpdateEvent() {
+      return !!this.$route.params.eventId
     }
     
   },
@@ -111,15 +115,17 @@ export default {
       // this.$store.dispatch({type: 'removeEvent', event: this.event})
     },
     saveNewEvent() {
-      this.$store.dispatch({type: 'saveNewEvent', event: this.event})
-        .then(() => {
-          // tell user event was added
+      this.$store.dispatch({type: 'saveNewEvent', event: this.event})//does not return id yet
+        .then((eventId) => {
+          this.$store.dispatch({type: 'updateUserAdminEvents', eventId})
           this.$router.push(`/`)
         })
     },
     updateEvent() {
-      // console.log('updating event');
-      this.$store.dispatch({ type: 'updateEvent', event: this.event });
+      this.$store.dispatch({ type: 'updateEvent', event: this.event })
+        .then((eventId) => {
+          this.$router.push(`/`)
+        })
     },
     addInstrument(instrument) {
       const instObj = {instrument , amount: 1, playerIds: []}

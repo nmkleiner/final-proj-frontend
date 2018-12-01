@@ -2,6 +2,7 @@
   <div id="app">
     <nav-bar></nav-bar>
     <router-view/>  
+    <msg-msg></msg-msg>
     <footer>I Am Footer</footer>
   </div>
 </template>
@@ -9,9 +10,11 @@
 <script>
 
 import navBar from '@/components/nav-bar.vue'
+import msgMsg from '@/components/msg-msg.vue'
 export default {
   components: {
     navBar,
+    msgMsg
   }
 }
 </script>
