@@ -3,23 +3,21 @@
     <div class="card-container">
       <h1>{{event.title}}</h1>
 
-      <div class="flex align-center">
-        <div class="card-organizer-image-container flex justify-center align-center">
-          <img class="circle-icon" :src="admin.pic " alt="event admin" :title="admin.name">
-        </div>
-        <h4 class="card-organizer-name capitalize">{{event.adminName}}&nbsp;</h4>
+      <div class="flex wrap align-center">
+        <img class="circle-icon mb-10" :src="admin.pic " alt="event admin" :title="admin.name">
+        <h4 class="card-organizer-name px-10 capitalize">{{event.adminName}}&nbsp;</h4>
         <el-button
           @click="toggleJoin"
           v-if="!isLoggedInUserAdmin"
           class="join-button"
           type="danger"
         >Join the event</el-button>
-
         <template v-if="isLoggedInUserAdmin">
           <el-button @click="goEdit" type="success" round>Edit Event</el-button>
-          <el-button type="danger" round>Cancel Event</el-button>
+          <el-button type="danger" @click="removeEvent" round>Cancel Event</el-button>
         </template>
       </div>
+
       <transition name="fade">
         <div class="card-item-container" v-if="isJoining">
           <h2 v-if="loggedInUser._id">Play with us as:</h2>
@@ -42,8 +40,8 @@
       </transition>
       <div class="card-item-container">
         <h4>
-          <span>Genre: {{event.genre}}&nbsp;</span>
-          <span>Level: {{event.level}}&nbsp;</span>
+          <span>Genre: {{event.genre}} <i class="fas fa-music"></i></span>
+          <span> Level: {{event.level}} <i class="fas fa-music"></i></span>
         </h4>
       </div>
 
@@ -52,13 +50,12 @@
           {{event.freePlayers.length || 0}}/
           {{event.freePlayers.amount}}
         </h4>-->
-        <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
 
         <p class="card-description">{{event.desc}}</p>
 
         <div class="event-details">
-          <span>{{event.time.day}}&nbsp;</span>
-          <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
+          <span>{{event.time.day}} {{event.time.hour}} <i class="fas fa-music"></i></span>
+          <span class="capitalize">{{event.location.address}}, {{event.location.city}} <i class="fas fa-music"></i></span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
         </div>
@@ -88,6 +85,12 @@
     <div class="card-container">
       <h4>Event Discussion</h4>
       <feed-comp></feed-comp>
+      <h4>instruments:
+          <span v-for="instrument in event.instruments">{{instrument.instrument}} </span>
+         </h4>
+      <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
+      <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
+
       <h4>Players attending:
         <br>
         <template v-for="player in players">
@@ -96,7 +99,14 @@
           </router-link>
         </template>
       </h4>
-
+      <h4 v-if="freePlayers.length">Free players attending:
+        <br>
+        <template  v-for="player in freePlayers">
+          <router-link :to="'/user/' + player._id" :key="player._id">
+            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
+          </router-link>
+        </template>
+      </h4>
       <!-- <h4>Event Photo</h4>
       <img
         class="event-photo"
@@ -115,7 +125,7 @@ export default {
   data() {
     return {
       event: this.$store.getters.currEvent,
-      players: [], //get from userService
+      players: [],
       freePlayers: [], //get from userService
       admin: {},
       isLoggedInUserAdmin: false,
@@ -159,12 +169,20 @@ export default {
       };
       this.$store.dispatch({ type: "updateUserEvents", joinedEvent });
       this.$store.dispatch({ type: "joinEvent", joinedEvent });
-      //message join event
+      // TODO: message joined event
       this.$router.push("/");
     },
     goEdit() {
       const eventId = this.event._id;
       this.$router.push(`/event/edit/${eventId}`);
+    },
+    removeEvent() {
+      const eventId = this.event._id;
+      this.$store.dispatch({type: 'removeEvent', eventId})
+        .then(() => {
+          this.$router.push("/");
+        })
+      // TODO: message event removed
     },
     getCoorFromAddress(location) {
       var currEventLocStr = `${location.address.replace(
@@ -232,6 +250,14 @@ export default {
               });
           });
         });
+        this.event.freePlayers.memberIds.forEach(playerId => {
+            if (!playerId) return;
+            this.$store
+              .dispatch({ type: "getUserById", userId: playerId })
+              .then(player => {
+                this.freePlayers.push(player);
+              });
+          });
       });
   },
   mounted() {
