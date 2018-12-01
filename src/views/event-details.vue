@@ -86,7 +86,7 @@
     </div>
 
     <div class="card-container">
-      
+      <h4>Event Discussion</h4>
       <feed-comp></feed-comp>
       <h4>Players attending:
         <br>

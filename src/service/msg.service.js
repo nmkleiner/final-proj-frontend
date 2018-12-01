@@ -44,7 +44,6 @@ function createEmptyMsg(nickname = 'jhon doe', txt = '') {
 // }
 
 function roomJoin(roomName) {
-    console.log('chat room-joined', roomName)
     socket.emit('chat room-joined', roomName)
 }
 

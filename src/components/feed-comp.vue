@@ -1,6 +1,6 @@
 <template>
   <div class="conversation">
-    <div class="conversation-container">
+    <div class="conversation-container" ref="conversationRef">
       <div v-for="(msg, idx) in msgs" :key="idx" class="message" :class="msgClass(msg)">
         <div class="container">
           <p>{{msg.from}}: {{msg.txt}}</p>
@@ -8,9 +8,7 @@
         
       </div>
     </div>
-    <div>
-      <span>{{typeMsg}}</span>
-    </div>
+    
     <form class="conversation-compose">
       <input
         v-model="newMsg.txt"
@@ -44,22 +42,43 @@ export default {
     this.newMsg = msgService.createEmptyMsg(this.nickName);
     this.msgs = msgService.getMsgs();
   },
+  mounted(){
+    this.scrollToEnd();
+  },
   methods: {
     msgClass(msg) {
       return msg.from !== this.nickName ? "received" : "sent";
     },
     send() {
+      this.scrollToEnd()
       msgService.send(this.newMsg);
       this.newMsg = msgService.createEmptyMsg(this.nickname);
     },
     msgType() {
       msgService.msgType();
+    },
+    scrollToEnd(){
+      var container = this.$refs.conversationRef;
+      var scrollHeight = container.scrollHeight;
+      container.scrollTop = scrollHeight;
     }
   }
 };
 </script>
 
 <style scoped>
+
+.conversation{
+  border: 3px solid black;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.conversation-container{
+  height: 300px;
+  overflow: auto;
+}
+
 .container {
     border: 2px solid #dedede;
     background-color: #f1f1f1;
