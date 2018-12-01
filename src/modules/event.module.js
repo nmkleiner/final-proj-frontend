@@ -2,6 +2,9 @@ import eventService from '../service/event.service.js'
 
 export default {
     state: {
+        instruments: [{name: 'guitar', isSelected: false}, 
+                    {name: 'bass', isSelected: false},
+                    {name: 'free Audience', isSelected: false}],
         events: [],
         rockEvents: [],
         currEvent: null
@@ -98,6 +101,9 @@ export default {
             })
             return rockEvents
         },
+        instrumentsList(state) {
+            return state.instruments
+        }
         // rockEvents:
         
     }

@@ -28,19 +28,40 @@
       </select>
       <h4>Event Description</h4>
       <textarea v-model="event.desc" placeholder="Event Description"/>
-      <instrument-list @add-instrument="addInstrument"></instrument-list>
       <div class="add-instruments-container">
-        <div class="add-instrument">
+        <button @click.prevent="isOpenInstruments = true">Add Welcomed Instruments</button>
+        <!-- <div class="add-instrument">
           <i class="fas fa-plus"></i>
-        </div>
+        </div> -->
+      </div>
+        <instrument-list v-if="isOpenInstruments" @add-instrument="addInstrument"
+        @saveInstrumentsChosen="saveInstrumentsChosen"
+        :instruments="insturmentsList"></instrument-list>
+      <div>
+        <instrument-preview v-for="(instrument, idx) in event.instruments" 
+        :key="instrument.name"
+        :instrument="instrument"
+        @recudeInstrumentAmount="instrument.amount--"
+        @increaseInstrumentAmount="instrument.amount++"
+        @removeInstrument="removeInstrument(idx)"></instrument-preview>
       </div>
     </div>
 
     <div class="edit-event-container">
-      <input type="date" v-model="event.time.day">
-      <div>
-        <time-picker v-model="event.time.hour"></time-picker>
-      </div>
+      <el-date-picker
+        v-model="event.time.day"
+        type="date"
+        placeholder="Pick a day">
+      </el-date-picker>
+      <el-time-select
+        v-model="event.time.hour"
+        :picker-options="{
+          start: '00:00',
+          step: '00:30',
+          end: '23:30'
+        }"
+        placeholder="Select time">
+      </el-time-select>
       <input type="number" v-model="event.cost">
       <div class="img-n-address-container">
         <div class="img-container">
@@ -55,7 +76,7 @@
       <el-button @click="saveNewEvent">Save Event</el-button>
       <el-button @click="deleteEvent">Delete Event</el-button>
       <router-link to="/">Cancel</router-link>
-      <!-- {{event}} -->
+      {{event}}
     </div>
 
     </form>
@@ -64,19 +85,17 @@
 
 <script>
 import instrumentList from '@/components/instrument-list.vue';
-import timePicker from '@/components/time-picker.vue';
+import instrumentPreview from '@/components/instrument-preview.vue';
 
 export default {
   name: 'edit-event',
   data() {
     return {
+      isOpenInstruments: false,
+      instruments: [],
       event: {
         time: {
-          hour: {
-            hour: 1,
-          minute: 0,
-          format: 'AM',
-          },
+          hour: '',
           day: ''
         },
         adminId: '',
@@ -88,15 +107,27 @@ export default {
         instruments: [],
         cost: 0,
         location: { address: '', city: '' },
-        time: { day: '', hour: this.timePicked }
       },
     };
   },
   components: {
-    timePicker,
-    instrumentList
+    instrumentList,
+    instrumentPreview
   },
   computed: {
+    insturmentsList() {
+      return this.$store.getters.instrumentsList
+      // let instrumentsToShow = fullInstrumentsList.map(instrument => {
+      //   return this.event.instruments.find(currInsrtument => {
+      //     console.log(currInsrtument);
+          
+      //     currInsrtument.name === instrument.name
+      //   })
+      // })
+      // return instrumentsToShow
+      
+
+    },
     loggedInUser() {
       return this.$store.getters.loggedInUser
     },
@@ -106,6 +137,19 @@ export default {
     
   },
   methods: {
+    removeInstrument(instIdx) {
+      this.event.instruments.splice(instIdx, 1)
+    },
+    saveInstrumentsChosen(instruments) {
+      instruments.forEach(insrtument => {
+        if (insrtument.isSelected) {
+          if (!this.event.instruments.find(currInsrtument => currInsrtument.name === insrtument.name)) {
+            this.event.instruments.push({name: insrtument.name, amount: 1, playersIds: []})     
+          }
+        }
+      })
+      this.isOpenInstruments = false
+    },
     deleteEvent() {
       // console.log('Deleteing Event');
       // this.$store.dispatch({type: 'removeEvent', event: this.event})
@@ -127,11 +171,11 @@ export default {
     }
   },
   created() {
-    if (!this.isLoggedInUser) this.$router.push('/')
+    // if (!this.isLoggedInUser) this.$router.push('/')
     document.body.scrollIntoView()
 
-    this.event.adminId = this.loggedInUser._id
-    this.event.adminName = this.loggedInUser.name
+    // this.event.adminId = this.loggedInUser._id
+    // this.event.adminName = this.loggedInUser.name
     const eventId = this.$route.params.eventId;
     if (eventId) {
     this.$store.dispatch({ type: 'getEventById', eventId })
@@ -139,6 +183,9 @@ export default {
             this.event = event;
         });
     }
+    
+    // this.$store.dispatch({type: 'loadInstruments'})
+    //   .then(instruments => this.instruments = instruments)
   }
 };
 </script>
