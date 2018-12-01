@@ -1,44 +1,78 @@
 <template>
-  <div>
-    <p v-if="isConnected">We're connected to the server!</p>
-    <p>Message from server: "{{socketMessage}}"</p>
-    <button @click="pingServer()">Ping Server</button>
+  <div class="conversation">
+    <div class="conversation-container">
+      <div v-for="(msg, idx) in msgs" :key="idx" class="message" :class="msgClass(msg)">
+        <div class="container">
+          <p>{{msg.from}}: {{msg.txt}}</p>
+        </div>
+        
+      </div>
+    </div>
+    <div>
+      <span>{{typeMsg}}</span>
+    </div>
+    <form class="conversation-compose">
+      <input
+        v-model="newMsg.txt"
+        class="input-msg"
+        name="input"
+        placeholder="Type a message"
+        autocomplete="off"
+        autofocus
+      >
+      
+      <button @click.prevent="send">send</button>
+    </form>
   </div>
 </template>
 
 <script>
+import msgService from "@/service/msg.service.js";
 export default {
   data() {
     return {
-      isConnected: false,
-      socketMessage: ''
-    }
+      msgs: [],
+      nickName: null,
+      newMsg: null,
+      typeMsg: ""
+    };
   },
-
-  sockets: {
-    connect() {
-      // Fired when the socket connects.
-      this.isConnected = true;
-    },
-
-    disconnect() {
-      this.isConnected = false;
-    },
-
-    // Fired when the server sends something on the "messageChannel" channel.
-    messageChannel(data) {
-      this.socketMessage = data
-    }
+  created() {
+    const room = this.$route.params.eventId;
+    msgService.roomJoin(room);
+    this.nickName = this.$store.getters.loggedInUser.name;
+    this.newMsg = msgService.createEmptyMsg(this.nickName);
+    this.msgs = msgService.getMsgs();
   },
-
   methods: {
-    pingServer() {
-      // Send the "pingServer" event to the server.
-      this.$socket.emit('pingServer', 'PING!')
+    msgClass(msg) {
+      return msg.from !== this.nickName ? "received" : "sent";
+    },
+    send() {
+      msgService.send(this.newMsg);
+      this.newMsg = msgService.createEmptyMsg(this.nickname);
+    },
+    msgType() {
+      msgService.msgType();
     }
   }
-}
+};
 </script>
 
-<style>
+<style scoped>
+.container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 </style>

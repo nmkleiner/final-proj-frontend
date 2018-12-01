@@ -86,8 +86,8 @@
     </div>
 
     <div class="card-container">
-      <el-button>discussions</el-button>
-      <!-- <feed-comp></feed-comp> -->
+      
+      <feed-comp></feed-comp>
       <h4>Players attending:
         <br>
         <template v-for="player in players">
