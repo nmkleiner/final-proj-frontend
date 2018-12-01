@@ -3,23 +3,21 @@
     <div class="card-container">
       <h1>{{event.title}}</h1>
 
-      <div class="flex align-center">
-        <div class="card-organizer-image-container flex justify-center align-center">
-          <img class="circle-icon" :src="admin.pic " alt="event admin" :title="admin.name">
-        </div>
-        <h4 class="card-organizer-name capitalize">{{event.adminName}}&nbsp;</h4>
+      <div class="flex wrap align-center">
+        <img class="circle-icon mb-10" :src="admin.pic " alt="event admin" :title="admin.name">
+        <h4 class="card-organizer-name px-10 capitalize">{{event.adminName}}&nbsp;</h4>
         <el-button
           @click="toggleJoin"
           v-if="!isLoggedInUserAdmin"
           class="join-button"
           type="danger"
         >Join the event</el-button>
-
         <template v-if="isLoggedInUserAdmin">
           <el-button @click="goEdit" type="success" round>Edit Event</el-button>
           <el-button type="danger" @click="removeEvent" round>Cancel Event</el-button>
         </template>
       </div>
+
       <transition name="fade">
         <div class="card-item-container" v-if="isJoining">
           <h2 v-if="loggedInUser._id">Play with us as:</h2>

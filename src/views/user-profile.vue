@@ -3,7 +3,7 @@
             <h1 class="align-self-center">{{user.name}}</h1>
             <img class="circle-icon align-self-center" :src="user.pic">
         <div class="main-container flex flex-column ">
-            <h4>{{user.name}}'s' profile details:</h4>
+            <h4>{{user.name}}'s profile details:</h4>
             <p>Bio: {{user.bio}}</p>
             <h3>Level: {{user.level}}</h3>
             <h3>Instruments: 
