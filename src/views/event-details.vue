@@ -22,7 +22,6 @@
         <div class="card-item-container" v-if="isJoining">
           <h2 v-if="loggedInUser._id">Play with us as:</h2>
           <span v-else>Login to participate</span>
-          <h4>welcomed instruments:</h4>
           <div class="instruments-container">
             <div
               class="instrument-item-container"
@@ -35,13 +34,19 @@
             </div>
           </div>
           <!-- <div>{{instrument.amount}}x</div> -->
-          <!-- <el-button @click="joinAs(instrument.instrument)">{{instrument.instrument}}</el-button> -->
+          <!-- <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button> -->
         </div>
       </transition>
       <div class="card-item-container">
         <h4>
-          <span>Genre: {{event.genre}} <i class="fas fa-music"></i></span>
-          <span> Level: {{event.level}} <i class="fas fa-music"></i></span>
+          <span>
+            Genre: {{event.genre}}
+            <i class="fas fa-music"></i>
+          </span>
+          <span>
+            Level: {{event.level}}
+            <i class="fas fa-music"></i>
+          </span>
         </h4>
       </div>
 
@@ -50,12 +55,17 @@
           {{event.freePlayers.length || 0}}/
           {{event.freePlayers.amount}}
         </h4>-->
-
         <p class="card-description">{{event.desc}}</p>
 
         <div class="event-details">
-          <span>{{event.time.day}} {{event.time.hour}} <i class="fas fa-music"></i></span>
-          <span class="capitalize">{{event.location.address}}, {{event.location.city}} <i class="fas fa-music"></i></span>
+          <span>
+            {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}}
+            <i class="fas fa-music"></i>
+          </span>
+          <span class="capitalize">
+            {{event.location.address}}, {{event.location.city}}
+            <i class="fas fa-music"></i>
+          </span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
         </div>
@@ -85,9 +95,13 @@
     <div class="card-container">
       <h4>Event Discussion</h4>
       <feed-comp></feed-comp>
-      <h4>instruments:
-          <span v-for="instrument in event.instruments">{{instrument.instrument}} </span>
-         </h4>
+      <h4>
+        instruments:
+        <span
+          v-for="(instrument,idx) in event.instruments"
+          :key="idx"
+        >{{instrument.instrument}} </span>
+      </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
 
@@ -101,7 +115,7 @@
       </h4>
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
-        <template  v-for="player in freePlayers">
+        <template v-for="player in freePlayers">
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
@@ -109,8 +123,8 @@
       </h4>
       <!-- <h4>Event Photo</h4>
       <img
-        class="event-photo"
-        src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80"
+        class='event-photo'
+        src='https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80'
       >-->
     </div>
   </section>
@@ -120,7 +134,7 @@
 const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
-import feedComp from "@/components/feed-comp.vue"
+import feedComp from "@/components/feed-comp.vue";
 export default {
   data() {
     return {
@@ -160,7 +174,6 @@ export default {
           // TODO:cannot join
         }
       }
-      // console.log(this.event.instruments);
     },
     joinTheEvent(instrument) {
       var joinedEvent = {
@@ -178,10 +191,9 @@ export default {
     },
     removeEvent() {
       const eventId = this.event._id;
-      this.$store.dispatch({type: 'removeEvent', eventId})
-        .then(() => {
-          this.$router.push("/");
-        })
+      this.$store.dispatch({ type: "removeEvent", eventId }).then(() => {
+        this.$router.push("/");
+      });
       // TODO: message event removed
     },
     getCoorFromAddress(location) {
@@ -212,6 +224,9 @@ export default {
   computed: {
     loggedInUser() {
       return this.$store.getters.loggedInUser;
+    },
+    dateToShow() {
+      return this.event.time.day.split('-').reverse().join('/')
     }
   },
   created() {
@@ -251,7 +266,6 @@ export default {
           });
         });
         if (this.event.freePlayers.memberIds.length) {
-
           this.event.freePlayers.memberIds.forEach(playerId => {
             if (!playerId) return;
             this.$store
@@ -268,7 +282,7 @@ export default {
     // its map has not been initialized.
     // Therefore we need to write mapRef.$mapPromise.then(() => ...)
     // this.$refs.mapRef.$mapPromise.then(map => {
-    //   console.log("map promise");
+    //   console.log('map promise');
     //   return map.panTo({ lat: 32.089561, lng: 34.8627918 });
     // });
   },
@@ -280,8 +294,9 @@ export default {
 </script>
 
 <style scoped>
-  .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;

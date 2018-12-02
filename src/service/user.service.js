@@ -1,10 +1,10 @@
-const axios = require("axios");
+const axios = require('axios');
 const BASE_URL =
-  process.env.NODE_ENV !== "development" ? "" : "//localhost:3000";
+  process.env.NODE_ENV !== 'development' ? '' : '//localhost:3000';
 
 var playersDB = [];
 generatePlayers();
-// const API_KEY = "AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c";
+// const API_KEY = 'AIzaSyAy0MEnLAI1gBNxTT2DBtw440qGgNzZb8c';
 export default {
   query,
   getById,
@@ -17,13 +17,12 @@ export default {
 
 function logout() {
   return axios.post(`${BASE_URL}/logout`).then(() => {
-    console.log("removing from session");
-    sessionStorage.removeItem("loggedInUser");
+    sessionStorage.removeItem('loggedInUser');
   });
 }
 
 function getLoggedInUser() {
-  if (!sessionStorage.loggedInUser) return Promise.resolve("");
+  if (!sessionStorage.loggedInUser) return Promise.resolve('');
   return Promise.resolve(JSON.parse(sessionStorage.loggedInUser));
 }
 
@@ -38,7 +37,6 @@ function signupUser(user) {
 
 function login({ userName, password }) {
   return axios.put(`${BASE_URL}/login`, { userName, password }).then(res => {
-    console.log(res.data, "user service login");
     sessionStorage.loggedInUser = JSON.stringify(res.data);
     return res.data;
   });
@@ -47,7 +45,6 @@ function login({ userName, password }) {
 function updateUser(user) {
   const userId = user._id;
   return axios.put(`${BASE_URL}/player/${userId}`, user);
-  // .then(res => console.log('after axios update', res.data))
 }
 
 function query() {
@@ -57,74 +54,74 @@ function query() {
 function generatePlayers() {
   playersDB = [
     {
-      name: "rocki",
-      password: "123",
+      name: 'rocki',
+      password: '123',
       pic: `https://api.adorable.io/avatars/64/rocki.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["guitar"],
-      favGenres: ["rock", "country"],
-      level: "professional"
+      instruments: ['guitar'],
+      favGenres: ['rock', 'country'],
+      level: 'professional'
     },
     {
-      name: "mocki",
-      password: "234",
+      name: 'mocki',
+      password: '234',
       pic: `https://api.adorable.io/avatars/64/mocki.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["drums"],
-      favGenres: ["rock"],
-      level: "amateur"
+      instruments: ['drums'],
+      favGenres: ['rock'],
+      level: 'amateur'
     },
     {
-      name: "bobo",
-      password: "123",
+      name: 'bobo',
+      password: '123',
       pic: `https://api.adorable.io/avatars/64/bobo.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["flute"],
-      favGenres: ["french"],
-      level: "amateur"
+      instruments: ['flute'],
+      favGenres: ['french'],
+      level: 'amateur'
     },
     {
-      name: "robo",
-      password: "123",
+      name: 'robo',
+      password: '123',
       pic: `https://api.adorable.io/avatars/64/robo.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["whistler"],
-      favGenres: ["irish"],
-      level: "professional"
+      instruments: ['whistler'],
+      favGenres: ['irish'],
+      level: 'professional'
     },
     {
-      name: "michael",
-      password: "123",
+      name: 'michael',
+      password: '123',
       pic: `https://api.adorable.io/avatars/64/michael.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["trombone"],
-      favGenres: ["folk"],
-      level: "amateur"
+      instruments: ['trombone'],
+      favGenres: ['folk'],
+      level: 'amateur'
     },
     {
-      name: "pichael",
-      password: "123",
+      name: 'pichael',
+      password: '123',
       pic: `https://api.adorable.io/avatars/64/pichael.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["trumpet"],
-      favGenres: ["jazz"],
-      level: "professional"
+      instruments: ['trumpet'],
+      favGenres: ['jazz'],
+      level: 'professional'
     },
     {
-      name: "leon",
-      password: "123",
+      name: 'leon',
+      password: '123',
       pic: `https://api.adorable.io/avatars/64/leon.png`,
       partEventsIds: [],
       adminEventsIds: [],
-      instruments: ["bass"],
-      favGenres: ["rock"],
-      level: "amateur"
+      instruments: ['bass'],
+      favGenres: ['rock'],
+      level: 'amateur'
     }
   ];
 }

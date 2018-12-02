@@ -1,13 +1,20 @@
 <template>
   <div class="home">
     <header class="flex">
-      <div class="welcome-text">Welcome! here you can find professional & amateur musicians to play your favorite music with.</div>
-      
-        <iframe width="100%" style="height: 100%" src="//www.youtube.com/embed/HspKIEa1qwk?t=30&autoplay=1&controls=0" frameborder="0" allowfullscreen></iframe>
+      <div
+        class="welcome-text"
+      >Welcome! here you can find professional & amateur musicians to play your favorite music with.</div>
+
+      <iframe
+        width="100%"
+        style="height: 100%"
+        src="//www.youtube.com/embed/HspKIEa1qwk?t=30&autoplay=1&controls=0"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
     </header>
 
     <div v-if="loggedInUser" class="carousels-container loggedIn">
-      
       <template v-for="genre in loggedInUser.favGenres">
         <section class="carousel-section favourite-genre" :key="genre">
           <h2 class="capitalize">Especially for you, {{genre}} music events:</h2>
@@ -16,7 +23,7 @@
           <hr>
         </section>
       </template>
-      
+
       <template v-for="instrument in loggedInUser.instruments">
         <section class="carousel-section favourite-genre" :key="instrument">
           <h2 class="capitalize">Especially for you, events that need a {{instrument}} player:</h2>
@@ -105,20 +112,6 @@ export default {
     events() {
       return this.$store.getters.events;
     },
-    popularEvents() {
-      return this.$store.getters.popularEvents;
-    },
-    rockEvents() {
-      return this.$store.getters.rockEvents;
-    },
-    guitarEvents() {
-      return this.$store.getters.guitarEvents;
-    },
-    rockEventsToShow() {
-      if (this.rockEvents.length > 6) {
-        return this.rockEvents.slice(0, 6);
-      }
-    },
     guitarEventsToShow() {
       if (this.guitarEvents.length > 6) {
         return this.guitarEvents.slice(0, 6);
@@ -132,8 +125,7 @@ export default {
     }
   },
   created() {
-    document.body.scrollIntoView()
-    // this.$store.dispatch({type: 'loadRockEvents'})
+    document.body.scrollIntoView();
     this.$store.dispatch({ type: "loadEvents" });
   }
 };

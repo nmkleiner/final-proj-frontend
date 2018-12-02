@@ -1,96 +1,109 @@
 <template>
-  <section >
+  <section>
     <form class="edit-event-wrapper flex space-between">
+      <div class="edit-event-container">
+        <div class="edit-event-user-container">
+          <h4>{{loggedInUser.name}}</h4>
+          <div class="edit-event-user-image-container">
+            <img class="edit-event-image" :src="loggedInUser.pic" alt="event admin">
+          </div>
+        </div>
+        <h4>Event Title</h4>
+        <el-input type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>
+        <h4>select genre</h4>
+        <el-select v-model="event.genre" placeholder="select genre">
+          <el-option value="rock">Rock</el-option>
+          <el-option value="country">Country</el-option>
+          <el-option value="jazz">Jazz</el-option>
+          <el-option value="world">World</el-option>
+          <el-option value="reggae">Reggae</el-option>
+          <el-option value="freestyle">Freestyle</el-option>
+          <el-option value="personal">Personal Material</el-option>
+          <el-option value="other">Other</el-option>
+        </el-select>
+        <h4>select level</h4>
+        <el-select v-model="event.level" placeholder="level">
+          <el-option value="pro">Professional</el-option>
+          <el-option value="amateur">Amateur</el-option>
+        </el-select>
+        <h4>Event Description</h4>
+        <textarea v-model="event.desc" placeholder="Event Description"/>
+        <h4>Choose instruments</h4>
+        <instrument-list @add-instrument="addInstrument"></instrument-list>
+        <div class="add-instruments-container">
+          <div class="add-instrument">
+            <i class="fas fa-plus"></i>
+          </div>
+        </div>
+        <h4>Freeplayers allowed</h4>
+        <el-input
+          type="number"
+          min="0"
+          v-model="event.freePlayers.amount"
+          placeholder="Number of free players"
+          title="free players can bring any instrument they want or just listen."
+        ></el-input>
+      </div>
 
-    <div class="edit-event-container">
-      <div class="edit-event-user-container">
-        <h4>{{loggedInUser.name}}</h4>
-        <div class="edit-event-user-image-container">
-          <img class="edit-event-image" :src="loggedInUser.pic" alt="event admin">
+      <div class="edit-event-container">
+        <el-input type="date" v-model="event.time.day"></el-input>
+        <div>
+          <time-picker v-model="event.time.hour"></time-picker>
         </div>
-      </div>
-      <h4>Event Title</h4>
-      <input type="text" id="title" v-model="event.title" placeholder="Event Title">
-      <h4>select genre</h4>
-      <select v-model="event.genre"> 
-        <option value="rock">Rock</option>
-        <option value="country">Country</option>
-        <option value="jazz">Jazz</option>
-        <option value="world">World</option>
-        <option value="personal">Personal Stuff</option>
-        <option value="freestyle">Freestyle</option>
-        <option value="other">Other</option>
-      </select>
-      <h4>professional level</h4>
-      <select v-model="event.level">
-        <option value="pro">Professional</option>
-        <option value="fun">Fun</option>
-      </select>
-      <h4>Event Description</h4>
-      <textarea v-model="event.desc" placeholder="Event Description"/>
-      <instrument-list @add-instrument="addInstrument"></instrument-list>
-      <div class="add-instruments-container">
-        <div class="add-instrument">
-          <i class="fas fa-plus"></i>
+        <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
+        <div class="img-n-address-container">
+          <div class="img-container">
+            <img src alt>
+            <button>Upload image</button>
+          </div>
+          <div class="address-container">
+            <el-input v-model="event.location.city" placeholder="city"></el-input>
+            <el-input v-model="event.location.address" placeholder="street & number"></el-input>
+          </div>
         </div>
+        <el-button type="success" v-if="!isUpdateEvent" @click="saveNewEvent">Save Event</el-button>
+        <el-button type="success" v-else @click="updateEvent">Update Event</el-button>
+        <!-- <el-button @click="deleteEvent">Delete Event</el-button> -->
+        <router-link to="/"><el-button type="danger">Cancel</el-button></router-link>
+        {{event}}
       </div>
-    </div>
-
-    <div class="edit-event-container">
-      <input type="date" v-model="event.time.day">
-      <div>
-        <time-picker v-model="event.time.hour"></time-picker>
-      </div>
-      <input type="number" v-model="event.cost">
-      <div class="img-n-address-container">
-        <div class="img-container">
-          <img src alt>
-          <button>Upload image</button>
-        </div>
-        <div class="address-container">
-          <el-input v-model="event.location.city" placeholder="city"></el-input>
-          <el-input v-model="event.location.address" placeholder="street & number"></el-input>
-        </div>
-      </div>
-      <el-button v-if="!isUpdateEvent" @click="saveNewEvent">Save Event</el-button>
-      <el-button v-else @click="updateEvent">Update Event</el-button>
-      <el-button @click="deleteEvent">Delete Event</el-button>
-      <router-link to="/">Cancel</router-link>
-      <!-- {{event}} -->
-    </div>
-
     </form>
   </section>
 </template>
 
 <script>
-import instrumentList from '@/components/instrument-list.vue';
-import timePicker from '@/components/time-picker.vue';
+import instrumentList from "@/components/instrument-list.vue";
+import timePicker from "@/components/time-picker.vue";
 
 export default {
-  name: 'edit-event',
+  name: "edit-event",
   data() {
     return {
       event: {
+        adminId: "",
+        location: { address: "", city: "" },
         time: {
+          day: "",
           hour: {
-            hour: 1,
-          minute: 0,
-          format: 'AM',
-          },
-          day: ''
+            hours: "0",
+            minutes: "00",
+            ampm: "AM"
+          }
         },
-        adminId: '',
-        title: '',
-        desc: '',
-        genre: '',
-        level: '',
-        pic: '',
+        title: "",
+        desc: "",
+        genre: "",
+        level: "",
+        pic: "",
         instruments: [],
-        cost: 0,
-        location: { address: '', city: '' },
-        time: { day: '', hour: this.timePicked }
-      },
+        freePlayers: {
+          amount: 0,
+          memberIds: []
+        },
+        allowedMembersCount: 0,
+        joinedMembersCount: 0,
+        cost: 0
+      }
     };
   },
   components: {
@@ -99,51 +112,64 @@ export default {
   },
   computed: {
     loggedInUser() {
-      return this.$store.getters.loggedInUser
+      return this.$store.getters.loggedInUser;
     },
     isLoggedInUser() {
-        return this.$store.getters.isLoggedInUser
+      return this.$store.getters.isLoggedInUser;
     },
     isUpdateEvent() {
-      return !!this.$route.params.eventId
+      return !!this.$route.params.eventId;
     }
-    
   },
   methods: {
     deleteEvent() {
-      // console.log('Deleteing Event');
       // this.$store.dispatch({type: 'removeEvent', event: this.event})
     },
+    fillEventObject() {
+      let allowedMembersCount = this.event.instruments.reduce((acc,inst) => {
+        acc += +inst.amount
+        return acc  
+      },0)
+      allowedMembersCount += +this.event.freePlayers.amount
+      this.event.allowedMembersCount = allowedMembersCount
+    },
+
     saveNewEvent() {
-      this.$store.dispatch({type: 'saveNewEvent', event: this.event})//does not return id yet
-        .then((eventId) => {
-          this.$store.dispatch({type: 'updateUserAdminEvents', eventId})
-          this.$router.push(`/`)
-        })
+      //fill event object
+      this.fillEventObject()
+      this.$store
+        .dispatch({ type: "saveNewEvent", event: this.event }) //does not return id yet
+        .then(eventId => {
+          this.$store.dispatch({ type: "updateUserAdminEvents", eventId });
+          this.$router.push(`/`);
+        });
     },
     updateEvent() {
-      this.$store.dispatch({ type: 'updateEvent', event: this.event })
-        .then((eventId) => {
-          this.$router.push(`/`)
-        })
+      this.$store
+        .dispatch({ type: "updateEvent", event: this.event })
+        .then(eventId => {
+          this.$router.push(`/`);
+        });
     },
     addInstrument(instrument) {
-      const instObj = {instrument , amount: 1, playerIds: []}
-      this.event.instruments.push(instObj)
+      const existObj = this.event.instruments.find(inst => inst.instrument === instrument)
+      const instObj = { instrument, amount: 1, playerIds: [] };
+      
+      if (existObj) existObj.amount++
+      else this.event.instruments.push(instObj);
     }
   },
   created() {
-    if (!this.isLoggedInUser) this.$router.push('/')
-    document.body.scrollIntoView()
+    if (!this.isLoggedInUser) this.$router.push("/");
+    document.body.scrollIntoView();
 
-    this.event.adminId = this.loggedInUser._id
-    this.event.adminName = this.loggedInUser.name
+    this.event.adminId = this.loggedInUser._id;
+    this.event.adminName = this.loggedInUser.name;
     const eventId = this.$route.params.eventId;
     if (eventId) {
-    this.$store.dispatch({ type: 'getEventById', eventId })
-        .then(event => {
-            this.event = event;
-        });
+      this.$store.dispatch({ type: "getEventById", eventId }).then(event => {
+        this.event = event;
+      });
     }
   }
 };
