@@ -36,6 +36,7 @@ export default {
 
     loadEvents({ commit }) {
       return eventService.query().then(events => {
+        console.log(events,'module')
         commit({ type: 'setEvents', events });
       });
     },
@@ -68,7 +69,16 @@ export default {
       return eventService.remove(eventId).then(() => {
         bus.$emit(MSG, 'Event canceled.');
       });
-    }
+    },
+    filter({ commit, dispatch }, { filter, sort }) {
+      if (!filter.byGenre && !filter.byInstrument && !filter.byName) {
+          if (!sort) return dispatch('loadEvents')
+          return eventService.query(null, sort)
+      }
+      return eventService.query(filter, sort).then(events => {
+          commit({ type: 'setEvents', events })
+      })
+  }
   },
   getters: {
     events: state => state.events,

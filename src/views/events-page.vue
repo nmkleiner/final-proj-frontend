@@ -1,7 +1,7 @@
 <template>
     <section class='events-page'>
         <h1>{{headline}}</h1>
-        <filter-events></filter-events>
+        <filter-events @filter-set="setFilter"></filter-events>
         <event-list :events='events'></event-list>
     </section>
 </template>
@@ -16,7 +16,6 @@ export default {
         eventList
     },
     props: {
-        events: Array,
         headline: String,
     },
     data() {
@@ -25,16 +24,22 @@ export default {
         }
     },
     methods: {
+    setFilter (filter,sort) {
+      this.$store.dispatch({type: 'filter', filter, sort})
+    }
 
     },
     computed: {
-
+        events() {
+            return this.$store.getters.events
+        }
     },
     watch: {
 
     },
     created() {
         document.body.scrollIntoView()
+        this.$store.dispatch('loadEvents')
 
     }
 }

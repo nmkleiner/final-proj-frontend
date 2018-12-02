@@ -1,25 +1,28 @@
 <template>
   <div class="event-filter d-flex justify-content-center">
-    <el-input prefix-icon="el-icon-search" class="el-input" @input="setFilter" v-model="filter.byName" :placeholder="$t('search')"></el-input>
+    <el-input prefix-icon="el-icon-search" class="el-input" @input="setFilter" v-model="filter.byName" :placeholder="'search'"></el-input>
     
-      <el-select class="el-select" v-model="filter.byType" @change="setFilter" :placeholder="'select'">
+      <el-select class="el-select" v-model="filter.byGenre" @change="setFilter" :placeholder="'genre'">
         <el-option
-          v-for="item in options"
+          v-for="item in genres"
           :key="item.value"
           :label="item.label"
           :value="item.value">
         </el-option>
       </el-select>    
-      <el-radio-group v-model="filter.inStock" @change="setFilter">
-        <el-radio-button label="true">{{$t('inStock')}}</el-radio-button>
-        <el-radio-button label="false">{{$t('notInStock')}}</el-radio-button>
-        <el-radio-button label="all">{{$t('all')}}</el-radio-button>
-      </el-radio-group>
+      <el-select class="el-select" v-model="filter.byInstrument" @change="setFilter" :placeholder="'instrument'">
+        <el-option
+          v-for="item in instruments"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>    
       <el-button-group>
-        <el-button type="primary" class="btn btn-md btn-info" @click="setSorter('price')">{{'sortPrice'}}</el-button>
-        <el-button type="primary" class="btn btn-md btn-info" @click="setSorter('name')">{{'sortName'}}</el-button>
+        <el-button type="primary" class="btn btn-md btn-info" @click="setSorter('time')">{{'Sort by date'}}</el-button>
+        <el-button type="primary" class="btn btn-md btn-info" @click="setSorter('allowedMembersCount')">{{'Sort by participants'}}</el-button>
       </el-button-group>
-    <!-- // <h1>{{$t('about')}}</h1> -->
+    <!-- // <h1>{{'about'}}</h1> -->
   </div>
 </template>
 
@@ -32,19 +35,36 @@ export default {
     return {
       filter: {
         byName: '',
-        inStock: 'all',
-        byType: '',
+        byInstrument: '',
+        byGenre: '',
       },
       sort: {
         sorter: '',
         order: -1
       },
       selected: 'All Categories',
-      options: [
-        { label: 'Educational', value: 'Educational'},
-        { label: 'Adult', value: 'Adult'},
-        { label: 'Funny', value: 'Funny'},
-        { label: 'All Categories', value: 'All Categories'}
+      genres: [
+        { label: 'rock', value: 'rock'},
+        { label: 'jazz', value: 'jazz'},
+        { label: 'reggae', value: 'reggae'},
+        { label: 'country', value: 'country'},
+        { label: 'world', value: 'world'},
+        { label: 'All genres', value: 'All genres'}
+      ],
+      instruments: [
+        { label: 'guitar', value: 'guitar'},
+        { label: 'drums', value: 'drums'},
+        { label: 'bass guitar', value: 'bass guitar'},
+        { label: 'flute', value: 'flute'},
+        { label: 'clarinet', value: 'clarinet'},
+        { label: 'piano', value: 'piano'},
+        { label: 'trumpet', value: 'trumpet'},
+        { label: 'french horn', value: 'french horn'},
+        { label: 'trombone', value: 'trombone'},
+        { label: 'xylophone', value: 'xylophone'},
+        { label: 'violin', value: 'violin'},
+        { label: 'saxophone', value: 'saxophone'},
+        { label: 'All instruments', value: 'All instruments'},
       ]
     }
   },

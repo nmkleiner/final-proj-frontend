@@ -15,7 +15,7 @@ export default {
             instruments: [
               {name: 'guitar', src: '', isSelected: false},
               {name: 'drums', src: '', isSelected: false},
-              {name: 'base guitar', src: '', isSelected: false},
+              {name: 'bass guitar', src: '', isSelected: false},
               {name: 'flute', src: '', isSelected: false},
               {name: 'clarinet', src: '', isSelected: false},
               {name: 'piano', src: '', isSelected: false},

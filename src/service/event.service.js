@@ -11,16 +11,22 @@ export default {
   remove
 };
 
-function query(filter = {}) {
-  // var queryParams  = new URLSearchParams()
-  // if (filter.byGenre) {
-  //   queryParams.append('genre', filter.byGenre)
-  // }
-  return axios.get(`${BASE_URL}/event`).then(res => res.data);
+function query(filter = null, sort = null) {
+  console.log('service')
+  var urlEnd = '/event'
+  if (filter) {
+    urlEnd += `?genre=${filter.byGenre}&instrument=${filter.byInstrument}&name=${filter.byName}`
+  }
+  if (sort) {
+    urlEnd += `&sortBy=${sort.sorter}&order=${sort.order}`
+  }
+  return axios.get(BASE_URL + urlEnd)
+    .then(res => res.data);
 }
 
 function getEventById(eventId) {
-  return axios.get(`${BASE_URL}/event/${eventId}`).then(res => res.data);
+  return axios.get(`${BASE_URL}/event/${eventId}`)
+    .then(res => res.data);
 }
 
 function remove(eventId) {

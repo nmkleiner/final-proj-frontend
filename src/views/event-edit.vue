@@ -132,13 +132,13 @@ export default {
       },0)
       allowedMembersCount += +this.event.freePlayers.amount
       this.event.allowedMembersCount = allowedMembersCount
+      this.event.time.timestamp = new Date(this.event.time.day).getTime() 
     },
 
     saveNewEvent() {
-      //fill event object
       this.fillEventObject()
       this.$store
-        .dispatch({ type: "saveNewEvent", event: this.event }) //does not return id yet
+        .dispatch({ type: "saveNewEvent", event: this.event }) 
         .then(eventId => {
           this.$store.dispatch({ type: "updateUserAdminEvents", eventId });
           this.$router.push(`/`);
