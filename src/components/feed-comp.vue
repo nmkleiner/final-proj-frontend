@@ -95,8 +95,8 @@ export default {
 }
 
 .container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
+  border: 1px solid black;
+  background-color: lightskyblue;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;

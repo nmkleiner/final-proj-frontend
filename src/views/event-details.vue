@@ -149,9 +149,10 @@ export default {
     };
   },
   methods: {
-    updateEventMsgs(event) {
-      console.log("from details", event);
-      this.$store.dispatch({ type: "updateEventMsgs", event });
+    updateEventMsgs(msgs) {
+      console.log("from details", msgs);
+      //send to store first, commit then then update the server
+      // this.$store.dispatch({ type: "updateEventMsgs", event });
     },
     joinAs(instrument = null) {
       if (instrument === null) {
@@ -208,7 +209,7 @@ export default {
           console.log(this.$refs.mapRef);
           var latlng = res.data.results[0].geometry.location;
           this.center = latlng;
-          this.markers.position.push(latlng);
+          // this.markers.position.push(latlng);
           return latlng;
         })
         .then(latlng => {
