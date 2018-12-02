@@ -7,18 +7,9 @@ connectSocket();
 
 function connectSocket() {
     socket = ioClient('http://localhost:3000');
-    // socket.on('chat history', function (historyMsgs) {
-    //     msgs.push(...historyMsgs)
-    // });
-    
-    // socket.on('user joined', function(msg) {
-    //     msgs.push({txt: msg.txt, from: nickname})
-    // });
 
     socket.on('chat newMsg', function (msg) {
-        // JIF
-        // if (nickname === msg.from) msgs[msgs.length - 1].processed = true;
-        // else 
+        console.log('chat new masg', msg);
         msgs.push(msg);
     });
 
@@ -30,7 +21,6 @@ const getMsgs = () => {
 }
 
 const send = (msg) => {
-    msgs.push(msg);
     console.log('chat msg', msg);
     socket.emit('chat msg', msg);
 }
@@ -40,13 +30,14 @@ function createEmptyMsg(nickname = 'jhon doe', txt = '') {
     return { txt, from: nickname };
 }
 
-// function msgType() {
-//     socket.emit('user typing', nickname)
-// }
 
 function roomJoin(roomName) {
     console.log('chat room-joined', roomName)
     socket.emit('chat room-joined', roomName)
+}
+
+function disconnectFromRoom(){
+    socket.emit('disconnect');
 }
 
 export default {
@@ -54,7 +45,8 @@ export default {
     getMsgs,
     send,
     createEmptyMsg,
-    roomJoin
+    roomJoin,
+    disconnectFromRoom
 }
 
 

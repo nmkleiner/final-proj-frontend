@@ -1,7 +1,7 @@
 <template>
   <div class="conversation">
     <div class="conversation-container" ref="conversationRef">
-      <div v-for="(msg, idx) in msgs" :key="idx" class="message" :class="msgClass(msg)">
+      <div v-for="(msg, idx) in currEvent.msgs" :key="idx" class="message">
         <div class="container">
           <p>{{msg.from}}: {{msg.txt}}</p>
         </div>
@@ -27,6 +27,7 @@
 <script>
 import msgService from "@/service/msg.service.js";
 export default {
+  props:['currEvent'],
   data() {
     return {
       msgs: [],
@@ -36,34 +37,40 @@ export default {
     };
   },
   methods: {
-    msgClass(msg) {
-      return msg.from !== this.nickName ? "received" : "sent";
-    },
     send() {
       msgService.send(this.newMsg);
+
+      console.log(this.currEvent.msgs)
+      this.currEvent.msgs.push(this.newMsg)
+      console.log('event after send', this.currEvent)
       this.newMsg = msgService.createEmptyMsg(this.nickName);
+      this.sendUpdatedEvent(this.currEvent);
       this.scrollToEnd()
-    },
-    msgType() {
-      msgService.msgType();
     },
     scrollToEnd(){
       var container = this.$refs.conversationRef;
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
+    },
+    sendUpdatedEvent(event){
+      this.$emit('sendUpdatedEvent', event)
     }
   },
   created() {
-    const room = this.$route.params.eventId;
+    // this.msgs = this.currEvent.msgs;
+    console.log('event', this.currEvent)
+    const room = this.currEvent._id;
     msgService.roomJoin(room);
     this.nickName = this.$store.getters.loggedInUser.name;
-    console.log('nickname:', this.nickName)
     this.newMsg = msgService.createEmptyMsg(this.nickName);
-    this.msgs = msgService.getMsgs();
   },
   mounted(){
     this.scrollToEnd();
   },
+  destroyed(){
+    // this.feedCurrEvent = null;
+    // console.log('after des', this.currEvent)
+  }
 };
 </script>
 

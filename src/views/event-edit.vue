@@ -102,7 +102,8 @@ export default {
         },
         allowedMembersCount: 0,
         joinedMembersCount: 0,
-        cost: 0
+        cost: 0,
+        msgs:[]
       }
     };
   },
