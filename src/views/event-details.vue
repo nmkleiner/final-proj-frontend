@@ -250,7 +250,9 @@ export default {
               });
           });
         });
-        this.event.freePlayers.memberIds.forEach(playerId => {
+        if (this.event.freePlayers.memberIds.length) {
+
+          this.event.freePlayers.memberIds.forEach(playerId => {
             if (!playerId) return;
             this.$store
               .dispatch({ type: "getUserById", userId: playerId })
@@ -258,6 +260,7 @@ export default {
                 this.freePlayers.push(player);
               });
           });
+        }
       });
   },
   mounted() {
