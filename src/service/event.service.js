@@ -12,10 +12,11 @@ export default {
 };
 
 function query(filter = null, sort = null) {
-  console.log('service')
   var urlEnd = '/event'
+  console.log(filter,'filter')
   if (filter) {
-    urlEnd += `?genre=${filter.byGenre}&instrument=${filter.byInstrument}&name=${filter.byName}`
+    urlEnd += `?genre=${filter.byGenre}&instrument=${filter.byInstrument}
+                &name=${filter.byName}&status=${filter.byStatus}`
   }
   if (sort) {
     urlEnd += `&sortBy=${sort.sorter}&order=${sort.order}`

@@ -59,7 +59,7 @@ export default {
       if (ratio < 0.4)
         return { txt: "Waiting for players", color: "lightgreen" };
       else if (ratio < 0.8) return { txt: "Kinda full", color: "white" };
-      else if (ratio < 1) return { txt: "Almost full", color: "yellow" };
+      else if (ratio < 1) return { txt: "Almost full", color: "white" };
       return { txt: "Event full", color: "red" };
     },
     playersToShow() {

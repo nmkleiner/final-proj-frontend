@@ -22,13 +22,22 @@ export default {
           return item.instrument === joinedEvent.instrument;
         })
         .playerIds.push(joinedEvent.currUser._id);
-      state.currEvent.joinedMembersCount++
+        state.currEvent.joinedMembersCount++
+    },
+    setEventStatus(state) {
+        const ratio =
+          state.currEvent.joinedMembersCount / +state.currEvent.allowedMembersCount;
+        if (ratio < 0.4) state.currEvent.status = "Waiting for players";
+        else if (ratio < 0.8) state.currEvent.status = "Kinda full";
+        else if (ratio < 1) state.currEvent.status = "Almost full";
+        else state.currEvent.status = "Event full";
     }
   },
   actions: {
     joinEvent({ commit, getters, state }, { joinedEvent }) {
       joinedEvent.currUser = getters.loggedInUser;
       commit({ type: 'setUpdateEvent', joinedEvent });
+      commit({ type: 'setEventStatus', joinedEvent });
       eventService.saveEvent(state.currEvent).then(() => {
         bus.$emit(MSG, 'Joined event.');
       });
@@ -36,7 +45,6 @@ export default {
 
     loadEvents({ commit }) {
       return eventService.query().then(events => {
-        console.log(events,'module')
         commit({ type: 'setEvents', events });
       });
     },
@@ -75,7 +83,7 @@ export default {
       });
     },
     filter({ commit, dispatch }, { filter, sort }) {
-      if (!filter.byGenre && !filter.byInstrument && !filter.byName) {
+      if (!filter.byGenre && !filter.byInstrument && !filter.byName && !filter.byStatus) {
           if (!sort) return dispatch('loadEvents')
           return eventService.query(null, sort)
       }
