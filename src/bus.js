@@ -1,5 +1,5 @@
-export const MSG = "show-user-msg";
-import Vue from "vue";
+export const MSG = 'show-user-msg';
+import Vue from 'vue';
 
 // export const EMAIL_WAS_READ = 'x';
 // export const USER_LOGGEDIN = 'y';

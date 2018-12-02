@@ -21,9 +21,9 @@
       
       <span class="capitalize">{{event.genre}} music
         <i class="fas fa-music"></i> {{event.level}} 
-        <i class="fas fa-music"></i> <span :style="{color: status.color}"> {{status.txt}}</span>
       </span>
-      <span class="capitalize">{{event.location.city}} <i class="fas fa-music"></i> {{event.time.day}}</span>
+      <i class="fas fa-music"></i> <span :style="{color: status.color}"> {{status.txt}}</span>
+      <span class="capitalize">{{event.location.city}} <i class="fas fa-music"></i> {{dateToShow}}</span>
       
     </div>
   </section>
@@ -64,6 +64,11 @@ export default {
     },
     playersToShow() {
       return this.players.slice(0, 4);
+    },
+    dateToShow() {
+      var date = this.event.time.day.split('-').reverse()
+      date.splice(2,1)
+      return date.join('/')
     }
   }
 };

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import eventEdit from './views/event-edit.vue'
 import eventDetails from './views/event-details.vue'
+import eventsPage from './views/events-page.vue'
 import signUp from './views/sign-up.vue'
 import loginPage from './views/login-page.vue'
 import userProfile from './views/user-profile.vue'
@@ -17,6 +18,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/event',
+      name: 'events-page',
+      component: eventsPage
     },
     {
       path: '/event/edit',

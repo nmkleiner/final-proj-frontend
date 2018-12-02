@@ -22,7 +22,6 @@
         <div class="card-item-container" v-if="isJoining">
           <h2 v-if="loggedInUser._id">Play with us as:</h2>
           <span v-else>Login to participate</span>
-          <h4>welcomed instruments:</h4>
           <div class="instruments-container">
             <div
               class="instrument-item-container"
@@ -35,7 +34,7 @@
             </div>
           </div>
           <!-- <div>{{instrument.amount}}x</div> -->
-          <!-- <el-button @click="joinAs(instrument.instrument)">{{instrument.instrument}}</el-button> -->
+          <!-- <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button> -->
         </div>
       </transition>
       <div class="card-item-container">
@@ -60,7 +59,7 @@
 
         <div class="event-details">
           <span>
-            {{event.time.day}} {{event.time.hour}}
+            {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}}
             <i class="fas fa-music"></i>
           </span>
           <span class="capitalize">
@@ -95,10 +94,13 @@
 
     <div class="card-container">
       <h4>Event Discussion</h4>
-      <feed-comp v-if="event" :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
+      <feed-comp></feed-comp>
       <h4>
         instruments:
-        <span v-for="instrument in event.instruments">{{instrument.instrument}}</span>
+        <span
+          v-for="(instrument,idx) in event.instruments"
+          :key="idx"
+        >{{instrument.instrument}} </span>
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
@@ -121,8 +123,8 @@
       </h4>
       <!-- <h4>Event Photo</h4>
       <img
-        class="event-photo"
-        src="https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80"
+        class='event-photo'
+        src='https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80'
       >-->
     </div>
   </section>
@@ -176,7 +178,6 @@ export default {
           // TODO:cannot join
         }
       }
-      // console.log(this.event.instruments);
     },
     joinTheEvent(instrument) {
       var joinedEvent = {
@@ -227,6 +228,9 @@ export default {
   computed: {
     loggedInUser() {
       return this.$store.getters.loggedInUser;
+    },
+    dateToShow() {
+      return this.event.time.day.split('-').reverse().join('/')
     }
   },
   created() {
@@ -283,7 +287,7 @@ export default {
     // its map has not been initialized.
     // Therefore we need to write mapRef.$mapPromise.then(() => ...)
     // this.$refs.mapRef.$mapPromise.then(map => {
-    //   console.log("map promise");
+    //   console.log('map promise');
     //   return map.panTo({ lat: 32.089561, lng: 34.8627918 });
     // });
   },

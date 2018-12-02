@@ -1,7 +1,7 @@
-const axios = require("axios");
+const axios = require('axios');
 
 const BASE_URL =
-  process.env.NODE_ENV !== "development" ? "" : "//localhost:3000";
+  process.env.NODE_ENV !== 'development' ? '' : '//localhost:3000';
 var eventsDB = [];
 export default {
   query,
@@ -14,7 +14,7 @@ export default {
 function query(filter = {}) {
   // var queryParams  = new URLSearchParams()
   // if (filter.byGenre) {
-  //   queryParams.append("genre", filter.byGenre)
+  //   queryParams.append('genre', filter.byGenre)
   // }
   return axios.get(`${BASE_URL}/event`).then(res => res.data);
 }
