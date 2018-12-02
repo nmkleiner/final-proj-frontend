@@ -1,29 +1,14 @@
 import ioClient from 'socket.io-client'
 
-var socket = null;
 const msgs = [];
+const socket = ioClient('http://localhost:3000');
 
-connectSocket();
 
-function connectSocket() {
-    socket = ioClient('http://localhost:3000');
-
-    socket.on('chat newMsg', function (msg) {
-        console.log('chat new masg', msg);
-        msgs.push(msg);
-    });
-
-   
-}
 
 const getMsgs = () => {
     return msgs;
 }
 
-const send = (msg) => {
-    console.log('chat msg', msg);
-    socket.emit('chat msg', msg);
-}
 
 function createEmptyMsg(nickname = 'jhon doe', txt = '') {
     console.log('createEmptyMsg: ', nickname )
@@ -43,7 +28,6 @@ function disconnectFromRoom(){
 export default {
     // msgType,
     getMsgs,
-    send,
     createEmptyMsg,
     roomJoin,
     disconnectFromRoom

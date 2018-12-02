@@ -8,8 +8,16 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
-
-
+import VueSocketIO from 'vue-socket.io'
+Vue.use(new VueSocketIO({
+    debug: true,
+    connection: 'http://localhost:3000',
+    vuex: {
+        store,
+        actionPrefix: 'SOCKET_',
+        mutationPrefix: 'SOCKET_'
+    }
+}))
 
 Vue.use(VueGoogleMaps, {
   load: {

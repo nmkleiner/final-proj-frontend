@@ -94,7 +94,7 @@
 
     <div class="card-container">
       <h4>Event Discussion</h4>
-      <feed-comp :currEvent="event"></feed-comp>
+      <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
       <h4>
         instruments:
         <span

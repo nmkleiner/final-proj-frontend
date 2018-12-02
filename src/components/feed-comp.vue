@@ -1,14 +1,13 @@
 <template>
   <div class="conversation">
     <div class="conversation-container" ref="conversationRef">
-      <div v-for="(msg, idx) in currEvent.msgs" :key="idx" class="message">
+      <div v-for="(msg, idx) in msgs" :key="idx" class="message">
         <div class="container">
           <p>{{msg.from}}: {{msg.txt}}</p>
         </div>
-        
       </div>
     </div>
-    
+
     <form class="conversation-compose">
       <input
         v-model="newMsg.txt"
@@ -25,49 +24,58 @@
 </template>
 
 <script>
+import ioClient from "socket.io-client";
 import msgService from "@/service/msg.service.js";
 export default {
-  props:['currEvent'],
+  props: ["currEvent"],
   data() {
     return {
       msgs: [],
       nickName: null,
       newMsg: null,
-      typeMsg: ""
+      typeMsg: "",
+      socket: ioClient("http://localhost:3000")
     };
   },
   methods: {
     send() {
-      msgService.send(this.newMsg);
+      this.$socket.emit("assignMsg", {
+        msg: this.newMsg,
+        room: this.currEvent._id
+      });
 
-      console.log(this.currEvent.msgs)
-      this.currEvent.msgs.push(this.newMsg)
-      console.log('event after send', this.currEvent)
+      // this.currEvent.msgs.push(this.newMsPukig);
+      this.saveChatHistory(this.msgs);
       this.newMsg = msgService.createEmptyMsg(this.nickName);
-      this.sendUpdatedEvent(this.currEvent);
-      this.scrollToEnd()
+      this.scrollToEnd();
     },
-    scrollToEnd(){
+    scrollToEnd() {
       var container = this.$refs.conversationRef;
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
     },
-    sendUpdatedEvent(event){
-      this.$emit('sendUpdatedEvent', event)
+    saveChatHistory(msgs) {
+      this.$emit("sendUpdatedEvent", msgs);
     }
   },
   created() {
-    // this.msgs = this.currEvent.msgs;
-    console.log('event', this.currEvent)
-    const room = this.currEvent._id;
-    msgService.roomJoin(room);
+    this.msgs = this.currEvent.msgs;
     this.nickName = this.$store.getters.loggedInUser.name;
     this.newMsg = msgService.createEmptyMsg(this.nickName);
+
+    const room = this.currEvent._id;
+    this.$socket.emit("chatJoined", room);
   },
-  mounted(){
+  sockets: {
+    renderMsg(msg) {
+      console.log({ msg });
+      this.msgs.push(msg)
+    }
+  },
+  mounted() {
     this.scrollToEnd();
   },
-  destroyed(){
+  destroyed() {
     // this.feedCurrEvent = null;
     // console.log('after des', this.currEvent)
   }
@@ -75,31 +83,28 @@ export default {
 </script>
 
 <style scoped>
-
-.conversation{
+.conversation {
   border: 3px solid black;
   border-radius: 6px;
   padding: 10px;
 }
 
-.conversation-container{
+.conversation-container {
   height: 300px;
   overflow: auto;
 }
 
 .container {
-    border: 2px solid #dedede;
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
 }
-
 
 .container::after {
-    content: "";
-    clear: both;
-    display: table;
+  content: "";
+  clear: both;
+  display: table;
 }
-
 </style>
