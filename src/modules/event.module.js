@@ -63,6 +63,10 @@ export default {
         bus.$emit(MSG, "Event updated.");
       });
     },
+    updateEventMsgs({ commit }, { event }) {
+      return eventService.saveEvent(event).then(() => {
+      });
+    },
     removeEvent({ commit }, { eventId }) {
       return eventService.remove(eventId).then(() => {
         bus.$emit(MSG, "Event canceled.");

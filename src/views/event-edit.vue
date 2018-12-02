@@ -89,7 +89,8 @@ export default {
         instruments: [],
         cost: 0,
         location: { address: '', city: '' },
-        time: { day: '', hour: this.timePicked }
+        time: { day: '', hour: this.timePicked },
+        msgs:[]
       },
     };
   },

@@ -40,8 +40,14 @@
       </transition>
       <div class="card-item-container">
         <h4>
-          <span>Genre: {{event.genre}} <i class="fas fa-music"></i></span>
-          <span> Level: {{event.level}} <i class="fas fa-music"></i></span>
+          <span>
+            Genre: {{event.genre}}
+            <i class="fas fa-music"></i>
+          </span>
+          <span>
+            Level: {{event.level}}
+            <i class="fas fa-music"></i>
+          </span>
         </h4>
       </div>
 
@@ -50,12 +56,17 @@
           {{event.freePlayers.length || 0}}/
           {{event.freePlayers.amount}}
         </h4>-->
-
         <p class="card-description">{{event.desc}}</p>
 
         <div class="event-details">
-          <span>{{event.time.day}} {{event.time.hour}} <i class="fas fa-music"></i></span>
-          <span class="capitalize">{{event.location.address}}, {{event.location.city}} <i class="fas fa-music"></i></span>
+          <span>
+            {{event.time.day}} {{event.time.hour}}
+            <i class="fas fa-music"></i>
+          </span>
+          <span class="capitalize">
+            {{event.location.address}}, {{event.location.city}}
+            <i class="fas fa-music"></i>
+          </span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
         </div>
@@ -84,10 +95,11 @@
 
     <div class="card-container">
       <h4>Event Discussion</h4>
-      <feed-comp></feed-comp>
-      <h4>instruments:
-          <span v-for="instrument in event.instruments">{{instrument.instrument}} </span>
-         </h4>
+      <feed-comp v-if="event" :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
+      <h4>
+        instruments:
+        <span v-for="instrument in event.instruments">{{instrument.instrument}}</span>
+      </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
 
@@ -101,7 +113,7 @@
       </h4>
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
-        <template  v-for="player in freePlayers">
+        <template v-for="player in freePlayers">
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
@@ -120,11 +132,11 @@
 const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
-import feedComp from "@/components/feed-comp.vue"
+import feedComp from "@/components/feed-comp.vue";
 export default {
   data() {
     return {
-      event: this.$store.getters.currEvent,
+      event: null,
       players: [],
       freePlayers: [], //get from userService
       admin: {},
@@ -140,6 +152,10 @@ export default {
     };
   },
   methods: {
+    updateEventMsgs(event) {
+      console.log("from details", event);
+      this.$store.dispatch({ type: "updateEventMsgs", event });
+    },
     joinAs(instrument = null) {
       if (instrument === null) {
         if (
@@ -178,10 +194,9 @@ export default {
     },
     removeEvent() {
       const eventId = this.event._id;
-      this.$store.dispatch({type: 'removeEvent', eventId})
-        .then(() => {
-          this.$router.push("/");
-        })
+      this.$store.dispatch({ type: "removeEvent", eventId }).then(() => {
+        this.$router.push("/");
+      });
       // TODO: message event removed
     },
     getCoorFromAddress(location) {
@@ -220,6 +235,7 @@ export default {
     this.$store
       .dispatch({ type: "getEventById", eventId })
       .then(event => {
+        this.event = event;
         this.getCoorFromAddress(event.location);
         return (this.event = event);
       })
@@ -251,7 +267,6 @@ export default {
           });
         });
         if (this.event.freePlayers.memberIds.length) {
-
           this.event.freePlayers.memberIds.forEach(playerId => {
             if (!playerId) return;
             this.$store
@@ -280,8 +295,9 @@ export default {
 </script>
 
 <style scoped>
-  .fade-enter-active, .fade-leave-active {
-  transition: opacity .3s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
