@@ -59,7 +59,7 @@
 
         <div class="event-details">
           <span>
-            {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}}
+            <!-- {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}} -->
             <i class="fas fa-music"></i>
           </span>
           <span class="capitalize">
@@ -94,7 +94,7 @@
 
     <div class="card-container">
       <h4>Event Discussion</h4>
-      <feed-comp></feed-comp>
+      <feed-comp :currEvent="event"></feed-comp>
       <h4>
         instruments:
         <span
@@ -121,11 +121,6 @@
           </router-link>
         </template>
       </h4>
-      <!-- <h4>Event Photo</h4>
-      <img
-        class='event-photo'
-        src='https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=beb0f979ed2a7da134fb95a2ae6290c3&auto=format&fit=crop&w=1500&q=80'
-      >-->
     </div>
   </section>
 </template>
