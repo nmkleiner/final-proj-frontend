@@ -15,7 +15,10 @@ export default {
   components: {
     navBar,
     msgMsg
-  }
+  },
+  created() {
+    this.$store.dispatch('getLoggedInUser')    
+  },
 }
 </script>
 

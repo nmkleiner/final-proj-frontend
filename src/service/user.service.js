@@ -10,8 +10,22 @@ export default {
   getById,
   signupUser,
   updateUser,
-  login
+  login,
+  logout,
+  getLoggedInUser
 };
+
+function logout() {
+  return axios.post(`${BASE_URL}/logout`).then(() => {
+    console.log("removing from session");
+    sessionStorage.removeItem("loggedInUser");
+  });
+}
+
+function getLoggedInUser() {
+  if (!sessionStorage.loggedInUser) return Promise.resolve("");
+  return Promise.resolve(JSON.parse(sessionStorage.loggedInUser));
+}
 
 function getById(id) {
   axios.get(`${BASE_URL}/player/${id}`);
@@ -23,9 +37,11 @@ function signupUser(user) {
 }
 
 function login({ userName, password }) {
-  return axios
-    .put(`${BASE_URL}/login`, { userName, password })
-    .then(res => res.data);
+  return axios.put(`${BASE_URL}/login`, { userName, password }).then(res => {
+    console.log(res.data, "user service login");
+    sessionStorage.loggedInUser = JSON.stringify(res.data);
+    return res.data;
+  });
 }
 
 function updateUser(user) {

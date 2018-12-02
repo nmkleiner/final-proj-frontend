@@ -58,6 +58,7 @@ export default {
       });
     },
     logout({ commit }) {
+      userService.logout();
       commit("logOutUser");
       return Promise.resolve();
     },
@@ -70,13 +71,18 @@ export default {
       commit({ type: "setUserAdminEvent", eventId });
       userService.updateUser(state.loggedInUser);
     },
-
     getUserById({ commit }, { userId }) {
       return userService.getById(userId);
+    },
+    getLoggedInUser({ commit }) {
+      userService.getLoggedInUser().then(loggedInUser => {
+        console.log(loggedInUser, "getting loggedinuser");
+        commit({ type: "setLoggedInUser", user: loggedInUser });
+      });
     }
   },
   getters: {
-    isLoggedInUser: state => !!state.loggedInUser.name,
+    isLoggedInUser: state => !!state.loggedInUser,
     loggedInUser: state => state.loggedInUser
   }
 };
