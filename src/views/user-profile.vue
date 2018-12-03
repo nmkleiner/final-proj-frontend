@@ -21,7 +21,9 @@
             <i v-for="event in userAdminEvents" :key="event._id">
                 <router-link :to="'/event/' + event._id">
                 {{event.title}} 
-                {{event.time.day}} {{event.time.hour}}<br><br>
+                {{event.time.day}} 
+                {{event.time.hour.hours}}:{{event.time.hour.minutes}}
+                <br><br>
                 </router-link>
             </i>
             

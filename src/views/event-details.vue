@@ -135,7 +135,7 @@ export default {
     return {
       event: null,
       players: [],
-      freePlayers: [], //get from userService
+      freePlayers: [],
       admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,

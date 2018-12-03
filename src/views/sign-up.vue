@@ -26,6 +26,12 @@
         <label for="bass">Bass</label>
         <input type="checkbox" id="drums" value="Drums" v-model="newUser.instruments">
         <label for="drums">Drums</label>
+        <input type="checkbox" id="flute" value="Flute" v-model="newUser.instruments">
+        <label for="flute">Flute</label>
+        <input type="checkbox" id="saxophone" value="Saxophone" v-model="newUser.instruments">
+        <label for="saxophone">Saxophone</label>
+        <input type="checkbox" id="trumpet" value="Trumpet" v-model="newUser.instruments">
+        <label for="trumpet">Trumpet</label>
       </div>
       <div class="signup-musicPrefs">
         <h4>favorite music:</h4>

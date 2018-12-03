@@ -53,7 +53,8 @@ export default {
       });
     },
     signUpUser({ commit }, { newUser }) {
-      userService.signupUser(newUser).then(() => {
+      userService.signupUser(newUser).then((user) => {
+        // commit({ type: 'setLoggedInUser', user}); TODO: get back user with _id from mongo
         commit({ type: 'setLoggedInUser', user: newUser });
       });
     },
