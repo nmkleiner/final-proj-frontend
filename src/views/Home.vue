@@ -3,7 +3,7 @@
     <div class="header-wrapper">
       <header class="flex">
         <div class="welcome-text">
-          <h2>Welcome to MUSICGROOPS</h2>
+          <h2>Welcome to <br><span><i class="fas fa-drum"></i>MUSIGROUPS</span></h2>
           <h5 class="pl-10">Here you can find professional & amateur musicians to play your favorite music with.</h5>
         </div>
 

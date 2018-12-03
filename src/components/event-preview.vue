@@ -6,6 +6,7 @@
         <img class="main-img" :src="event.pic" alt="event image">
       </div>
     </router-link>
+    <!-- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur, architecto placeat consequuntur ipsum et officia quibusdam facere perferendis animi asperiores quae atque explicabo dolores assumenda est nisi aspernatur quo ullam. -->
 
     <div class="details flex flex-column space-between">
       <div class="icons-wrapper flex">
