@@ -9,7 +9,10 @@
     <!-- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur, architecto placeat consequuntur ipsum et officia quibusdam facere perferendis animi asperiores quae atque explicabo dolores assumenda est nisi aspernatur quo ullam. -->
 
     <div class="details flex flex-column space-between">
-      <div class="icons-wrapper flex">
+      
+      <players-instruments :event="event" :admin="admin" :players="playersToShow"></players-instruments>
+
+      <!-- <div class="icons-wrapper flex">
           <router-link v-if="admin" :to="'/user/' + event.adminId">
             <img class="circle-icon" :title="admin.name" :src="admin.pic">
           </router-link>
@@ -18,15 +21,19 @@
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
         </template>
-      </div>
+      </div> -->
 
-      <span class="bold">{{event.title}}</span>
-      
+
+
+      <h6 class="bold">{{event.title}}</h6>
       <span class="capitalize">{{event.genre}} music
-        <i class="fas fa-music"></i> {{event.level}} 
+        level: {{event.level}} 
       </span>
-      <i class="fas fa-music"></i> <span :style="{color: status.color}"> {{status.txt}}</span>
-      <span class="capitalize">{{event.location.city}} <i class="fas fa-music"></i> {{dateToShow}}</span>
+      <span class="capitalize">At: {{event.location.city}} Date:{{dateToShow}}</span>
+      
+      <span :style="{color: status.color}"> 
+        {{status.txt}} {{event.joinedMembersCount}}/{{event.allowedMembersCount}}
+      </span>
       
     </div>
   </section>
@@ -34,14 +41,18 @@
 
 <script>
 import userService from "@/service/user.service.js";
+import playersInstruments from '@/components/players-instruments.vue'
 export default {
+  components: {
+    playersInstruments
+  },
   props: {
     event: Object
   },
   data() {
     return {
       players: [],
-      admin: ''
+      admin: {}
     };
   },
   created() {
@@ -69,8 +80,8 @@ export default {
         this.event.joinedMembersCount / +this.event.allowedMembersCount;
       if (ratio < 0.4)
         return { txt: "Waiting for players", color: "lightgreen" };
-      else if (ratio < 0.8) return { txt: "Kinda full", color: "white" };
-      else if (ratio < 1) return { txt: "Almost full", color: "white" };
+      else if (ratio < 0.8) return { txt: "Kinda full", color: "orange" };
+      else if (ratio < 1) return { txt: "Almost full", color: "orangered" };
       return { txt: "Event full", color: "red" };
     },
     playersToShow() {

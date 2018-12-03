@@ -1,8 +1,10 @@
 <template>
   <div class="home">
     <div class="header-wrapper">
-      <header class="flex">
+      <header>
+        <replacing-images></replacing-images>
         <div class="welcome-text">
+<<<<<<< HEAD
           <h2>Welcome to
             <br>
             <span>
@@ -13,17 +15,16 @@
           <h4
             class="pl-10"
           >Here you can find professional & amateur musicians to play your favorite music with.</h4>
+=======
+          <h2>Welcome to <br><span><i class="fas fa-drum"></i>MUSIGROUPS</span></h2>
+          <h4 class="pl-10">
+              Here you can find and join 
+              music events created by musicians in your area, 
+              or create your own events.
+              Connect with the musician community in a new way.
+            </h4>
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
         </div>
-
-        <iframe
-          width="100%"
-          style="height: 100%"
-          src="//www.youtube.com/embed/HspKIEa1qwk?t=30&controls=0"
-          frameborder="0"
-          allowfullscreen
-          allow="autoplay"
-          autoplay="1"
-        ></iframe>
       </header>
     </div>
    
@@ -115,13 +116,19 @@
 import eventList from "@/components/event-list.vue";
 import eventPreview from "@/components/event-preview.vue";
 import eventCarousel from "@/components/event-carousel.vue";
+<<<<<<< HEAD
 import bus, { FILTER } from "@/bus.js";
+=======
+import replacingImages from "@/components/replacing-images.vue";
+import bus, {FILTER} from "@/bus.js"
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
 export default {
   name: "home",
   components: {
     eventList,
     eventPreview,
-    eventCarousel
+    eventCarousel,
+    replacingImages
     // nearPlacesMap
   },
   methods: {

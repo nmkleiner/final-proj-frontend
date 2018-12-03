@@ -1,7 +1,7 @@
 <template>
     <section class="user-profile flex flex-column capitalize">
             <h1 class="align-self-center">{{user.name}}</h1>
-            <img class="circle-icon align-self-center" :src="user.pic">
+            <img class="circle-icon-lg align-self-center" :src="user.pic">
         <div class="main-container flex flex-column ">
             <h4>{{user.name}}'s profile details:</h4>
             <p>Bio: {{user.bio}}</p>
@@ -17,29 +17,29 @@
                     {{genre}} 
                 </i>.
             </h3>
-            <h3>Events created by {{user.name}}:</h3>
-            <i v-for="event in userAdminEvents" :key="event._id">
-                <router-link :to="'/event/' + event._id">
-                {{event.title}} 
-                {{event.time.day}} 
-                {{event.time.hour.hours}}:{{event.time.hour.minutes}}
-                <br><br>
-                </router-link>
-            </i>
             
-            <h3>Events {{user.name}} joined:</h3>
-            <i v-for="event in userPartEvents" :key="event._id">
-                <router-link :to="'/event/' + event._id">
-                {{event.title}} 
-                {{event.time.day}} {{event.time.hour}}<br><br>
-                </router-link>
-            </i>
+            <section class="carousel-section progressive-rock-events">
+                <h3 class="capitalize">Events {{user.name}} created:</h3>
+                <event-carousel :events="userAdminEvents"/>
+            </section>
+            <hr>
+
+            <section class="carousel-section progressive-rock-events">
+                <h3 class="capitalize">Events {{user.name}} joined:</h3>
+                <event-carousel :events="userPartEvents"/>
+            </section>
+            <hr>
+
         </div>        
     </section>
 </template>
 
 <script>
+import eventCarousel from "@/components/event-carousel.vue";
 export default {
+    components: {
+        eventCarousel,
+    },
     data() {
         return {
             userAdminEvents: [],

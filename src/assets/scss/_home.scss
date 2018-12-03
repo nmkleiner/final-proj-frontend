@@ -1,26 +1,51 @@
 .home {
   .header-wrapper{
     padding: 0;
-    @media (min-width: 768px) {
-      padding: 0 20px;
-    }
   }
   header {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    position: relative;
+
     margin-top: 49px;
     margin-bottom: 50px;
-    height: 75vh;
-    width: 100%;
-    background-color: darkcyan;
-    // display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    @media (min-width: 768px) {
-      flex-direction: row;
+    
+    background-color: black;
+    
+    @media (min-width: 769px) {
+      height: 512px;
+    }
+    @media (min-width: 500px) and (max-width: 768px) {
+      height: 333px;
+    }
+    @media (max-width: 500px) {
+      width: 100%;
     }
     .welcome-text {
+      width: 768px;
+      background-color: white;
+      opacity: 0.8;
+      color: black;
+      z-index: 2;
       h2 {
         text-align: center;
+      }
+      h4 {
+        color: black;
+        font-size: 1.3rem;
+      }
+      @media (min-width: 500px) and (max-width: 768px) {
+        width: 500px;
+      }
+      @media (max-width: 500px) {
+        background-color: black;
+        color: white;
+        width: 100%;
+        padding: 20px 10px;
+        h4 {
+          color: white;
+        }
       }
     }
   }
@@ -39,7 +64,7 @@
       display: inline;
       font-size: 0.7rem;
       margin-left: 10px;
-      @media (min-width: 600px) {
+      @media (min-width: 768px) {
         display: none;
       }
     }
@@ -53,13 +78,13 @@
       }
     }
     .carousel {
-      @media (min-width: 600px) {
+      @media (min-width: 768px) {
         margin: 0px 20px;
       }
       margin: 0px;
 
       .slide {
-        @media (min-width: 600px) {
+        @media (min-width: 768px) {
           padding: 10px;
         }
         padding: 0px;
@@ -71,7 +96,7 @@
       }
       .VueCarousel-navigation-button[data-v-453ad8cd] {
         display: none;
-        @media (min-width: 600px) {
+        @media (min-width: 769px) {
           display: block;
         }
       }

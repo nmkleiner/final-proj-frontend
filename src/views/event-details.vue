@@ -17,11 +17,9 @@
         <h4>
           <span>
             Genre: {{event.genre}}
-            <i class="fas fa-music"></i>
           </span>
           <span>
             Level: {{event.level}}
-            <i class="fas fa-music"></i>
           </span>
         </h4>
       </div>
@@ -36,11 +34,9 @@
         <div class="event-details">
           <span>
             <!-- {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}} -->
-            <i class="fas fa-music"></i>
           </span>
           <span class="capitalize">
             {{event.location.address}}, {{event.location.city}}
-            <i class="fas fa-music"></i>
           </span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
@@ -109,14 +105,24 @@
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
+<<<<<<< HEAD
       <h4>Players attending:
         <br>
         <template v-for="player in players">
+=======
+
+      <h4>
+        Players attending:
+      </h4>
+      <br>
+      <players-instruments :event="event" :admin="{pic: ''}" :players="players"></players-instruments>
+
+        <!-- <template v-for="player in players">
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
-        </template>
-      </h4>
+        </template> -->
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
         <template v-for="player in freePlayers">
@@ -134,7 +140,12 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
+<<<<<<< HEAD
 import instrumentComp from "@/components/instruments-comp.vue";
+=======
+import playersInstruments from '@/components/players-instruments.vue'
+
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
 export default {
   data() {
     return {
@@ -296,7 +307,12 @@ export default {
   components: {
     gmapMap,
     feedComp,
+<<<<<<< HEAD
     instrumentComp
+=======
+    playersInstruments
+
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
   }
 };
 </script>

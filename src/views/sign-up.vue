@@ -1,18 +1,11 @@
 <template>
-  <section class="signup-card-wrapper">
-    <form @submit.prevent="submitNewUser" class="signup-form-container">
+  <section class="signup-card-wrapper ">
+    <form @submit.prevent="submitNewUser" class="signup-form-container flex flex-column align-center">
       <h1>sign up</h1>
-      <div class="signup-card-user-image-container">
-        <img
-          class="signup-user-image"
-          src="https://api.adorable.io/avatars/64/rocki.png"
-          alt="event admin"
-        >
-      </div>
 
       <input type="text" placeholder="Full Name..." v-model="newUser.name">
       <input type="password" placeholder="Password..." v-model="newUser.password">
-      <select v-model="newUser.level">
+      <select v-model="newUser.level" placeholder="How experienced are you?">
         <option>amateur</option>
         <option>professional</option>
       </select>
@@ -34,7 +27,7 @@
         <label for="trumpet">Trumpet</label>
       </div>
       <div class="signup-musicPrefs">
-        <h4>favorite music:</h4>
+        <h4 class="text-align-center">favorite music:</h4>
         <input type="checkbox" id="rock" value="Rock" v-model="newUser.favGenres">
         <label for="rock">Rock</label>
         <input type="checkbox" id="classic" value="Classic" v-model="newUser.favGenres">
@@ -45,7 +38,7 @@
 
       <textarea v-model="newUser.bio" class="signup-bio" placeholder="tell us about yourself..."></textarea>
       <div class="signup-button-wrapper">
-        <button>Submit</button>
+        <el-button>Save</el-button>
         <router-link  to='/'><el-button>Back</el-button></router-link> 
       </div>
     </form>
