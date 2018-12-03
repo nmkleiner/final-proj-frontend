@@ -57,7 +57,7 @@ function generatePlayers() {
       name: 'rocki',
       password: '123',
       pic: `https://api.adorable.io/avatars/64/rocki.png`,
-      partEventsIds: [],
+      partEvents: [],
       adminEventsIds: [],
       instruments: ['guitar'],
       favGenres: ['rock', 'country'],

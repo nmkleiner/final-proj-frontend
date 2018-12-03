@@ -1,21 +1,17 @@
 <template>
   <div class="home">
     <div class="header-wrapper">
-      <header class="flex">
+      <header>
+        <replacing-images></replacing-images>
         <div class="welcome-text">
           <h2>Welcome to <br><span><i class="fas fa-drum"></i>MUSIGROUPS</span></h2>
-          <h5 class="pl-10">Here you can find professional & amateur musicians to play your favorite music with.</h5>
+          <h4 class="pl-10">
+              Here you can find and join 
+              music events created by musicians in your area, 
+              or create your own events.
+              Connect with the musician community in a new way.
+            </h4>
         </div>
-
-        <iframe
-          width="100%"
-          style="height: 100%"
-          src="//www.youtube.com/embed/HspKIEa1qwk?t=30&controls=0"
-          frameborder="0"
-          allowfullscreen
-          allow="autoplay"
-          autoplay="1"
-        ></iframe>
       </header>
     </div>
 
@@ -104,13 +100,15 @@
 import eventList from "@/components/event-list.vue";
 import eventPreview from "@/components/event-preview.vue";
 import eventCarousel from "@/components/event-carousel.vue";
+import replacingImages from "@/components/replacing-images.vue";
 import bus, {FILTER} from "@/bus.js"
 export default {
   name: "home",
   components: {
     eventList,
     eventPreview,
-    eventCarousel
+    eventCarousel,
+    replacingImages
     // nearPlacesMap
   },
   methods: {
