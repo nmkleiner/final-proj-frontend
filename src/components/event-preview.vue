@@ -6,9 +6,13 @@
         <img class="main-img" :src="event.pic" alt="event image">
       </div>
     </router-link>
+    <!-- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur, architecto placeat consequuntur ipsum et officia quibusdam facere perferendis animi asperiores quae atque explicabo dolores assumenda est nisi aspernatur quo ullam. -->
 
     <div class="details flex flex-column space-between">
       <div class="icons-wrapper flex">
+          <router-link v-if="admin" :to="'/user/' + event.adminId">
+            <img class="circle-icon" :title="admin.name" :src="admin.pic">
+          </router-link>
         <template v-if="players.length" v-for="player in playersToShow">
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
@@ -37,9 +41,17 @@ export default {
   data() {
     return {
       players: [],
+      admin: ''
     };
   },
   created() {
+    // get admin
+    const adminId = this.event.adminId;
+      this.$store
+        .dispatch({ type: "getUserById", userId: adminId })
+        .then(admin => {
+          this.admin = admin;
+          });
     // get players
     this.event.instruments.forEach(instrument => {
           return instrument.playerIds.forEach(playerId => {
@@ -62,7 +74,7 @@ export default {
       return { txt: "Event full", color: "red" };
     },
     playersToShow() {
-      return this.players.slice(0, 4);
+      return this.players.slice(0, 3);
     },
     dateToShow() {
       var date = this.event.time.day.split('-').reverse()

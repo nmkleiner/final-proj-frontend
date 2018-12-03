@@ -15,6 +15,7 @@
           <el-option value="rock">Rock</el-option>
           <el-option value="country">Country</el-option>
           <el-option value="jazz">Jazz</el-option>
+          <el-option value="classic">Classic</el-option>
           <el-option value="world">World</el-option>
           <el-option value="reggae">Reggae</el-option>
           <el-option value="freestyle">Freestyle</el-option>
@@ -65,7 +66,7 @@
         <el-button type="success" v-else @click="updateEvent">Update Event</el-button>
         <!-- <el-button @click="deleteEvent">Delete Event</el-button> -->
         <router-link to="/"><el-button type="danger">Cancel</el-button></router-link>
-        {{event}}
+        <!-- {{event}} -->
       </div>
     </form>
   </section>
