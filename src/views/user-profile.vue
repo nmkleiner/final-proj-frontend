@@ -84,6 +84,7 @@ export default {
 <style scoped lang="scss">
 
 .user-profile {
+    margin-top: 55px;
     .main-container {
         padding: 20px;
         padding-left: 10vw;        
