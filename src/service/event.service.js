@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const BASE_URL =
-  process.env.NODE_ENV !== 'development' ? '' : '//localhost:3000';
+  process.env.NODE_ENV !== 'development' ? '/api' : '//localhost:3000/api';
 var eventsDB = [];
 export default {
   query,
@@ -20,6 +20,8 @@ function query(filter = null, sort = null) {
   if (sort) {
     urlEnd += `&sortBy=${sort.sorter}&order=${sort.order}`
   }
+  console.log('heroku' ,  `${BASE_URL}${urlEnd}`);
+  
   return axios.get(BASE_URL + urlEnd)
     .then(res => res.data);
 }

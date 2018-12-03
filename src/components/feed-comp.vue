@@ -33,8 +33,8 @@ export default {
       msgs: [],
       nickName: null,
       newMsg: null,
-      typeMsg: "",
-      socket: ioClient("http://localhost:3000")
+      typeMsg: ""
+      // socket: ioClient("http://localhost:3000")
     };
   },
   methods: {

@@ -7,11 +7,18 @@ import './registerServiceWorker'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
-
 import VueSocketIO from 'vue-socket.io'
+var socketURL = 'http://localhost:3000'
+if (process.env.NODE_ENV !== "development") {
+  socketURL = "/";
+}
+
+// Vue.use(VueSocketio, socketio(socketURL), store);
+
+
 Vue.use(new VueSocketIO({
     debug: true,
-    connection: 'http://localhost:3000',
+    connection: socketURL,
     vuex: {
         store,
         actionPrefix: 'SOCKET_',

@@ -3,7 +3,7 @@
     <router-link :to="'/event/' + event._id">
       <div class="pic-wrapper flex flex-column justify-center">
         <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
-        <img class="main-img" src="https://picsum.photos/200/300/?random" alt="event image">
+        <img class="main-img" src="https://picsum.photos/200/250/?random" alt="event image">
       </div>
     </router-link>
     <div class="details flex flex-column space-between">
