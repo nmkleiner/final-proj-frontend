@@ -6,6 +6,7 @@
           <h2>Welcome to
             <br>
             <span>
+              <i class="flaticon-bass-guitar"></i>
               <i class="fas fa-drum"></i>MUSIGROUPS
             </span>
           </h2>

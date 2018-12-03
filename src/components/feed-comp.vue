@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .conversation {
-  border: 3px solid black;
+  border: 1px solid lightgray;
   border-radius: 6px;
   padding: 10px;
 }
