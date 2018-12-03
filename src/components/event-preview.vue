@@ -23,10 +23,10 @@
       <span class="bold">{{event.title}}</span>
       
       <span class="capitalize">{{event.genre}} music
-        <i class="fas fa-music"></i> {{event.level}} 
+        {{event.level}} 
       </span>
-      <i class="fas fa-music"></i> <span :style="{color: status.color}"> {{status.txt}}</span>
-      <span class="capitalize">{{event.location.city}} <i class="fas fa-music"></i> {{dateToShow}}</span>
+      <span :style="{color: status.color}"> {{status.txt}}</span>
+      <span class="capitalize">At: {{event.location.city}} Date:{{dateToShow}}</span>
       
     </div>
   </section>

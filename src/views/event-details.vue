@@ -41,11 +41,9 @@
         <h4>
           <span>
             Genre: {{event.genre}}
-            <i class="fas fa-music"></i>
           </span>
           <span>
             Level: {{event.level}}
-            <i class="fas fa-music"></i>
           </span>
         </h4>
       </div>
@@ -60,11 +58,9 @@
         <div class="event-details">
           <span>
             <!-- {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}} -->
-            <i class="fas fa-music"></i>
           </span>
           <span class="capitalize">
             {{event.location.address}}, {{event.location.city}}
-            <i class="fas fa-music"></i>
           </span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
