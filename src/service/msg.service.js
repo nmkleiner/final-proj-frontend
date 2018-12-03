@@ -1,7 +1,7 @@
 import ioClient from 'socket.io-client'
 
 const msgs = [];
-const socket = ioClient('http://localhost:3000');
+// const socket = ioClient('http://localhost:3000');
 
 
 
