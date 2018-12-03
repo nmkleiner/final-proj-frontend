@@ -101,14 +101,17 @@
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
 
-      <h4>Players attending:
-        <br>
-        <template v-for="player in players">
+      <h4>
+        Players attending:
+      </h4>
+      <br>
+      <players-instruments :event="event" :admin="{pic: ''}" :players="players"></players-instruments>
+
+        <!-- <template v-for="player in players">
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
-        </template>
-      </h4>
+        </template> -->
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
         <template v-for="player in freePlayers">
@@ -126,6 +129,8 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
+import playersInstruments from '@/components/players-instruments.vue'
+
 export default {
   data() {
     return {
@@ -283,7 +288,9 @@ export default {
   },
   components: {
     gmapMap,
-    feedComp
+    feedComp,
+    playersInstruments
+
   }
 };
 </script>
