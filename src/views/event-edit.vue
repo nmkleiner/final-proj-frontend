@@ -47,25 +47,34 @@
       </div>
 
       <div class="edit-event-container">
+        <h4>event date</h4>
         <el-input type="date" v-model="event.time.day"></el-input>
         <div>
-          <time-picker v-model="event.time.hour"></time-picker>
+          <h4>event hour</h4>
+
+          <time-picker class="align-self-center" v-model="event.time.hour"></time-picker>
         </div>
+        <h4>event cost</h4>
         <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
         <div class="img-n-address-container">
           <div class="img-container">
             <img src alt>
+            <h4></h4>
             <button>Upload image</button>
           </div>
           <div class="address-container">
+            <h4>city</h4>
             <el-input v-model="event.location.city" placeholder="city"></el-input>
+            <h4>street</h4>
             <el-input v-model="event.location.address" placeholder="street & number"></el-input>
           </div>
         </div>
         <el-button type="success" v-if="!isUpdateEvent" @click="saveNewEvent">Save Event</el-button>
         <el-button type="success" v-else @click="updateEvent">Update Event</el-button>
         <!-- <el-button @click="deleteEvent">Delete Event</el-button> -->
-        <router-link to="/"><el-button type="danger">Cancel</el-button></router-link>
+        <router-link to="/">
+          <el-button type="danger">Cancel</el-button>
+        </router-link>
         <!-- {{event}} -->
       </div>
     </form>
@@ -105,7 +114,7 @@ export default {
         allowedMembersCount: 0,
         joinedMembersCount: 0,
         cost: 0,
-        msgs:[]
+        msgs: []
       }
     };
   },
@@ -126,19 +135,19 @@ export default {
   },
   methods: {
     fillEventObject() {
-      let allowedMembersCount = this.event.instruments.reduce((acc,inst) => {
-        acc += +inst.amount
-        return acc  
-      },0)
-      allowedMembersCount += +this.event.freePlayers.amount
-      this.event.allowedMembersCount = allowedMembersCount
-      this.event.time.timestamp = new Date(this.event.time.day).getTime() 
+      let allowedMembersCount = this.event.instruments.reduce((acc, inst) => {
+        acc += +inst.amount;
+        return acc;
+      }, 0);
+      allowedMembersCount += +this.event.freePlayers.amount;
+      this.event.allowedMembersCount = allowedMembersCount;
+      this.event.time.timestamp = new Date(this.event.time.day).getTime();
     },
 
     saveNewEvent() {
-      this.fillEventObject()
+      this.fillEventObject();
       this.$store
-        .dispatch({ type: "saveNewEvent", event: this.event }) 
+        .dispatch({ type: "saveNewEvent", event: this.event })
         .then(eventId => {
           this.$store.dispatch({ type: "updateUserAdminEvents", eventId });
           this.$router.push(`/`);
@@ -152,10 +161,12 @@ export default {
         });
     },
     addInstrument(instrument) {
-      const existObj = this.event.instruments.find(inst => inst.instrument === instrument)
+      const existObj = this.event.instruments.find(
+        inst => inst.instrument === instrument
+      );
       const instObj = { instrument, amount: 1, playerIds: [] };
-      
-      if (existObj) existObj.amount++
+
+      if (existObj) existObj.amount++;
       else this.event.instruments.push(instObj);
     }
   },
@@ -169,10 +180,10 @@ export default {
     if (eventId) {
       this.$store.dispatch({ type: "getEventById", eventId }).then(event => {
         this.event = event;
-        this.event.pic = eventService.getImage()
+        this.event.pic = eventService.getImage();
       });
     }
-    this.event.pic = eventService.getImage()
+    this.event.pic = eventService.getImage();
   }
 };
 </script>
