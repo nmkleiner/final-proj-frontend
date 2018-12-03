@@ -123,9 +123,6 @@ export default {
     }
   },
   methods: {
-    deleteEvent() {
-      // this.$store.dispatch({type: 'removeEvent', event: this.event})
-    },
     fillEventObject() {
       let allowedMembersCount = this.event.instruments.reduce((acc,inst) => {
         acc += +inst.amount

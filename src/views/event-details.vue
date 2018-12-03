@@ -1,5 +1,5 @@
 <template>
-  <section v-if="event" class="cards-wrapper flex space-between">
+  <section v-if="event" class="cards-wrapper flex space-between capitalize">
     <div class="card-container">
       <h1>{{event.title}}</h1>
 
@@ -180,7 +180,6 @@ export default {
       };
       this.$store.dispatch({ type: "updateUserPartEvents", joinedEvent });
       this.$store.dispatch({ type: "joinEvent", joinedEvent });
-      // TODO: message joined event
       this.$router.push("/");
     },
     goEdit() {
@@ -192,7 +191,6 @@ export default {
       this.$store.dispatch({ type: "removeEvent", eventId }).then(() => {
         this.$router.push("/");
       });
-      // TODO: message event removed
     },
     getCoorFromAddress(location) {
       var currEventLocStr = `${location.address.replace(

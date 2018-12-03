@@ -48,7 +48,11 @@ export default {
   font-family: 'Montserrat', sans-serif;  
   overflow: hidden;
   background-color: black;
-  
+  opacity: 0.85;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  top: 0px;
 
   a {
     float: left;
@@ -79,11 +83,15 @@ export default {
   }
 }
 .nav-bar.guest{
-  // height:300px;
   display: flex;
   justify-content: space-between;
   width: 100%;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
   a {
+    color: black;
     font-weight: 700;
   }
   a:hover {
@@ -92,10 +100,6 @@ export default {
   .logo:hover {
     border-bottom: 1px solid transparent;
   }
-  background-color: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 

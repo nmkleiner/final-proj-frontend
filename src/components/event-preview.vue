@@ -3,12 +3,12 @@
     <router-link :to="'/event/' + event._id">
       <div class="pic-wrapper flex flex-column justify-center">
         <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
-        <img class="main-img" src="https://picsum.photos/200/300/?random" alt="event image">
+        <img class="main-img" :src="event.pic" alt="event image">
       </div>
     </router-link>
+
     <div class="details flex flex-column space-between">
-      
-      <div class="middle-floating-wrapper flex">
+      <div class="icons-wrapper flex">
         <template v-if="players.length" v-for="player in playersToShow">
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
@@ -16,7 +16,6 @@
         </template>
       </div>
 
-      
       <span class="bold">{{event.title}}</span>
       
       <span class="capitalize">{{event.genre}} music
@@ -41,7 +40,7 @@ export default {
     };
   },
   created() {
-    // get's a players array for this preview
+    // get players
     this.event.instruments.forEach(instrument => {
           return instrument.playerIds.forEach(playerId => {
             if(!playerId) return;

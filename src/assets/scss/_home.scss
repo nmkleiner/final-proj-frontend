@@ -1,13 +1,30 @@
 .home {
+  .header-wrapper{
+    padding: 0;
+    @media (min-width: 768px) {
+      padding: 0 20px;
+    }
+  }
   header {
-    height: 40vh;
+    margin-top: 49px;
+    margin-bottom: 50px;
+    height: 75vh;
     width: 100%;
-    background-color: purple;
-    display: flex;
+    background-color: darkcyan;
+    // display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    @media (min-width: 768px) {
+      flex-direction: row;
+    }
+    .welcome-text {
+      h2 {
+        text-align: center;
+      }
+    }
   }
-
+  
   a {
     color: rgb(51, 51, 255);
     cursor: pointer;

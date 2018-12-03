@@ -44,7 +44,6 @@ export default {
         room: this.currEvent._id
       });
 
-      // this.currEvent.msgs.push(this.newMsPukig);
       this.saveChatHistory(this.msgs);
       this.newMsg = msgService.createEmptyMsg(this.nickName);
       this.scrollToEnd();

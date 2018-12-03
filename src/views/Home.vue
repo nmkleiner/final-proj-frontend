@@ -1,18 +1,21 @@
 <template>
   <div class="home">
-    <header class="flex">
-      <div
-        class="welcome-text"
-      >Welcome! here you can find professional & amateur musicians to play your favorite music with.</div>
+    <div class="header-wrapper">
+      <header class="flex">
+        <div class="welcome-text">
+          <h2>Welcome to MUSICGROOPS</h2>
+          <h5 class="pl-10">Here you can find professional & amateur musicians to play your favorite music with.</h5>
+        </div>
 
-      <iframe
-        width="100%"
-        style="height: 100%"
-        src="//www.youtube.com/embed/HspKIEa1qwk?t=30&autoplay=1&controls=0"
-        frameborder="0"
-        allowfullscreen
-      ></iframe>
-    </header>
+        <iframe
+          width="100%"
+          style="height: 100%"
+          src="//www.youtube.com/embed/HspKIEa1qwk?t=30&autoplay=1&controls=0"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </header>
+    </div>
 
     <div v-if="loggedInUser" class="carousels-container loggedIn">
       <template v-for="genre in loggedInUser.favGenres">
@@ -38,13 +41,13 @@
       <section class="carousel-section close-distance-events">
         <h2 class="capitalize">Music events in your area:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('','','location')">Show All Events</a>
+        <a class="" @click="goList('','','location')">Show All Events</a>
       </section>
       <hr>
       <section class="carousel-section close-distance-events">
         <h2 class="capitalize">events happening this week:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('','','','this week')">Show All Events</a>
+        <!-- <a @click="goList('','','','this week')">Show All Events</a> -->
       </section>
       <hr>
       <section class="carousel-section rock-events">
