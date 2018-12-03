@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import eventService from "@/service/event.service.js";
 import instrumentList from "@/components/instrument-list.vue";
 import timePicker from "@/components/time-picker.vue";
 
@@ -172,6 +173,7 @@ export default {
         this.event = event;
       });
     }
+    this.pic = eventService.getImage()
   }
 };
 </script>
