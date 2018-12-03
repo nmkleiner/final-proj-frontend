@@ -1,11 +1,11 @@
 <template>
-  <div class="time-picker d-flex">
-        <div class="d-flex flex-column">
+  <div class="time-picker flex justify-center">
+        <div class="flex flex-column align-center">
             <button class="btn" type="button" @click="changeHours(1)"><i class="fas fa-inverse fa-arrow-up"></i></button>
             {{time.hours}}
             <button class="btn" type="button" @click="changeHours(-1)"><i class="fas fa-inverse fa-arrow-down"></i></button>
         </div>
-        <div class="d-flex flex-column">
+        <div class="flex flex-column align-center">
             <button class="btn" type="button" @click="changeMinutes(1)"><i class="fas fa-inverse fa-arrow-up"></i></button>
             {{time.minutes}}
             <button class="btn" type="button" @click="changeMinutes(-1)"><i class="fas fa-inverse fa-arrow-down"></i></button>
@@ -45,8 +45,11 @@ export default {
 
 </script>
 
-export default {
-  
-  template: `
-              
-          `,
+<style lang="scss" scoped>
+.btn{
+    border-radius: 50%;
+    background-color: black;
+    border: none;
+    outline: none;
+}
+</style>
