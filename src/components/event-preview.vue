@@ -10,9 +10,9 @@
 
     <div class="details flex flex-column space-between">
       
-      <!-- <players-instruments :players="playersToShow"></players-instruments> -->
+      <players-instruments :event="event" :admin="admin" :players="playersToShow"></players-instruments>
 
-      <div class="icons-wrapper flex">
+      <!-- <div class="icons-wrapper flex">
           <router-link v-if="admin" :to="'/user/' + event.adminId">
             <img class="circle-icon" :title="admin.name" :src="admin.pic">
           </router-link>
@@ -21,7 +21,7 @@
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
         </template>
-      </div>
+      </div> -->
 
 
 
@@ -43,13 +43,16 @@
 import userService from "@/service/user.service.js";
 import playersInstruments from '@/components/players-instruments.vue'
 export default {
+  components: {
+    playersInstruments
+  },
   props: {
     event: Object
   },
   data() {
     return {
       players: [],
-      admin: ''
+      admin: {}
     };
   },
   created() {
