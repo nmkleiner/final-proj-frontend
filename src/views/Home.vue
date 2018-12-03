@@ -10,9 +10,11 @@
         <iframe
           width="100%"
           style="height: 100%"
-          src="//www.youtube.com/embed/HspKIEa1qwk?t=30&autoplay=1&controls=0"
+          src="//www.youtube.com/embed/HspKIEa1qwk?t=30&controls=0"
           frameborder="0"
           allowfullscreen
+          allow="autoplay"
+          autoplay="1"
         ></iframe>
       </header>
     </div>
