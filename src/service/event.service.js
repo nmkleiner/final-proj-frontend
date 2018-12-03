@@ -6,7 +6,6 @@ var eventsDB = [];
 export default {
   query,
   getEventById,
-  getEvents,
   saveEvent,
   remove,
   getImage
