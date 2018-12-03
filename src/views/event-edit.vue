@@ -168,9 +168,10 @@ export default {
     if (eventId) {
       this.$store.dispatch({ type: "getEventById", eventId }).then(event => {
         this.event = event;
+        this.event.pic = eventService.getImage()
       });
     }
-    this.pic = eventService.getImage()
+    this.event.pic = eventService.getImage()
   }
 };
 </script>
