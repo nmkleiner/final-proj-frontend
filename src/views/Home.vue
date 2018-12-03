@@ -19,7 +19,7 @@
         <section class="carousel-section favourite-genre" :key="genre">
           <h2 class="capitalize">Especially for you, {{genre}} music events:</h2>
           <event-carousel :events="events"/>
-          <a @click="goList(genre)">Show All {{genre}} Events</a>
+          <a @click="goList(genre.toLowerCase())">Show All {{genre}} Events</a>
           <hr>
         </section>
       </template>
@@ -28,7 +28,7 @@
         <section class="carousel-section favourite-genre" :key="instrument">
           <h2 class="capitalize">Especially for you, events that need a {{instrument}} player:</h2>
           <event-carousel :events="events"/>
-          <a @click="goList('',instrument)">Show All {{instrument}} Events</a>
+          <a @click="goList('',instrument.toLowerCase())">Show All {{instrument}} Events</a>
           <hr>
         </section>
       </template>
@@ -50,43 +50,43 @@
       <section class="carousel-section rock-events">
         <h2 class="capitalize">Rock events for you:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('rock')">>Show All Rock Events</a>
+        <a @click="goList('rock')">Show All Rock Events</a>
       </section>
       <hr>
       <section class="carousel-section just-opened-events">
         <h2 class="capitalize">Just Opened!</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('','','','','recent')">>Show All Recent Events</a>
+        <a @click="goList('','','','','Waiting for players')">Show All Recent Events</a>
       </section>
       <hr>
       <section class="carousel-section guitar-events">
         <h2 class="capitalize">Guitar events for you:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('','guitar')">>Show All Guitar Events</a>
+        <a @click="goList('','guitar')">Show All Guitar Events</a>
       </section>
       <hr>
       <section class="carousel-section almost-full-events">
         <h2 class="capitalize">Almost full grab your place!</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('','','','','','almost full')">>Show All Events</a>
+        <a @click="goList('','','','','almost full')">Show All Events</a>
       </section>
       <hr>
       <section class="carousel-section reggae-events">
         <h2 class="capitalize">Reggae events for you:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('reggae')">>Show All Reggae Events</a>
+        <a @click="goList('reggae')">Show All Reggae Events</a>
       </section>
       <hr>
       <section class="carousel-section world-music-events">
         <h2 class="capitalize">World Music events for you:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('world')">>Show All World Music Events</a>
+        <a @click="goList('world')">Show All World Music Events</a>
       </section>
       <hr>
       <section class="carousel-section progressive-rock-events">
         <h2 class="capitalize">Progressive Rock events for you:</h2>
         <event-carousel :events="events"/>
-        <a @click="goList('progressive rock')">>Show All Progressive Rock Events</a>
+        <a @click="goList('progressive rock')">Show All Progressive Rock Events</a>
       </section>
       <hr>
     </div>
@@ -99,7 +99,7 @@
 import eventList from "@/components/event-list.vue";
 import eventPreview from "@/components/event-preview.vue";
 import eventCarousel from "@/components/event-carousel.vue";
-
+import bus, {FILTER} from "@/bus.js"
 export default {
   name: "home",
   components: {
@@ -109,8 +109,17 @@ export default {
     // nearPlacesMap
   },
   methods: {
-    goList() {
-      
+    goList(genre,instrument,location,recent,status) {
+      this.$router.push('/event')
+      setTimeout(() => {
+        if (genre) bus.$emit(FILTER,{genre})
+        if (instrument) bus.$emit(FILTER,{instrument})
+        if (location) bus.$emit(FILTER,{location})
+        if (recent) bus.$emit(FILTER,{recent})
+        if (status === 'Almost full') bus.$emit(FILTER,{status})
+        if (status === 'Waiting for players') bus.$emit(FILTER,{status})
+      },50)
+
     }
   },
   computed: {

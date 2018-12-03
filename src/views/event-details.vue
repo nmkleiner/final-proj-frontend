@@ -180,7 +180,7 @@ export default {
         instrument,
         eventId: this.$route.params.eventId
       };
-      this.$store.dispatch({ type: "updateUserEvents", joinedEvent });
+      this.$store.dispatch({ type: "updateUserPartEvents", joinedEvent });
       this.$store.dispatch({ type: "joinEvent", joinedEvent });
       // TODO: message joined event
       this.$router.push("/");
