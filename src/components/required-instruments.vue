@@ -1,11 +1,11 @@
 <template>
     <section class="required-instruments flex wrap">
         <div v-for="instrument in requiredInstruments" :key="instrument">
-            <img class="icon-red" :src="'img/events/' + instrument + '.png'" :title="instrument">
+            <img class="icon-red" :src="'/img/events/' + instrument + '.png'" :title="instrument">
         </div>
         <template v-if="!preview">
             <div  v-for="instrument in chosenInstruments" :key="instrument">
-                <img class="icon-green" :src="'img/events/' + instrument + '.png'" :title="instrument">
+                <img class="icon-green" :src="'/img/events/' + instrument + '.png'" :title="instrument">
             </div>
         </template>
     </section>

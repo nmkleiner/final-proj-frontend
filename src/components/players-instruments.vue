@@ -15,7 +15,7 @@
           </router-link>
 
             <img v-if="preview" class="icon-green" :title="playerInstrument(player._id)" :src="'/img/events/' + playerInstrument(player._id) + '.png'"/>
-            <img v-else class="icon-white" :src="playerInstrument(player._id)"/>
+            <img v-else class="icon-white" :src="'/img/events/' + playerInstrument(player._id) + '.png'"/>
         </div>
 
     </section>
