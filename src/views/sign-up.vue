@@ -68,10 +68,7 @@ export default {
   },
   methods: {
     submitNewUser() {
-      const num = utilService.getRandomIntInclusive(1,90)
-      const gender = (utilService.getRandomIntInclusive(0,1))? 'women': 'men'
-      this.newUser.pic = `https://randomuser.me/api/portraits/med/${gender}/${num}.jpg`
-      
+      this.newUser.pic = `/img/users/${this.newUser.name}.jpg`      
       //TODO: get location too
       this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
         .then(() => {this.$router.push('/')})

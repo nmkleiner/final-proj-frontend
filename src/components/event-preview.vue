@@ -1,5 +1,6 @@
 <template>
   <section class="event-preview flex flex-column space-between">
+    
     <router-link :to="'/event/' + event._id">
       <div class="pic-wrapper flex flex-column justify-center">
         <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
@@ -8,20 +9,26 @@
     </router-link>
 
     <div class="details flex flex-column space-between capitalize">
-      <h6 class="bold">{{event.title}}</h6>
-      <span class="capitalize">{{event.genre}} music
-        for {{event.level}}s 
-      </span>
-      <span class="capitalize">At: {{event.location.city}} Date:{{dateToShow}}</span>
-      
-      <span>Who's coming:</span>
-      <players-instruments :event="event" :admin="admin" :players="playersToShow"></players-instruments>
-      <span>needed instruments:</span>
-      <required-instruments :preview="true" :event="event"></required-instruments>
-      
-      <span :style="{color: status.color}"> 
-        {{status.txt}} {{event.joinedMembersCount}}/{{event.allowedMembersCount}}
-      </span>
+      <div class="details-section">
+        <h6 class="bold">{{event.title}}</h6>
+        <span class="capitalize">{{event.genre}} music
+          for {{event.level}}s 
+        </span>
+        <span class="capitalize">At: {{event.location.city}} Date:{{dateToShow}}</span>
+      </div>
+
+      <div class="details-section">
+        <span>Who's coming:</span>
+        <players-instruments :preview="true" :event="event" :admin="admin" :players="playersToShow"></players-instruments>
+      </div>
+
+      <div class="details-section">
+        <span>needed instruments:</span>
+        <required-instruments :preview="true" :event="event"></required-instruments>
+        <span :style="{color: status.color}"> 
+          {{status.txt}} {{event.joinedMembersCount}}/{{event.allowedMembersCount}}
+        </span>
+      </div>
       
     </div>
   </section>
@@ -75,7 +82,7 @@ export default {
       return { txt: "Event full", color: "red" };
     },
     playersToShow() {
-      return this.players.slice(0, 3);
+      return this.players.slice(0, 4);
     },
     dateToShow() {
       var date = this.event.time.day.split('-').reverse()

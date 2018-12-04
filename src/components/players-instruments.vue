@@ -13,7 +13,9 @@
           <router-link v-if="player" :to="'/user/' + player._id">
             <img class="circle-icon" :title="player.name" :src="player.pic">
           </router-link>
-            <img class="icon-white" :src="playerInstrumentIcon(player._id)"/>
+
+            <img v-if="preview" class="icon-green" :src="playerInstrumentIcon(player._id)"/>
+            <img v-else class="icon-white" :src="playerInstrumentIcon(player._id)"/>
         </div>
 
     </section>
@@ -24,7 +26,8 @@ export default {
     props: {
         admin: Object,
         players: Array,
-        event: Object
+        event: Object,
+        preview: Boolean
     },
     methods: {
         playerInstrumentIcon(playerId) {
