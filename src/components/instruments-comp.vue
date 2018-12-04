@@ -43,7 +43,7 @@ export default {
   margin: 10px;
   border: 1px solid lightgray;
   width: 100%;
-  height: 200px;
+  height: 250px;
   flex-wrap: wrap;
   justify-content: space-around;
 }
@@ -53,11 +53,18 @@ export default {
   justify-content: space-around;
 }
 img {
+  border-radius: 6px;
   width: 56px;
   height: 56px;
   margin: 10px;
   padding: 10px;
   border: 1px solid black;
+  &:hover {
+    background-color: lightgray;
+  }
+  &:active{
+    background-color: gray;
+  }
 }
 
 button {

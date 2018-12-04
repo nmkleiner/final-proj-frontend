@@ -29,7 +29,11 @@
         <h4>Event Description</h4>
         <textarea v-model="event.desc" placeholder="Event Description"/>
         <h4>Choose instruments</h4>
-        <instrument-list @add-instrument="addInstrument"></instrument-list>
+
+        <instruments-multiple-pick v-if="event" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
+        <!-- <instrument-list @add-instrument="addInstrument"></instrument-list> -->
+
+
         <div class="add-instruments-container">
           <div class="add-instrument">
             <i class="fas fa-plus"></i>
@@ -83,6 +87,7 @@
 <script>
 import eventService from "@/service/event.service.js";
 import instrumentList from "@/components/instrument-list.vue";
+import instrumentsMultiplePick from "@/components/instruments-multiple-pick.vue";
 import timePicker from "@/components/time-picker.vue";
 
 export default {
@@ -114,11 +119,13 @@ export default {
         joinedMembersCount: 0,
         cost: 0,
         msgs: []
-      }
+      },
+      pickedInstruments: []
     };
   },
   components: {
     timePicker,
+    instrumentsMultiplePick,
     instrumentList
   },
   computed: {
@@ -153,11 +160,18 @@ export default {
         });
     },
     updateEvent() {
+      this.pickedInstruments.forEach(instrument => {
+        addInstrument(instrument)
+      });
       this.$store
         .dispatch({ type: "updateEvent", event: this.event })
         .then(eventId => {
           this.$router.push(`/`);
         });
+    },
+    setPickedInstruments(instruments){
+      this.pickedInstruments = instruments
+      console.log(this.pickedInstruments)
     },
     addInstrument(instrument) {
       const existObj = this.event.instruments.find(
@@ -179,6 +193,11 @@ export default {
     if (eventId) {
       this.$store.dispatch({ type: "getEventById", eventId }).then(event => {
         this.event = event;
+        var temp = this.event.instruments.map(instrumentObj => {
+          return instrumentObj.instrument
+        })
+        this.pickedInstruments = temp;
+        console.log('on created event edit:', this.pickedInstruments)
         this.event.pic = eventService.getImage();
       });
     }
