@@ -16,6 +16,7 @@
 
 <script>
 export default {
+  name: 'instruments-comp',
   props: ["instruments"],
   data() {
     return {

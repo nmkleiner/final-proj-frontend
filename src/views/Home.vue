@@ -7,8 +7,8 @@
           <h2>Welcome to <br><span><i class="fas fa-drum"></i>MUSIGROUPS</span></h2>
           <h4 class="pl-10">
               Here you can find and join 
-              music events created by musicians in your area, 
-              or create your own events.
+              music events, created by musicians in your area, 
+              or create your own events.<br>
               Connect with the musician community in a new way.
             </h4>
         </div>
@@ -39,55 +39,49 @@
       <div class="carousels-container">
         <section class="carousel-section close-distance-events">
           <h2 class="capitalize">Music events in your area:</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="closeEvents"/>
           <a class @click="goList('','','location')">Show All Events</a>
         </section>
         <hr>
         <section class="carousel-section close-distance-events">
           <h2 class="capitalize">events happening this week:</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="thisWeekEvents"/>
           <!-- <a @click="goList('','','','this week')">Show All Events</a> -->
         </section>
         <hr>
         <section class="carousel-section rock-events">
           <h2 class="capitalize">Rock events for you:</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="rockEvents"/>
           <a @click="goList('rock')">Show All Rock Events</a>
         </section>
         <hr>
         <section class="carousel-section just-opened-events">
           <h2 class="capitalize">Just Opened!</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="waitingEvents"/>
           <a @click="goList('','','','','Waiting for players')">Show All Recent Events</a>
-        </section>
-        <hr>
-        <section class="carousel-section guitar-events">
-          <h2 class="capitalize">Guitar events for you:</h2>
-          <event-carousel :events="events"/>
-          <a @click="goList('','guitar')">Show All Guitar Events</a>
         </section>
         <hr>
         <section class="carousel-section almost-full-events">
           <h2 class="capitalize">Almost full grab your place!</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="almostFullEvents"/>
           <a @click="goList('','','','','almost full')">Show All Events</a>
         </section>
         <hr>
         <section class="carousel-section reggae-events">
           <h2 class="capitalize">Reggae events for you:</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="reggaeEvents"/>
           <a @click="goList('reggae')">Show All Reggae Events</a>
         </section>
         <hr>
         <section class="carousel-section world-music-events">
           <h2 class="capitalize">World Music events for you:</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="worldEvents"/>
           <a @click="goList('world')">Show All World Music Events</a>
         </section>
         <hr>
         <section class="carousel-section progressive-rock-events">
           <h2 class="capitalize">Progressive Rock events for you:</h2>
-          <event-carousel :events="events"/>
+          <event-carousel :events="progEvents"/>
           <a @click="goList('progressive rock')">Show All Progressive Rock Events</a>
         </section>
         <hr>
@@ -131,6 +125,43 @@ export default {
     events() {
       return this.$store.getters.events;
     },
+    rockEvents() {
+      return this.events.filter(event => event.genre === "rock")
+    },
+    classicEvents() {
+      return this.events.filter(event => event.genre === "classic")
+    },
+    progEvents() {
+      return this.events.filter(event => event.genre === "progressive rock")
+    },
+    countryEvents() {
+      return this.events.filter(event => event.genre === "country")
+    },
+    jazzEvents() {
+      return this.events.filter(event => event.genre === "jazz")
+    },
+    worldEvents() {
+      return this.events.filter(event => event.genre === "world")
+    },
+    reggaeEvents() {
+      return this.events.filter(event => event.genre === "reggae")
+    },
+    closeEvents() {
+      return this.events.filter(event => event.location.city === "tel aviv" ||
+        event.location.city === "ramat gan")
+    },
+    thisWeekEvents() {
+      return this.events.filter(event => event.location.city === "tel aviv" ||
+        event.location.city === "ramat gan")
+    },
+    waitingEvents() {
+      return this.events.filter(event => event.status === "Waiting for players")
+    },
+    almostFullEvents() {
+      return this.events.filter(event => event.status === "Almost full" ||
+      event.status === "Kinda full")
+    },
+
     guitarEventsToShow() {
       if (this.guitarEvents.length > 6) {
         return this.guitarEvents.slice(0, 6);

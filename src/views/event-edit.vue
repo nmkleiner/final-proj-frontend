@@ -4,9 +4,7 @@
       <div class="edit-event-container">
         <div class="edit-event-user-container">
           <h4>{{loggedInUser.name}}</h4>
-          <div class="edit-event-user-image-container">
-            <img class="edit-event-image" :src="loggedInUser.pic" alt="event admin">
-          </div>
+          <img class="circle-icon" :src="loggedInUser.pic" alt="event admin">
         </div>
         <h4>Event Title</h4>
         <el-input type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>

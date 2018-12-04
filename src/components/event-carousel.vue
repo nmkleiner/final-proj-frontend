@@ -1,6 +1,6 @@
 <template>
   <section class="carousel">
-    <carousel :perPageCustom="[[0,1],[620,2],[732, 3], [1052, 4]]"
+    <carousel :perPageCustom="[[0,1],[700,2],[970, 3], [1250, 4]]"
     :mouse-drag="true"
     :navigationEnabled="true">
       <slide class="slide" v-for="event in events" :key="event._id">

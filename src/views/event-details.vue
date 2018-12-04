@@ -123,11 +123,18 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
-import instrumentComp from "@/components/instruments-comp.vue";
+import instrumentsComp from "@/components/instruments-comp.vue";
 import playersInstruments from '@/components/players-instruments.vue'
 import requiredInstruments from '@/components/required-instruments.vue'
 
 export default {
+  components: {
+    gmapMap,
+    feedComp,
+    instrumentsComp,
+    playersInstruments,
+    requiredInstruments
+  },
   data() {
     return {
       event: null,
@@ -284,14 +291,7 @@ export default {
     //   return map.panTo({ lat: 32.089561, lng: 34.8627918 });
     // });
   },
-  components: {
-    gmapMap,
-    feedComp,
-    instrumentComp,
-    playersInstruments,
-    requiredInstruments
-
-  }
+  
 };
 </script>
 
