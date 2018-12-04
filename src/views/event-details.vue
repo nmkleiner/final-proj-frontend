@@ -75,7 +75,7 @@
         ></instruments-comp>
       </transition>
       <h4>Chat</h4>
-      <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
+      <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
       <h4>required instruments:
         <required-instruments :preview="false" :event="event"></required-instruments>
       </h4>
@@ -123,10 +123,9 @@ export default {
     };
   },
   methods: {
-    updateEventMsgs(msgs) {
-      console.log("from details", msgs);
-      //send to store first, commit then then update the server
-      // this.$store.dispatch({ type: "updateEventMsgs", event });
+    pushMsgToHistory(msg) {
+      console.log('msg', msg)
+      this.$store.dispatch({type: 'pushMsgToHistory', msg})
     },
     joinAs(instrument = null) {
       if (instrument === null) {
