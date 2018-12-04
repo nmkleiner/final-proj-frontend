@@ -6,37 +6,13 @@
       <div class="flex wrap align-center">
         <img class="circle-icon mb-10" :src="admin.pic " alt="event admin" :title="admin.name">
         <h4 class="card-organizer-name px-10 capitalize">{{event.adminName}}&nbsp;</h4>
-        <el-button
-          @click="toggleJoin"
-          v-if="!isLoggedInUserAdmin"
-          class="join-button"
-          type="danger"
-        >Join the event</el-button>
+
         <template v-if="isLoggedInUserAdmin">
           <el-button @click="goEdit" type="success" round>Edit Event</el-button>
           <el-button type="danger" @click="removeEvent" round>Cancel Event</el-button>
         </template>
       </div>
 
-      <transition name="fade">
-        <div class="card-item-container" v-if="isJoining">
-          <h2 v-if="loggedInUser._id">Play with us as:</h2>
-          <span v-else>Login to participate</span>
-          <div class="instruments-container">
-            <div
-              class="instrument-item-container"
-              @click="joinTheEvent(instrument.instrument)"
-              v-for="(instrument, index) in event.instruments"
-              :key="index"
-            >
-              <i :title="instrument.instrument" class="fas fa-drum"></i>
-              {{instrument.instrument}}
-            </div>
-          </div>
-          <!-- <div>{{instrument.amount}}x</div> -->
-          <!-- <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button> -->
-        </div>
-      </transition>
       <div class="card-item-container">
         <h4>
           <span>
@@ -89,17 +65,51 @@
     </div>
 
     <div class="card-container">
-      <h4>Event Discussion</h4>
+      <el-button
+        @click="toggleJoin"
+        v-if="!isLoggedInUserAdmin"
+        class="static join-button"
+        :class="{disabled :isJoining}"
+        type="danger"
+      >Join the event</el-button>
+
+      <!-- <transition name="fade">
+        <div class="card-item-container" v-if="isJoining">
+          <h2 v-if="loggedInUser._id">Play with us as:</h2>
+          <span v-else>Login to participate</span>
+          <div class="instruments-container">
+            <div
+              class="instrument-item-container"
+              @click="joinTheEvent(instrument.instrument)"
+              v-for="(instrument, index) in event.instruments"
+              :key="index"
+            >
+              <i :title="instrument.instrument" class="fas fa-drum"></i>
+              {{instrument.instrument}}
+            </div>
+          </div>
+          <div>{{instrument.amount}}x</div>
+          <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button>
+        </div>
+      </transition> -->
+
+      <instrument-comp :instruments="event.instruments" v-if="isJoining"></instrument-comp>
+      <h4>Chat</h4>
       <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
       <h4>
         instruments:
         <span
           v-for="(instrument,idx) in event.instruments"
           :key="idx"
-        >{{instrument.instrument}} </span>
+        >{{instrument.instrument}}</span>
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
+<<<<<<< HEAD
+      <h4>Players attending:
+        <br>
+        <template v-for="player in players">
+=======
 
       <h4>
         Players attending:
@@ -108,6 +118,7 @@
       <players-instruments :event="event" :admin="{pic: ''}" :players="players"></players-instruments>
 
         <!-- <template v-for="player in players">
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
@@ -129,8 +140,12 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
+<<<<<<< HEAD
+import instrumentComp from "@/components/instruments-comp.vue";
+=======
 import playersInstruments from '@/components/players-instruments.vue'
 
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
 export default {
   data() {
     return {
@@ -225,7 +240,10 @@ export default {
       return this.$store.getters.loggedInUser;
     },
     dateToShow() {
-      return this.event.time.day.split('-').reverse().join('/')
+      return this.event.time.day
+        .split("-")
+        .reverse()
+        .join("/");
     }
   },
   created() {
@@ -289,8 +307,12 @@ export default {
   components: {
     gmapMap,
     feedComp,
+<<<<<<< HEAD
+    instrumentComp
+=======
     playersInstruments
 
+>>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
   }
 };
 </script>
@@ -302,5 +324,11 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.disabled {
+  background-color: white;
+  color: lightgray;
+  border: 1px solid black;
 }
 </style>
