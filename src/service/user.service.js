@@ -27,8 +27,10 @@ function getLoggedInUser() {
 }
 
 function getById(id) {
-  axios.get(`${BASE_URL}/player/${id}`);
-  return axios.get(`${BASE_URL}/player/${id}`).then(res => res.data);
+  if (id) {
+    axios.get(`${BASE_URL}/player/${id}`);
+    return axios.get(`${BASE_URL}/player/${id}`).then(res => res.data);
+  }
 }
 
 function signupUser(user) {

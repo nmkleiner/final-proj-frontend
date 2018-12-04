@@ -18,9 +18,8 @@
           <el-option value="classic">Classic</el-option>
           <el-option value="world">World</el-option>
           <el-option value="reggae">Reggae</el-option>
-          <el-option value="freestyle">Freestyle</el-option>
+          <el-option value="Progressive rock">Progressive Rock</el-option>
           <el-option value="personal">Personal Material</el-option>
-          <el-option value="other">Other</el-option>
         </el-select>
         <h4>select level</h4>
         <el-select v-model="event.level" placeholder="level">
