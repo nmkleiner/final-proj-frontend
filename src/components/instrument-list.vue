@@ -14,17 +14,20 @@ export default {
         return {
             instruments: [
               {name: 'guitar', src: '', isSelected: false},
+              {name: 'dj', src: '', isSelected: false},
+              {name: 'acustic-guitar', src: '', isSelected: false},
               {name: 'drums', src: '', isSelected: false},
-              {name: 'bass guitar', src: '', isSelected: false},
+              {name: 'bass-guitar', src: '', isSelected: false},
               {name: 'flute', src: '', isSelected: false},
-              {name: 'clarinet', src: '', isSelected: false},
               {name: 'piano', src: '', isSelected: false},
               {name: 'trumpet', src: '', isSelected: false},
-              {name: 'french horn', src: '', isSelected: false},
+              {name: 'tuba', src: '', isSelected: false},
+              {name: 'french-horn', src: '', isSelected: false},
               {name: 'trombone', src: '', isSelected: false},
-              {name: 'xylophone', src: '', isSelected: false},
               {name: 'violin', src: '', isSelected: false},
-              {name: 'saxophone', src: '', isSelected: false}
+              {name: 'saxophone', src: '', isSelected: false},
+              {name: 'synthesizer', src: '', isSelected: false},
+              {name: 'other', src: '', isSelected: false}
             ],
         }
     },

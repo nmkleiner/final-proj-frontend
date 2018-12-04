@@ -92,7 +92,8 @@
           <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button>
         </div>
       </transition> -->
-      <instrument-comp :instruments="event.instruments" v-if="isJoining"></instrument-comp>
+
+      <instruments-comp :instruments="event.instruments" v-if="isJoining" @selectedInstrument="joinTheEvent"></instruments-comp>
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
       <h4>
@@ -294,7 +295,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
@@ -307,5 +308,14 @@ export default {
   background-color: white;
   color: lightgray;
   border: 1px solid black;
+}
+.join-button {
+  width: 100%;
+  top: 0;
+  position: sticky;
+  @media screen and (min-width: 768px){
+    width: 100%;
+  }
+  
 }
 </style>
