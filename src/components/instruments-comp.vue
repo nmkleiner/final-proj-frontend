@@ -10,7 +10,7 @@
       </div>
     </div>
     <el-button v-if="!pickedInstrument" type="danger" class="final-join-btn">Pick your instrument:</el-button>
-    <el-button v-else type="danger" class="final-join-btn">Join As: {{pickedInstrument}}</el-button>
+    <el-button v-else type="danger" class="final-join-btn" @click="selectInstrument">Join As: {{pickedInstrument}}</el-button>
   </section>
 </template>
 
@@ -19,12 +19,16 @@ export default {
   props: ["instruments"],
   data() {
     return {
-      pickedInstrument: ""
+      pickedInstrument: null
     };
   },
   methods: {
     setPickedInstrument(instrument) {
       this.pickedInstrument = instrument.instrument;
+      console.log(this.pickedInstrument)
+    },
+    selectInstrument(){
+      this.$emit('selectedInstrument', this.pickedInstrument);
     }
   },
   created() {

@@ -1,5 +1,5 @@
 <template>
-  <section class="signup-card-wrapper ">
+  <section class="signup-card-wrapper">
     <form @submit.prevent="submitNewUser" class="signup-form-container flex flex-column align-center">
       <h1>sign up</h1>
 
@@ -10,22 +10,9 @@
         <option>professional</option>
       </select>
 
-      <h4>Instruments you play:</h4>
-
-      <div class="signup-instruments">
-        <input type="checkbox" id="guitar" value="Guitar" v-model="newUser.instruments">
-        <label for="guitar">Guitar</label>
-        <input type="checkbox" id="bass" value="Bass" v-model="newUser.instruments">
-        <label for="bass">Bass</label>
-        <input type="checkbox" id="drums" value="Drums" v-model="newUser.instruments">
-        <label for="drums">Drums</label>
-        <input type="checkbox" id="flute" value="Flute" v-model="newUser.instruments">
-        <label for="flute">Flute</label>
-        <input type="checkbox" id="saxophone" value="Saxophone" v-model="newUser.instruments">
-        <label for="saxophone">Saxophone</label>
-        <input type="checkbox" id="trumpet" value="Trumpet" v-model="newUser.instruments">
-        <label for="trumpet">Trumpet</label>
-      </div>
+      <h4>Choose instruments you play:</h4>
+      <instruments-multiple-pick></instruments-multiple-pick>
+     
       <div class="signup-musicPrefs">
         <h4 class="text-align-center">favorite music:</h4>
         <input type="checkbox" id="rock" value="Rock" v-model="newUser.favGenres">
@@ -47,6 +34,7 @@
 
 <script>
 import utilService from '@/service/util.service.js'
+import instrumentsMultiplePick from '@/components/instruments-multiple-pick.vue'
 export default {
   data() {
     return {
@@ -76,6 +64,9 @@ export default {
       this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
         .then(() => {this.$router.push('/')})
     }
+  },
+  components:{
+    instrumentsMultiplePick
   }
 };
       

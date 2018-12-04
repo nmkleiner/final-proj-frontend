@@ -93,7 +93,7 @@
         </div>
       </transition> -->
 
-      <instrument-comp :instruments="event.instruments" v-if="isJoining"></instrument-comp>
+      <instruments-comp :instruments="event.instruments" v-if="isJoining" @selectedInstrument="joinTheEvent"></instruments-comp>
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
       <h4>
@@ -105,11 +105,6 @@
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
-<<<<<<< HEAD
-      <h4>Players attending:
-        <br>
-        <template v-for="player in players">
-=======
 
       <h4>
         Players attending:
@@ -118,7 +113,6 @@
       <players-instruments :event="event" :admin="{pic: ''}" :players="players"></players-instruments>
 
         <!-- <template v-for="player in players">
->>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
           <router-link :to="'/user/' + player._id" :key="player._id">
             <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
           </router-link>
@@ -140,12 +134,8 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
-<<<<<<< HEAD
-import instrumentComp from "@/components/instruments-comp.vue";
-=======
-import playersInstruments from '@/components/players-instruments.vue'
+import instrumentsComp from '@/components/instruments-comp.vue'
 
->>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
 export default {
   data() {
     return {
@@ -307,17 +297,13 @@ export default {
   components: {
     gmapMap,
     feedComp,
-<<<<<<< HEAD
-    instrumentComp
-=======
-    playersInstruments
+    instrumentsComp
 
->>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
   }
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s;
@@ -330,5 +316,14 @@ export default {
   background-color: white;
   color: lightgray;
   border: 1px solid black;
+}
+.join-button {
+  width: 100%;
+  top: 0;
+  position: sticky;
+  @media screen and (min-width: 768px){
+    width: 100%;
+  }
+  
 }
 </style>

@@ -115,7 +115,7 @@ export default {
   .nav-bar.guest a {
     display: inline;
   }
-  .nav-bar.responsive {position: relative;}
+  .nav-bar.responsive {position: fixed;}
   .nav-bar.responsive .icon {
     position: absolute;
     right: 0;
