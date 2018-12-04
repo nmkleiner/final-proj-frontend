@@ -15,12 +15,8 @@
 
       <div class="card-item-container">
         <h4>
-          <span>
-            Genre: {{event.genre}}
-          </span>
-          <span>
-            Level: {{event.level}}
-          </span>
+          <span>Genre: {{event.genre}}</span>
+          <span>Level: {{event.level}}</span>
         </h4>
       </div>
 
@@ -35,9 +31,7 @@
           <span>
             <!-- {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}} -->
           </span>
-          <span class="capitalize">
-            {{event.location.address}}, {{event.location.city}}
-          </span>
+          <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
         </div>
@@ -73,33 +67,17 @@
         type="danger"
       >Join the event</el-button>
 
-      <!-- <transition name="fade">
-        <div class="card-item-container" v-if="isJoining">
-          <h2 v-if="loggedInUser._id">Play with us as:</h2>
-          <span v-else>Login to participate</span>
-          <div class="instruments-container">
-            <div
-              class="instrument-item-container"
-              @click="joinTheEvent(instrument.instrument)"
-              v-for="(instrument, index) in event.instruments"
-              :key="index"
-            >
-              <i :title="instrument.instrument" class="fas fa-drum"></i>
-              {{instrument.instrument}}
-            </div>
-          </div>
-          <div>{{instrument.amount}}x</div>
-          <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button>
-        </div>
-      </transition> -->
-
-      <instruments-comp :instruments="event.instruments" v-if="isJoining" @selectedInstrument="joinTheEvent"></instruments-comp>
+      <transition name="fade">
+        <instruments-comp
+          :instruments="event.instruments"
+          v-if="isJoining"
+          @selectedInstrument="joinTheEvent"
+        ></instruments-comp>
+      </transition>
       <h4>Chat</h4>
-      <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
-      <h4>
-        required instruments:
+      <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
+      <h4>required instruments:
         <required-instruments :preview="false" :event="event"></required-instruments>
-
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
@@ -124,8 +102,8 @@ import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
 import instrumentsComp from "@/components/instruments-comp.vue";
-import playersInstruments from '@/components/players-instruments.vue'
-import requiredInstruments from '@/components/required-instruments.vue'
+import playersInstruments from "@/components/players-instruments.vue";
+import requiredInstruments from "@/components/required-instruments.vue";
 
 export default {
   components: {
@@ -152,10 +130,9 @@ export default {
     };
   },
   methods: {
-    updateEventMsgs(msgs) {
-      console.log("from details", msgs);
-      //send to store first, commit then then update the server
-      // this.$store.dispatch({ type: "updateEventMsgs", event });
+    pushMsgToHistory(msg) {
+      console.log('msg', msg)
+      this.$store.dispatch({type: 'pushMsgToHistory', msg})
     },
     joinAs(instrument = null) {
       if (instrument === null) {
@@ -313,9 +290,8 @@ export default {
   width: 100%;
   top: 0;
   position: sticky;
-  @media screen and (min-width: 768px){
+  @media screen and (min-width: 768px) {
     width: 100%;
   }
-  
 }
 </style>

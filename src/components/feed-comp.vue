@@ -3,7 +3,7 @@
     <div class="conversation-container" ref="conversationRef">
       <div v-for="(msg, idx) in msgs" :key="idx" class="message">
         <div class="container">
-          <p>{{msg.from}}: {{msg.txt}}</p>
+          <p class="msg">{{msg.from}}: {{msg.txt}}</p>
         </div>
       </div>
     </div>
@@ -39,12 +39,12 @@ export default {
   },
   methods: {
     send() {
+      console.log("oom", this.currEvent._id);
       this.$socket.emit("assignMsg", {
         msg: this.newMsg,
         room: this.currEvent._id
       });
-
-      this.saveChatHistory(this.msgs);
+      this.pushMsgToHistory(this.newMsg);
       this.newMsg = msgService.createEmptyMsg(this.nickName);
       this.scrollToEnd();
     },
@@ -53,22 +53,23 @@ export default {
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
     },
-    saveChatHistory(msgs) {
-      this.$emit("sendUpdatedEvent", msgs);
+    pushMsgToHistory(msg) {
+      this.$emit("pushMsgToHistory", msg);
     }
   },
   created() {
-    this.msgs = this.currEvent.msgs;
+    this.msgs = JSON.parse(JSON.stringify(this.$store.getters.currEvent.msgs));
     this.nickName = this.$store.getters.loggedInUser.name;
     this.newMsg = msgService.createEmptyMsg(this.nickName);
 
     const room = this.currEvent._id;
+
     this.$socket.emit("chatJoined", room);
   },
   sockets: {
     renderMsg(msg) {
       console.log({ msg });
-      this.msgs.push(msg)
+      this.msgs.push(msg);
     }
   },
   mounted() {
@@ -81,7 +82,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
 .conversation {
   border: 1px solid lightgray;
   border-radius: 6px;
@@ -89,21 +90,27 @@ export default {
 }
 
 .conversation-container {
+  padding: 10px;
   height: 300px;
   overflow: auto;
+  background-color: lighten(lightgray, 8%);
 }
 
 .container {
   border: 1px solid black;
-  background-color: lightskyblue;
+  background-color: white;
   border-radius: 5px;
   padding: 10px;
-  margin: 10px 0;
+  margin: 10px 10px;
 }
 
 .container::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.msg {
+  color: black;
 }
 </style>

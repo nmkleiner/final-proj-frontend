@@ -11,7 +11,7 @@
       </select>
 
       <h4>Choose instruments you play:</h4>
-      <instruments-multiple-pick></instruments-multiple-pick>
+      <instruments-multiple-pick @setPickedInstruments="setPickedInstruments"></instruments-multiple-pick>
      
       <div class="signup-musicPrefs">
         <h4 class="text-align-center">favorite music:</h4>
@@ -60,6 +60,10 @@ export default {
       //TODO: get location too
       this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
         .then(() => {this.$router.push('/')})
+    },
+    setPickedInstruments(instruments){
+      this.instruments = instruments
+      console.log('from signup form:', this.instruments)
     }
   },
   components:{
