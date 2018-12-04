@@ -1,35 +1,23 @@
 <template>
-  <section class="event-preview">
+  <section class="event-preview flex flex-column space-between">
     <router-link :to="'/event/' + event._id">
       <div class="pic-wrapper flex flex-column justify-center">
         <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
         <img class="main-img" :src="event.pic" alt="event image">
       </div>
     </router-link>
-    <!-- Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tenetur, architecto placeat consequuntur ipsum et officia quibusdam facere perferendis animi asperiores quae atque explicabo dolores assumenda est nisi aspernatur quo ullam. -->
 
-    <div class="details flex flex-column space-between">
-      
-      <players-instruments :event="event" :admin="admin" :players="playersToShow"></players-instruments>
-
-      <!-- <div class="icons-wrapper flex">
-          <router-link v-if="admin" :to="'/user/' + event.adminId">
-            <img class="circle-icon" :title="admin.name" :src="admin.pic">
-          </router-link>
-        <template v-if="players.length" v-for="player in playersToShow">
-          <router-link :to="'/user/' + player._id" :key="player._id">
-            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
-          </router-link>
-        </template>
-      </div> -->
-
-
-
+    <div class="details flex flex-column space-between capitalize">
       <h6 class="bold">{{event.title}}</h6>
       <span class="capitalize">{{event.genre}} music
-        level: {{event.level}} 
+        for {{event.level}}s 
       </span>
       <span class="capitalize">At: {{event.location.city}} Date:{{dateToShow}}</span>
+      
+      <span>Who's coming:</span>
+      <players-instruments :event="event" :admin="admin" :players="playersToShow"></players-instruments>
+      <span>needed instruments:</span>
+      <required-instruments :preview="true" :event="event"></required-instruments>
       
       <span :style="{color: status.color}"> 
         {{status.txt}} {{event.joinedMembersCount}}/{{event.allowedMembersCount}}
@@ -42,9 +30,11 @@
 <script>
 import userService from "@/service/user.service.js";
 import playersInstruments from '@/components/players-instruments.vue'
+import requiredInstruments from '@/components/required-instruments.vue'
 export default {
   components: {
-    playersInstruments
+    playersInstruments,
+    requiredInstruments
   },
   props: {
     event: Object

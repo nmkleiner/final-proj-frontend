@@ -92,37 +92,19 @@
           <el-button @click='joinAs(instrument.instrument)'>{{instrument.instrument}}</el-button>
         </div>
       </transition> -->
-
       <instrument-comp :instruments="event.instruments" v-if="isJoining"></instrument-comp>
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @sendUpdatedEvent="updateEventMsgs"></feed-comp>
       <h4>
-        instruments:
-        <span
-          v-for="(instrument,idx) in event.instruments"
-          :key="idx"
-        >{{instrument.instrument}}</span>
+        required instruments:
+        <required-instruments :preview="false" :event="event"></required-instruments>
+
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
-<<<<<<< HEAD
-      <h4>Players attending:
-        <br>
-        <template v-for="player in players">
-=======
+      <h4>Players attending and their instruments:</h4>
+        <players-instruments :event="event" :players="players"></players-instruments>
 
-      <h4>
-        Players attending:
-      </h4>
-      <br>
-      <players-instruments :event="event" :admin="{pic: ''}" :players="players"></players-instruments>
-
-        <!-- <template v-for="player in players">
->>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
-          <router-link :to="'/user/' + player._id" :key="player._id">
-            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
-          </router-link>
-        </template> -->
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
         <template v-for="player in freePlayers">
@@ -140,12 +122,10 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
-<<<<<<< HEAD
 import instrumentComp from "@/components/instruments-comp.vue";
-=======
 import playersInstruments from '@/components/players-instruments.vue'
+import requiredInstruments from '@/components/required-instruments.vue'
 
->>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
 export default {
   data() {
     return {
@@ -155,7 +135,6 @@ export default {
       admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,
-      // loggedInUser: {},
       markers: [
         {
           position: null
@@ -307,12 +286,10 @@ export default {
   components: {
     gmapMap,
     feedComp,
-<<<<<<< HEAD
-    instrumentComp
-=======
-    playersInstruments
+    instrumentComp,
+    playersInstruments,
+    requiredInstruments
 
->>>>>>> 5ca89c3cbd0af4c5923ea5b1c74fd3c4b56bcceb
   }
 };
 </script>

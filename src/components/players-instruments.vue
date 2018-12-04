@@ -1,15 +1,19 @@
 <template>
-    <section class="players-instruments">
-        <!-- {{players}} -->
-        <!-- {{event}} -->
+    <section class="players-instruments flex">
+
+        <div class="flex flex-column">
           <router-link v-if="admin" :to="'/user/' + event.adminId">
             <img v-if="admin.pic" class="circle-icon" :title="admin.name" :src="admin.pic">
           </router-link>
-        <div v-for="player in players" :key="player._id">
-          <router-link v-if="admin" :to="'/user/' + event.adminId">
+            <div class="icon-white"></div>
+        </div>
+
+        <div class="flex flex-column" v-for="player in players" :key="player._id">
+            <!-- {{player}} -->
+          <router-link v-if="player" :to="'/user/' + player._id">
             <img class="circle-icon" :title="player.name" :src="player.pic">
           </router-link>
-            <span>{{playerInstrument(player._id)}}</span>
+            <img class="icon-white" :src="playerInstrumentIcon(player._id)"/>
         </div>
 
     </section>
@@ -23,12 +27,12 @@ export default {
         event: Object
     },
     methods: {
-        playerInstrument(playerId) {
+        playerInstrumentIcon(playerId) {
             const instrument =  this.event.instruments.find(inst => {
                 const index = inst.playerIds.findIndex(id => id === playerId)
                 return (index === -1)? null : inst
             })
-            return instrument.instrument
+            return '/img/events/'+ instrument.instrument + '.png'
         }
     }
 }
