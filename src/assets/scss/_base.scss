@@ -7,7 +7,7 @@ body{
 $brand-white: #fff;
 $brand-text-color: darken($brand-white, 60%);
 $brand-grey-light: darken($brand-white, 15%);
-
+$border: rgb(207, 207, 207) 1px solid;
 
 //Headings
 h1,h2,h3,h4,h5,h6{

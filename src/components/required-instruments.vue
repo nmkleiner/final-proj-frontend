@@ -1,6 +1,5 @@
 <template>
     <section class="required-instruments flex wrap">
-        <!-- {{event}} -->
         <div v-for="instrument in requiredInstruments" :key="instrument">
             <img class="icon-red" :src="instrument">
         </div>
@@ -20,14 +19,19 @@ export default {
     },
     computed: {
         requiredInstruments() {
-            return this.event.instruments
+            const instruments = this.event.instruments
                 .filter(instrument => !instrument.playerIds.length)
                 .map(instrument => '/img/events/'+ instrument.instrument + '.png');
+            if (!this.preview) return instruments
+            else return instruments.slice(0,5)
+
         },
         chosenInstruments() {
-            return this.event.instruments
+            const instruments = this.event.instruments
                 .filter(instrument => instrument.playerIds.length)
                 .map(instrument => '/img/events/'+ instrument.instrument + '.png');
+            if (!this.preview) return instruments
+            else return instruments.slice(0,5)
         }
     }
 }

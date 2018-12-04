@@ -1,22 +1,19 @@
 .event-preview {
-    border: 1px solid grey;
+    border: $border;
     border-radius: 5px;
     transition: .3s;
-    width: fit-content;
+    width: 280px;
     position: relative;
     .pic-wrapper {
-        width: fit-content;
         .main-img {
-            height: 140px;
-            width: 220px;
+            height: 200px;
+            width: 100%;
             border-radius: 5px 5px 0 0;
-            border-bottom: 1px solid grey; 
         }
         .upper-floating-wrapper {
             padding: 10px;
             position: absolute;
             top: 15px;
-            width: 100%;
             span {
                 font-weight: 700;
                 background-color: rgba(0,0,0,0.3);
@@ -33,20 +30,24 @@
     .details {
         min-height: fit-content;
         flex-grow:1;
-        padding: 10px;
-        width: 220px;
+        // padding: 10px;
+        width: 100%;
         .details-row:first-child{
             padding-bottom: 10px;
         }
         span {
             font-size: 0.9rem;
         }
+        .details-section{
+            border-top: $border;
+            padding: 10px;
+        }
     }
 }
 
 
 .event-preview:hover {
-    transform: scale(1.05)
+    transform: scale(1.02)
 }
 
 .event-preview:hover .carousel-arrow {
