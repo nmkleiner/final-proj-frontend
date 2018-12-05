@@ -28,7 +28,7 @@
         <textarea v-model="event.desc" placeholder="Event Description"/>
         <h4>Choose instruments</h4>
 
-        <instruments-multiple-pick v-if="event" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
+        <instruments-multiple-pick v-if="event && pickedInstruments.length" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
         <!-- <instrument-list @add-instrument="addInstrument"></instrument-list> -->
 
 

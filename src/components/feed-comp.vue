@@ -1,9 +1,11 @@
 <template>
   <div class="conversation">
     <div class="conversation-container" ref="conversationRef">
-      <div v-for="(msg, idx) in msgs" :key="idx" class="message">
-        <div class="container">
-          <p class="msg">{{msg.from}}: {{msg.txt}}</p>
+      <div v-for="(msg, idx) in msgs" :key="idx">
+        <div class="container" :class="{msgOut: nickName === msg.from, msgIn: nickName !== msg.from}">
+          <p class="msg">
+            <img class="chat-user-img" :src="'/img/users/'+ msg.from + '.jpg'">
+            <span class="chat-user-name">({{msg.from}}): </span> <br>{{msg.txt}}</p>
         </div>
       </div>
     </div>
@@ -86,12 +88,10 @@ export default {
 .conversation {
   border: 1px solid lightgray;
   border-radius: 6px;
-  padding: 10px;
 }
 
 .conversation-container {
-  padding: 10px;
-  height: 300px;
+  height: 400px;
   overflow: auto;
   background-color: lighten(lightgray, 8%);
 }
@@ -100,8 +100,9 @@ export default {
   border: 1px solid black;
   background-color: white;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 10px;
+  overflow-wrap: break-word;
+  padding: 5px;
+  margin: 5px 5px;
 }
 
 .container::after {
@@ -113,4 +114,27 @@ export default {
 .msg {
   color: black;
 }
+
+.chat-user-img {
+  height: 30px;
+  width: 30px;
+  margin-right: 2px;
+  border-radius: 50%
+}
+
+.chat-user-name {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.msgOut{
+  background-color: lighten(#67c23a, 15%);
+  margin: 5px 50px 0px 5px;
+}
+
+.msgIn{
+  background-color: darken(white, 3%);
+  margin: 5px 5px 0px 50px;
+}
+
 </style>

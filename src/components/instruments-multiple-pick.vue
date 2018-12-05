@@ -1,5 +1,6 @@
 <template>
   <section class="instruments-wrapper">
+    <div v-if="currInstruments">{{pickedInstruments}}</div>
     <div class="signup-instruments flex">
       <input
         type="checkbox"
@@ -12,7 +13,7 @@
       <label for="guitar">
         <img
           :src="'/img/events/guitar.png'"
-          alt="guitar"
+          title="guitar"
           @click="setPicked('guitar')"
           :class="{picked: itemPicked.guitar}"
         >
@@ -30,6 +31,7 @@
           :src="'/img/events/bass-guitar.png'"
           @click="setPicked('bassGuitar')"
           :class="{picked: itemPicked.bassGuitar}"
+          title="bass-guitar"
         >
       </label>
       <input
@@ -45,6 +47,7 @@
           :src="'/img/events/acoustic-guitar.png'"
           @click="setPicked('acousticGuitar')"
           :class="{picked: itemPicked.acousticGuitar}"
+          title="acoustic-guitar"
         >
       </label>
       <input
@@ -56,7 +59,7 @@
         hidden
       >
       <label for="dj">
-        <img :src="'/img/events/dj.png'" @click="setPicked('dj')" :class="{picked: itemPicked.dj}">
+        <img :src="'/img/events/dj.png'" @click="setPicked('dj')" :class="{picked: itemPicked.dj}" title="dj">
       </label>
       <input
         type="checkbox"
@@ -71,6 +74,7 @@
           :src="'/img/events/drums.png'"
           @click="setPicked('drums')"
           :class="{picked: itemPicked.drums}"
+          title="drums"
         >
       </label>
       <input
@@ -86,6 +90,7 @@
           :src="'/img/events/flute.png'"
           @click="setPicked('flute')"
           :class="{picked: itemPicked.flute}"
+          title="flute"
         >
       </label>
       <input
@@ -101,21 +106,7 @@
           :src="'/img/events/french-horn.png'"
           @click="setPicked('frenchHorn')"
           :class="{picked: itemPicked.frenchHorn}"
-        >
-      </label>
-      <input
-        type="checkbox"
-        id="other"
-        value="other"
-        v-model="pickedInstruments"
-        @change="setPickedInstruments"
-        hidden
-      >
-      <label for="other">
-        <img
-          :src="'/img/events/other.png'"
-          @click="setPicked('other')"
-          :class="{picked: itemPicked.other}"
+          title="french-horn"
         >
       </label>
       <input
@@ -131,6 +122,7 @@
           :src="'/img/events/piano.png'"
           @click="setPicked('piano')"
           :class="{picked: itemPicked.piano}"
+          title="piano"
         >
       </label>
       <input
@@ -146,6 +138,7 @@
           :src="'/img/events/saxophone.png'"
           @click="setPicked('saxophone')"
           :class="{picked: itemPicked.saxophone}"
+          title="saxophone"
         >
       </label>
       <input
@@ -161,6 +154,7 @@
           :src="'/img/events/synthesizer.png'"
           @click="setPicked('synthesizer')"
           :class="{picked: itemPicked.synthesizer}"
+          title="synthesizer"
         >
       </label>
       <input
@@ -176,6 +170,7 @@
           :src="'/img/events/trumpet.png'"
           @click="setPicked('trumpet')"
           :class="{picked: itemPicked.trumpet}"
+          title="trumpet"
         >
       </label>
       <input
@@ -191,6 +186,7 @@
           :src="'/img/events/tuba.png'"
           @click="setPicked('tuba')"
           :class="{picked: itemPicked.tuba}"
+          title="tuba"
         >
       </label>
       <input
@@ -206,6 +202,23 @@
           :src="'/img/events/violin.png'"
           @click="setPicked('violin')"
           :class="{picked: itemPicked.violin}"
+          title="violin"
+        >
+      </label>
+      <input
+        type="checkbox"
+        id="other"
+        value="other"
+        v-model="pickedInstruments"
+        @change="setPickedInstruments"
+        hidden
+      >
+      <label for="other">
+        <img
+          :src="'/img/events/other.png'"
+          @click="setPicked('other')"
+          :class="{picked: itemPicked.other}"
+          title="other"
         >
       </label>
     </div>
@@ -249,13 +262,8 @@ export default {
       this.pickedInstruments = this.currInstruments;
       console.log("on created inst-mult", this.pickedInstruments);
       this.pickedInstruments.forEach(pickedInstrument => {
-          console.log('pickedInstrument',pickedInstrument)
-        for (var instrument in this.itemPicked) {
-          if (pickedInstrument === instrument) {
-              console.log('instrument', instrument)
-            this.itemPicked[instrument] = true;
-          }
-        }
+        console.log("pickedInstrument", pickedInstrument);
+        this.itemPicked[pickedInstrument.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase()})] = true;
       });
     }
   },
@@ -284,13 +292,13 @@ img {
   padding: 5px;
   border: 1px solid black;
   &:hover {
-    background-color: lightgray;
+    background-color: #85ce61;
   }
   &:active {
-    background-color: gray;
+    background-color: #5daf34;
   }
 }
 .picked {
-  background-color: gray;
+  background-color: #67c23a;
 }
 </style>
