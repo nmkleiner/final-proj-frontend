@@ -7,33 +7,33 @@
           <i class="fas fa-drum"></i>MUSIGROUPS
         </h2>
         <h4 class="pl-10">
-            <p class="white-text p-10 bold">
+            <p class="white-text bold">
               Here you can find and join
               music events, created by musicians in your area, 
               or create your own events.
             </p>
-            <p class="white-text p-10 bold">
+            <p class="white-text bold">
               Connect with the musician community in a new way.
             </p>
           </h4>
       </div>
     </header>
    
-    <section v-if="events.length">
       <div v-if="loggedInUser" class="carousels-container loggedIn">
         <template v-for="genre in loggedInUser.favGenres">
-          <section class="carousel-section favourite-genre" :key="genre">
+          <section v-if="genreEvents(genre).length" class="carousel-section favourite-genre" :key="genre">
             <h2 class="capitalize">Especially for you, {{genre}} music events:</h2>
-            <event-carousel :events="events"/>
+            <event-carousel :events="genreEvents(genre)"/>
             <a @click="goList(genre.toLowerCase())">Show All {{genre}} Events</a>
-            
           </section>
         </template>
 
         <template v-for="instrument in loggedInUser.instruments">
-          <section class="carousel-section favourite-genre" :key="instrument">
+          <section v-if="instrumentEvents(instrument).length" 
+          class="carousel-section favourite-genre" 
+          :key="instrument">
             <h2 class="capitalize">Especially for you, events that need a {{instrument}} player:</h2>
-            <event-carousel :events="events"/>
+            <event-carousel :events="instrumentEvents(instrument)"/>
             <a @click="goList('',instrument.toLowerCase())">Show All {{instrument}} Events</a>
             
           </section>
@@ -55,7 +55,7 @@
         
         <section class="carousel-section rock-events">
           <h2 class="capitalize">Rock events:</h2>
-          <event-carousel :events="rockEvents"/>
+          <event-carousel :events="genreEvents('rock')"/>
           <a @click="goList('rock')">Show All Rock Events</a>
         </section>
         
@@ -73,24 +73,23 @@
         
         <section class="carousel-section reggae-events">
           <h2 class="capitalize">Reggae events:</h2>
-          <event-carousel :events="reggaeEvents"/>
+          <event-carousel :events="genreEvents('reggae')"/>
           <a @click="goList('reggae')">Show All Reggae Events</a>
         </section>
         
         <section class="carousel-section world-music-events">
-          <h2 class="capitalize">World Music:</h2>
-          <event-carousel :events="worldEvents"/>
+          <h2 class="capitalize">World Music events:</h2>
+          <event-carousel :events="genreEvents('world')"/>
           <a @click="goList('world')">Show All World Music Events</a>
         </section>
         
-        <section v-if="progEvents.length" class="carousel-section progressive-rock-events">
+        <section v-if="genreEvents('progressive rock').length" class="carousel-section progressive-rock-events">
           <h2 class="capitalize">Progressive Rock events:</h2>
-          <event-carousel :events="progEvents"/>
+          <event-carousel :events="genreEvents('progressive rock')"/>
           <a @click="goList('progressive rock')">Show All Progressive Rock Events</a>
         </section>
         
       </div>
-    </section>
      
   </div>
 </template>
@@ -110,53 +109,18 @@ export default {
     eventPreview,
     eventCarousel,
     replacingImages
-    // nearPlacesMap
   },
-  methods: {
-    goList(genre, instrument, location, recent, status) {
-      this.$router.push("/event");
-      setTimeout(() => {
-        if (genre) bus.$emit(FILTER, { genre });
-        if (instrument) bus.$emit(FILTER, { instrument });
-        if (location) bus.$emit(FILTER, { location });
-        if (recent) bus.$emit(FILTER, { recent });
-        if (status === "Almost full") bus.$emit(FILTER, { status });
-        if (status === "Waiting for players") bus.$emit(FILTER, { status });
-      }, 50);
-    }
-  },
-  computed: {
+    computed: {
     events() {
       return this.$store.getters.events;
-    },
-    rockEvents() {
-      return this.events.filter(event => event.genre === "rock")
-    },
-    classicEvents() {
-      return this.events.filter(event => event.genre === "classic")
-    },
-    progEvents() {
-      return this.events.filter(event => event.genre === "progressive rock")
-    },
-    countryEvents() {
-      return this.events.filter(event => event.genre === "country")
-    },
-    jazzEvents() {
-      return this.events.filter(event => event.genre === "jazz")
-    },
-    worldEvents() {
-      return this.events.filter(event => event.genre === "world")
-    },
-    reggaeEvents() {
-      return this.events.filter(event => event.genre === "reggae")
     },
     closeEvents() {
       return this.events.filter(event => event.location.city === "tel aviv" ||
         event.location.city === "ramat gan")
     },
     thisWeekEvents() {
-      return this.events.filter(event => event.location.city === "tel aviv" ||
-        event.location.city === "ramat gan")
+      return this.events.filter(event => event.time.timestamp > Date.now() && 
+                                          event.time.timestamp < (Date.now() + 1000*3600*24*7))
     },
     waitingEvents() {
       return this.events.filter(event => event.status === "Waiting for players")
@@ -176,6 +140,29 @@ export default {
     },
     loggedInUser() {
       return this.$store.getters.loggedInUser;
+    }
+  },
+  methods: {
+    genreEvents(genre) {
+      return this.events.filter(event => event.genre.toLowerCase() === genre.toLowerCase())
+    },
+    instrumentEvents(userInstrument) {
+      return this.events.filter(event => 
+        event.instruments.find(instrument => 
+          instrument.instrument === userInstrument.toLowerCase()
+        )
+      )
+    },
+    goList(genre, instrument, location, recent, status) {
+      this.$router.push("/event");
+      setTimeout(() => {
+        if (genre) bus.$emit(FILTER, { genre });
+        if (instrument) bus.$emit(FILTER, { instrument });
+        if (location) bus.$emit(FILTER, { location });
+        if (recent) bus.$emit(FILTER, { recent });
+        if (status === "Almost full") bus.$emit(FILTER, { status });
+        if (status === "Waiting for players") bus.$emit(FILTER, { status });
+      }, 50);
     }
   },
   created() {

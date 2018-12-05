@@ -18,15 +18,16 @@
       height: 100%;
       background: linear-gradient(165deg, #111 0%, #333 30% ,#999 100%);
       opacity: 0.7;
-      color: white;
       z-index: 2;
       h2 {
         margin: 20px 0;
         text-align: center;
       }
       h4 {
-        color: white;
         font-size: 1.3rem;
+      }
+      p{
+        text-align: center;
       }
     }
   }
