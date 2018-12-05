@@ -52,8 +52,9 @@
         <el-input type="date" v-model="event.time.day"></el-input>
         <div>
           <h4>event hour</h4>
-
-          <time-picker class="align-self-center" v-model="event.time.hour"></time-picker>
+          <vue-timepicker v-model="event.time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
+          <!-- <time-picker class="align-self-center" v-model="event.time.hour"></time-picker> -->
+          {{event}}
         </div>
         <h4>event cost</h4>
         <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
@@ -86,7 +87,7 @@
 import eventService from "@/service/event.service.js";
 import instrumentList from "@/components/instrument-list.vue";
 import instrumentsMultiplePick from "@/components/instruments-multiple-pick.vue";
-import timePicker from "@/components/time-picker.vue";
+import VueTimepicker from "vue2-timepicker";
 
 export default {
   name: "edit-event",
@@ -97,11 +98,12 @@ export default {
         location: { address: "", city: "" },
         time: {
           day: "",
-          hour: {
-            hours: "0",
-            minutes: "00",
-            ampm: "AM"
-          }
+           hour: {
+              HH: "",
+              mm: "",
+              hours: '',
+              minutes: '',
+           }
         },
         title: "",
         desc: "",
@@ -122,9 +124,9 @@ export default {
     };
   },
   components: {
-    timePicker,
     instrumentsMultiplePick,
-    instrumentList
+    instrumentList,
+    VueTimepicker 
   },
   computed: {
     loggedInUser() {
@@ -146,6 +148,9 @@ export default {
       allowedMembersCount += +this.event.freePlayers.amount;
       this.event.allowedMembersCount = allowedMembersCount;
       this.event.time.timestamp = new Date(this.event.time.day).getTime();
+      this.event.time.hour.hours = this.event.time.hour.HH;
+      this.event.time.hour.minutes = this.event.time.hour.mm;
+
     },
 
     saveNewEvent() {

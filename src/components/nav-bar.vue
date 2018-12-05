@@ -89,8 +89,9 @@ export default {
   .nav-btn{
     background-color: black;
     color: rgb(144, 241, 241);
+    font-size: 17px;
     border: 1px solid lighten(black,20%);
-    padding: 10px;
+    padding: 8px;
     border-radius: 50px;
     margin: 0 20px;
     cursor: pointer;

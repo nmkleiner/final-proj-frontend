@@ -8,6 +8,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueSocketIO from 'vue-socket.io'
+import VueTimepicker from 'vue2-timepicker'
+import VueGlide from 'vue-glide-js'
+import VueCarousel from 'vue-carousel';
+
 var socketURL = 'http://localhost:3000'
 if (process.env.NODE_ENV !== "development") {
   socketURL = "/";
@@ -32,15 +36,13 @@ Vue.use(VueGoogleMaps, {
     libraries: 'places'
   },
 })
-
-import VueGlide from 'vue-glide-js'
+Vue.use(VueTimepicker)
 Vue.use(VueGlide)
-import VueCarousel from 'vue-carousel';
 Vue.use(VueCarousel);
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI);
 // Vue.crossorigin = true;
 Vue.crossOrigin = 'true'
 
