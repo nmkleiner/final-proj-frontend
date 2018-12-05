@@ -45,7 +45,6 @@ export default {
     }
   },
   created() {
-    console.log("from ins comp ", this.instruments);
   }
 };
 </script>
@@ -54,7 +53,7 @@ export default {
 .instruments-wrapper {
   border: 1px solid lightgray;
   width: 100%;
-  height: 200px;
+  padding-bottom: 20px;
 }
 .instruments-container {
   padding: 10px;

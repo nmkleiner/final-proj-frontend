@@ -1,6 +1,9 @@
 <template>
   <section class="signup-card-wrapper">
-    <form @submit.prevent="submitNewUser" class="signup-form-container flex flex-column align-center">
+    <form
+      @submit.prevent="submitNewUser"
+      class="signup-form-container flex flex-column align-center"
+    >
       <h1>sign up</h1>
       <input type="text" placeholder="Full Name..." v-model="newUser.name">
       <input type="password" placeholder="Password..." v-model="newUser.password">
@@ -11,7 +14,7 @@
 
       <h4>Choose instruments you play:</h4>
       <instruments-multiple-pick @setPickedInstruments="setPickedInstruments"></instruments-multiple-pick>
-     
+
       <div class="signup-musicPrefs">
         <h4 class="text-align-center">favorite music:</h4>
         <input type="checkbox" id="rock" value="Rock" v-model="newUser.favGenres">
@@ -25,53 +28,59 @@
       <textarea v-model="newUser.bio" class="signup-bio" placeholder="tell us about yourself..."></textarea>
       <div class="signup-button-wrapper">
         <el-button native-type="submit">Save</el-button>
-        <router-link  to='/'><el-button>Back</el-button></router-link> 
+        <router-link to="/">
+          <el-button>Back</el-button>
+        </router-link>
       </div>
     </form>
-  {{newUser}}
-
+    {{newUser}}
   </section>
 </template>
 
 <script>
-import utilService from '@/service/util.service.js'
-import instrumentsMultiplePick from '@/components/instruments-multiple-pick.vue'
+import utilService from "@/service/util.service.js";
+import instrumentsMultiplePick from "@/components/instruments-multiple-pick.vue";
 export default {
   data() {
     return {
       newUser: {
         name: "",
         password: "",
-        pic: '',
+        pic: "",
         instruments: [],
-        level: 'amateur',
-        bio: '',
+        level: "amateur",
+        bio: "",
         favGenres: [],
         location: "",
         partEventsIds: [],
         adminEventsIds: []
-      }
+      },
+      fromEventId: ""
     };
   },
   methods: {
     submitNewUser() {
-      this.newUser.pic = `/img/users/${this.newUser.name}.jpg`      
-      this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
-        .then(() => {this.$router.push('/')})
+      this.newUser.pic = `/img/users/${this.newUser.name}.jpg`;
+      this.$store
+        .dispatch({ type: "signUpUser", newUser: this.newUser })
+        .then(() => {
+          if (this.fromEventId) this.$router.push(`/event/${this.fromEventId}`);
+          else this.$router.push("/");
+        });
     },
-    setPickedInstruments(instruments){
-      this.newUser.instruments = instruments
-      console.log('from signup form:', this.instruments)
+    setPickedInstruments(instruments) {
+      this.newUser.instruments = instruments;
+      console.log("from signup form:", this.instruments);
     }
   },
-  components:{
+  components: {
     instrumentsMultiplePick
   },
   created() {
     document.body.scrollIntoView();
+    this.fromEventId = this.$route.params.eventId;
   }
 };
-      
 </script>
 
 <style>

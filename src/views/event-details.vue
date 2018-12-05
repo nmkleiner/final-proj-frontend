@@ -8,8 +8,12 @@
         <h4 class="card-organizer-name px-10 capitalize">{{event.adminName}}&nbsp;</h4>
 
         <template v-if="isLoggedInUserAdmin">
-          <el-button @click="goEdit" type="success" round><i class="fas fa-edit"></i>  Edit Event</el-button>
-          <el-button type="danger" @click="removeEvent" round><i class="fas fa-trash-alt"></i>  Cancel Event</el-button>
+          <el-button @click="goEdit" type="success" round>
+            <i class="fas fa-edit"></i> Edit Event
+          </el-button>
+          <el-button type="danger" @click="removeEvent" round>
+            <i class="fas fa-trash-alt"></i> Cancel Event
+          </el-button>
         </template>
       </div>
 
@@ -48,7 +52,7 @@
         </GmapMap>
       </div>
     </div>
-
+    
     <div class="card-container">
       <el-button
         @click="loginToJoin"
@@ -58,8 +62,14 @@
       >Login to join</el-button>
 
       <el-button
+        v-if="loggedInUser && requiredInstrumentsToShow.length === 0"
+        class="static join-button"
+        type="warning"
+      >Event is full</el-button>
+
+      <el-button
         @click="toggleJoin"
-        v-if="loggedInUser && !isLoggedInUserAdmin && !isJoining"
+        v-if="requiredInstrumentsToShow.length > 0 && loggedInUser && !isLoggedInUserAdmin && !isJoining"
         class="static join-button"
         type="success"
       >Join the event</el-button>
@@ -73,20 +83,20 @@
 
       <transition name="fade">
         <pick-instruments-comp
-          :instruments="event.instruments"
-          v-if="isJoining"
+          :instruments="requiredInstrumentsToShow"
+          v-if="isJoining && requiredInstrumentsToShow.length > 0"
           @selectedInstrument="joinTheEvent"
         ></pick-instruments-comp>
       </transition>
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
       <h4>required instruments:
-        <required-instruments :preview="false" :event="event"></required-instruments>
+        <required-instruments :preview="false" :event="event" @setrequiredInstrumentsToShow="setrequiredInstrumentsToShow"></required-instruments>
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
       <h4>attending:</h4>
-        <players-instruments :event="event" :players="players"></players-instruments>
+      <players-instruments :event="event" :players="players"></players-instruments>
 
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
@@ -126,13 +136,17 @@ export default {
       isLoggedInUserAdmin: false,
       isJoining: false,
       markers: [],
-      center: null
+      center: null,
+      requiredInstrumentsToShow: []
     };
   },
   methods: {
+    setrequiredInstrumentsToShow(instruments) {
+      this.requiredInstrumentsToShow = instruments;
+    },
     pushMsgToHistory(msg) {
-      console.log('msg', msg)
-      this.$store.dispatch({type: 'pushMsgToHistory', msg})
+      console.log("msg", msg);
+      this.$store.dispatch({ type: "pushMsgToHistory", msg });
     },
     joinAs(instrument = null) {
       if (instrument === null) {
@@ -156,7 +170,7 @@ export default {
       }
     },
     joinTheEvent(instrument) {
-      if(instrument === null) return this.isJoining = !this.isJoining;
+      if (instrument === null) return (this.isJoining = !this.isJoining);
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId
@@ -188,7 +202,7 @@ export default {
           var latlng = res.data.results[0].geometry.location;
           console.log(latlng);
           this.center = latlng;
-          this.markers.push({position: latlng});
+          this.markers.push({ position: latlng });
           return latlng;
         })
         .then(latlng => {
@@ -199,7 +213,7 @@ export default {
     toggleJoin() {
       this.isJoining = !this.isJoining;
     },
-    loginToJoin(){
+    loginToJoin() {
       const eventId = this.event._id;
       this.$router.push(`/login/${eventId}`);
     }
@@ -264,10 +278,7 @@ export default {
         }
       });
   },
-  mounted() {
-    
-  },
-  
+  mounted() {}
 };
 </script>
 
@@ -286,10 +297,12 @@ export default {
   border: 1px solid black;
 }
 .join-button {
+  margin: 20px 0px;
   width: 100%;
   top: 0;
   position: sticky;
   @media screen and (min-width: 768px) {
+    margin: 20px 0px;
     width: 100%;
   }
 }

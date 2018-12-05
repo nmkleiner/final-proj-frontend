@@ -40,7 +40,8 @@ export default {
       
         },
         signup() {
-            this.$router.push('/signup')
+            if(this.fromEventId) this.$router.push(`/signup/${this.fromEventId}`);
+            else this.$router.push('/signup')
         }
     },
     created() {

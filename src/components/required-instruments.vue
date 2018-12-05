@@ -13,9 +13,9 @@
 
 <script>
 export default {
+    name: 'required-instruments',
     props: {
-        event: Object,
-        
+        event: Object,   
     },
     computed: {
         requiredInstruments() {
@@ -23,11 +23,18 @@ export default {
                 .filter(instrument => !instrument.playerIds.length)
                 .map(instrument => instrument.instrument);
         },
+        requiredInstrumentsObj() {
+            return this.event.instruments
+                .filter(instrument => !instrument.playerIds.length)
+        },
         chosenInstruments() {
             return this.event.instruments
                 .filter(instrument => instrument.playerIds.length)
                 .map(instrument => instrument.instrument);
         }
+    },
+    mounted(){
+        this.$emit('setrequiredInstrumentsToShow' ,this.requiredInstrumentsObj)
     }
 }
 </script>

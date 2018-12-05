@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <form class="conversation-compose">
+    <form v-if="nickName" class="conversation-compose">
       <input
         v-model="newMsg.txt"
         class="input-msg"
@@ -19,7 +19,6 @@
         autocomplete="off"
         autofocus
       >
-      
       <button @click.prevent="send">send</button>
     </form>
   </div>
@@ -113,6 +112,10 @@ export default {
 
 .msg {
   color: black;
+}
+
+.conversation-compose {
+  padding: 10px 20px;
 }
 
 .chat-user-img {

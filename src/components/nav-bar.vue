@@ -90,9 +90,9 @@ export default {
     background-color: black;
     color: rgb(144, 241, 241);
     font-size: 17px;
-    border: 1px solid lighten(black,20%);
+    border: 1.5px solid lighten(black,40%);
     padding: 8px;
-    border-radius: 50px;
+    border-radius: 20px;
     margin: 0 20px;
     cursor: pointer;
   }
