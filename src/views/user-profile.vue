@@ -18,7 +18,7 @@
           <!-- <i v-for="instrument in user.instruments" :key="instrument">{{instrument}}</i> -->
         <h3>
           Preferred genres:
-          <i v-for="genre in user.favGenres" :key="genre">{{genre}}</i>.
+          <i v-for="genre in user.favGenres" :key="genre">{{genre}} </i>.
         </h3>
       </div>
     </section>

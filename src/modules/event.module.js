@@ -37,12 +37,14 @@ export default {
     }
   },
   actions: {
-    joinEvent({ commit, getters, state }, { joinedEvent }) {
+    joinEvent({ commit, getters, state, dispatch }, { joinedEvent }) {
       joinedEvent.currUser = getters.loggedInUser;
       commit({ type: 'setUpdateEvent', joinedEvent });
       commit({ type: 'setEventStatus', joinedEvent });
       eventService.saveEvent(state.currEvent).then(() => {
-        bus.$emit(MSG, 'Joined event.');
+        dispatch('loadEvents').then(() => {
+          bus.$emit(MSG, 'Joined event.');
+        })
       });
     },
 

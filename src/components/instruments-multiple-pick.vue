@@ -254,6 +254,7 @@ export default {
     },
     setPicked(instrument) {
       this.itemPicked[instrument] = !this.itemPicked[instrument];
+      this.setPickedInstruments()
     }
   },
   created() {

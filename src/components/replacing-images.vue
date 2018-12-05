@@ -1,7 +1,11 @@
 <template>
   <section class="replacing-images">
-        <img
-        src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=98bfb6da87072431cb1d54750bf2e638&auto=format&fit=crop&w=768&q=60"
+        <img v-for="i in 4" 
+        :src="'/img/previews/' + i + '.jpg'" 
+        :key="i" 
+        :class="{'shown': chosenPic === i, 'hidden': chosenPic !== i }"/>
+        <!-- <img
+        :src="/img/previews/1.jpg"
         :class="{'shown': chosenPic === 1, 'hidden': chosenPic !== 1 }"
         >
         <img
@@ -15,7 +19,7 @@
         <img
         src="https://images.unsplash.com/photo-1513829596324-4bb2800c5efb?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a2e3abeff94d9a95db8c3b25e84f3718&auto=format&fit=crop&w=768&q=60"
         :class="{'shown': chosenPic === 4, 'hidden': chosenPic !== 4 }"
-        >
+        > -->
   </section>
 </template>
 

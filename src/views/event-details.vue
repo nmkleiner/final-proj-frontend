@@ -50,7 +50,6 @@
     </div>
 
     <div class="card-container">
-      
       <el-button
         @click="loginToJoin"
         v-if="!loggedInUser"

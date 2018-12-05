@@ -76,11 +76,11 @@ export default {
   font-family: 'Montserrat', sans-serif;  
   overflow: hidden;
   background-color: black;
-  opacity: 0.85;
   position: fixed;
   width: 100%;
   z-index: 10;
   top: 0px;
+  border-bottom: 1px solid white;
   .circle-icon-sm {
     border-radius: 50%;
     width: 30px;
