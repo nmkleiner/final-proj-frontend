@@ -175,9 +175,18 @@ export default {
         instrument,
         eventId: this.$route.params.eventId
       };
-      this.$store.dispatch({ type: "updateUserPartEvents", joinedEvent });
-      this.$store.dispatch({ type: "joinEvent", joinedEvent });
-      this.$router.push("/");
+      this.$store.dispatch({ type: "updateUserPartEvents", joinedEvent })
+        .then(() => {
+          this.$store.dispatch({ type: "joinEvent", joinedEvent })
+            .then(() => {
+          // this.$router.push("/");
+              this.$store.dispatch({ type: "getEventById", eventId: this.event._id })
+                .then(event => {
+                  console.log(event)
+                  this.event = event;
+            })
+          })
+        })
     },
     goEdit() {
       const eventId = this.event._id;

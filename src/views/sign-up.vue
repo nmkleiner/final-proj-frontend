@@ -14,16 +14,11 @@
 
       <h4>Choose instruments you play:</h4>
       <instruments-multiple-pick @setPickedInstruments="setPickedInstruments"></instruments-multiple-pick>
-
-      <div class="signup-musicPrefs">
-        <h4 class="text-align-center">favorite music:</h4>
-        <input type="checkbox" id="rock" value="Rock" v-model="newUser.favGenres">
-        <label for="rock">Rock</label>
-        <input type="checkbox" id="classic" value="Classic" v-model="newUser.favGenres">
-        <label for="classic">Classic</label>
-        <input type="checkbox" id="world" value="World" v-model="newUser.favGenres">
-        <label for="world">World</label>
-      </div>
+     
+      <span>What genres do you like?</span>
+      <el-checkbox-group class="mt-20" v-model="newUser.favGenres" size="medium">
+        <el-checkbox-button v-for="genre in genres" :label="genre" :key="genre">{{genre}}</el-checkbox-button>
+      </el-checkbox-group>
 
       <textarea v-model="newUser.bio" class="signup-bio" placeholder="tell us about yourself..."></textarea>
       <div class="signup-button-wrapper">
@@ -33,7 +28,6 @@
         </router-link>
       </div>
     </form>
-    {{newUser}}
   </section>
 </template>
 
@@ -55,7 +49,7 @@ export default {
         partEventsIds: [],
         adminEventsIds: []
       },
-      fromEventId: ""
+      genres: ['rock','classic','jazz','reggae','progressive rock','world','country']
     };
   },
   methods: {
