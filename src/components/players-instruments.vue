@@ -1,21 +1,25 @@
 <template>
-    <section class="players-instruments flex">
+    <section class="players-instruments flex flex-column">
+        <div class="row flex" v-for="player in players" :key="player._id">
+            
+            <div class="player-instrument-wrapper">
+                <router-link v-if="player" :to="'/user/' + player._id">
+                    <img class="circle-icon" :title="player.name" :src="player.pic">
+                </router-link>
+                <img class="inst" :src="'/img/events/' + playerInstrument(player._id) + '.png'"/>
+            </div>
+            <div class="flex flex-column">
+                <span>{{player.name}}</span>
+                <span>{{player.level}} 
+                    <span v-for="instrument in player.instruments" :key="instrument">{{instrument}} </span>
+                    player.
+                </span>
+            </div>
+            <!-- <span v-if="player.partEventsIds.length > 1">been to {{player.partEventsIds.length}} jams.</span>
+            <span v-if="player.adminEventsIds.length > 1">hosted {{player.partEventsIds.length}} jams.</span> -->
+            <!-- {{player.rank}} -->
 
-        <div class="flex flex-column">
-          <!-- <router-link v-if="admin" :to="'/user/' + event.adminId">
-            <img v-if="admin.pic" class="circle-icon" :title="admin.name" :src="admin.pic">
-          </router-link>
-            <div class="icon-white"></div> -->
-        </div>
 
-        <div class="flex flex-column" v-for="player in players" :key="player._id">
-            <!-- {{player}} -->
-          <router-link v-if="player" :to="'/user/' + player._id">
-            <img class="circle-icon" :title="player.name" :src="player.pic">
-          </router-link>
-
-            <img v-if="preview" class="icon-green" :title="playerInstrument(player._id)" :src="'/img/events/' + playerInstrument(player._id) + '.png'"/>
-            <img v-else class="icon-white" :src="'/img/events/' + playerInstrument(player._id) + '.png'"/>
         </div>
 
     </section>
@@ -27,7 +31,6 @@ export default {
         admin: Object,
         players: Array,
         event: Object,
-        preview: Boolean
     },
     methods: {
         playerInstrument(playerId) {
@@ -35,13 +38,12 @@ export default {
                 const index = inst.playerIds.findIndex(id => id === playerId)
                 return (index === -1)? null : inst
             })
-            // return '/img/events/'+ instrument.instrument + '.png'
             return instrument.instrument
         }
     }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

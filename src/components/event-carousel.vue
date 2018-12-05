@@ -1,6 +1,6 @@
 <template>
   <section class="carousel">
-    <carousel :perPageCustom="[[0,1],[700,2],[970, 3], [1250, 4]]"
+    <carousel :navigationNextLabel="rightArrow" :navigationPrevLabel="leftArrow" :perPageCustom="[[0,1],[700,2],[970, 3], [1250, 4]]"
     :mouse-drag="true"
     :navigationEnabled="true">
       <slide class="slide" v-for="event in events" :key="event._id">
@@ -19,6 +19,15 @@ export default {
     components: {
       eventPreview
     },
+    data() {
+      return {
+        rightArrow: '<i class="fas fa-chevron-right"></i>',
+        leftArrow: '<i class="fas fa-chevron-left"></i>',
+
+      }
+      
+    },
+    
 }
 </script>
 

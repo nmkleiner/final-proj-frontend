@@ -81,8 +81,8 @@
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
-      <h4>Players attending and their instruments:</h4>
-        <players-instruments :preview="false" :event="event" :players="players"></players-instruments>
+      <h4>attending:</h4>
+        <players-instruments :event="event" :players="players"></players-instruments>
 
       <h4 v-if="freePlayers.length">Free players attending:
         <br>

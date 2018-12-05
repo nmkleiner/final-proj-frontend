@@ -1,19 +1,19 @@
 <template>
   <div class="home">
-    <div class="header-wrapper">
-      <header>
-        <replacing-images></replacing-images>
-        <div class="welcome-text">
-          <h2>Welcome to <br><span><i class="fas fa-drum"></i>MUSIGROUPS</span></h2>
-          <h4 class="pl-10">
-              Here you can find and join 
-              music events, created by musicians in your area, 
-              or create your own events.<br>
-              Connect with the musician community in a new way.
-            </h4>
-        </div>
-      </header>
-    </div>
+    <header>
+      <replacing-images></replacing-images>
+      <div class="welcome-text">
+        <h2 class="white-text">Welcome to <br>
+          <i class="fas fa-drum"></i>MUSIGROUPS
+        </h2>
+        <h4 class="pl-10">
+            Here you can find and join 
+            music events, created by musicians in your area, 
+            or create your own events.<br>
+            Connect with the musician community in a new way.
+          </h4>
+      </div>
+    </header>
    
     <section v-if="events.length">
       <div v-if="loggedInUser" class="carousels-container loggedIn">
@@ -22,7 +22,7 @@
             <h2 class="capitalize">Especially for you, {{genre}} music events:</h2>
             <event-carousel :events="events"/>
             <a @click="goList(genre.toLowerCase())">Show All {{genre}} Events</a>
-            <hr>
+            
           </section>
         </template>
 
@@ -31,7 +31,7 @@
             <h2 class="capitalize">Especially for you, events that need a {{instrument}} player:</h2>
             <event-carousel :events="events"/>
             <a @click="goList('',instrument.toLowerCase())">Show All {{instrument}} Events</a>
-            <hr>
+            
           </section>
         </template>
       </div>
@@ -42,49 +42,49 @@
           <event-carousel :events="closeEvents"/>
           <a class @click="goList('','','location')">Show All Events</a>
         </section>
-        <hr>
+        
         <section class="carousel-section close-distance-events">
           <h2 class="capitalize">events happening this week:</h2>
           <event-carousel :events="thisWeekEvents"/>
           <!-- <a @click="goList('','','','this week')">Show All Events</a> -->
         </section>
-        <hr>
+        
         <section class="carousel-section rock-events">
-          <h2 class="capitalize">Rock events for you:</h2>
+          <h2 class="capitalize">Rock events:</h2>
           <event-carousel :events="rockEvents"/>
           <a @click="goList('rock')">Show All Rock Events</a>
         </section>
-        <hr>
+        
         <section class="carousel-section just-opened-events">
           <h2 class="capitalize">Just Opened!</h2>
           <event-carousel :events="waitingEvents"/>
           <a @click="goList('','','','','Waiting for players')">Show All Recent Events</a>
         </section>
-        <hr>
+        
         <section class="carousel-section almost-full-events">
           <h2 class="capitalize">Almost full grab your place!</h2>
           <event-carousel :events="almostFullEvents"/>
           <a @click="goList('','','','','almost full')">Show All Events</a>
         </section>
-        <hr>
+        
         <section class="carousel-section reggae-events">
-          <h2 class="capitalize">Reggae events for you:</h2>
+          <h2 class="capitalize">Reggae events:</h2>
           <event-carousel :events="reggaeEvents"/>
           <a @click="goList('reggae')">Show All Reggae Events</a>
         </section>
-        <hr>
+        
         <section class="carousel-section world-music-events">
-          <h2 class="capitalize">World Music events for you:</h2>
+          <h2 class="capitalize">World Music:</h2>
           <event-carousel :events="worldEvents"/>
           <a @click="goList('world')">Show All World Music Events</a>
         </section>
-        <hr>
-        <section class="carousel-section progressive-rock-events">
-          <h2 class="capitalize">Progressive Rock events for you:</h2>
+        
+        <section v-if="progEvents.length" class="carousel-section progressive-rock-events">
+          <h2 class="capitalize">Progressive Rock events:</h2>
           <event-carousel :events="progEvents"/>
           <a @click="goList('progressive rock')">Show All Progressive Rock Events</a>
         </section>
-        <hr>
+        
       </div>
     </section>
      

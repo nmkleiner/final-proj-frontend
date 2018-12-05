@@ -3,7 +3,6 @@
     
     <router-link :to="'/event/' + event._id">
       <div class="pic-wrapper flex flex-column justify-center">
-        <!-- <img class="main-img" :src="event.pic" alt="event image"> -->
         <img class="main-img" :src="event.pic" alt="event image">
       </div>
     </router-link>
@@ -11,23 +10,20 @@
     <div class="details flex flex-column space-between capitalize">
       <div class="details-section">
         <h6 class="bold">{{event.title}}</h6>
-        <span class="capitalize">{{event.genre}} music
-          for {{event.level}}s 
+        <span>{{event.genre}} music<span v-if="!!event.level.length"> for {{event.level}}s</span> 
         </span>
-        <span class="capitalize">At: {{event.location.city}} Date:{{dateToShow}}</span>
+        <span>, happening on {{dateToShow}} in {{event.location.city}}.</span>
+        <div class="flex mt-5">
+          <div v-for="player in playersToShow" :key="player._id">
+            <router-link v-if="player" :to="'/user/' + player._id">
+              <img class="circle-icon" :title="player.name" :src="player.pic">
+            </router-link>
+          </div>
+        </div>
       </div>
 
       <div class="details-section">
-        <span>Who's coming:</span>
-        <players-instruments :preview="true" :event="event" :admin="admin" :players="playersToShow"></players-instruments>
-      </div>
-
-      <div class="details-section">
-        <span>needed instruments:</span>
-        <required-instruments :preview="true" :event="event"></required-instruments>
-        <span :style="{color: status.color}"> 
-          {{status.txt}} {{event.joinedMembersCount}}/{{event.allowedMembersCount}}
-        </span>
+        <required-instruments :event="event"></required-instruments>
       </div>
       
     </div>

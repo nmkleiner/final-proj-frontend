@@ -2,8 +2,13 @@
     <div class="nav-bar flex space-between" :class="{'responsive': isOpen, 'guest': !isLoggedInUser}">
         <router-link class="logo" to="/"><i class="fas fa-drum fa-lg"></i> MUSIGROUPS</router-link>
         <div class="links">
-          <router-link v-if="isLoggedInUser" :to="'/user/' + loggedInUser._id">Profile</router-link>
-          <router-link v-if="isLoggedInUser" to="/event/edit">Create</router-link>
+          <!-- <button v-if="isLoggedInUser" to="/event/edit">
+            Create+
+          </button>
+            <img class="circle-icon-sm" :src="loggedInUser.pic"/> -->
+          <router-link class="" v-if="isLoggedInUser" :to="'/user/' + loggedInUser._id">
+            Profile
+          </router-link>
           <!-- <router-link to="/about">About</router-link> -->
           <a v-if="isLoggedInUser" @click="logout">Logout</a>
           <router-link v-else to="/login">Login</router-link>
@@ -55,7 +60,7 @@ export default {
   top: 0px;
 
   a {
-    float: left;
+    // float: left;
   display: block;
   color: rgb(144, 241, 241);
   text-align: center;
@@ -66,6 +71,12 @@ export default {
   cursor: pointer;
   transition: .3s;
   }
+  img {
+    // float: left;
+    display: block;
+    // padding: 0px 20px;
+
+  }
 
   a:hover {
     border-bottom: 1px solid rgb(144, 241, 241);
@@ -73,7 +84,10 @@ export default {
   .logo:hover {
     border-bottom: 1px solid transparent;
   }
-
+  .links{
+    display: flex;
+    align-items: center;
+  }
   .links a:last-child{
     margin-right: 20px;
   }
@@ -83,20 +97,9 @@ export default {
   }
 }
 .nav-bar.guest{
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  background-color: transparent;
   position: absolute;
   top: 0;
   left: 0;
-  a {
-    color: black;
-    font-weight: 700;
-  }
-  a:hover {
-    border-bottom: 1px solid black; 
-  }
   .logo:hover {
     border-bottom: 1px solid transparent;
   }
