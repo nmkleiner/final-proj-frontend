@@ -1,7 +1,10 @@
 <template>
-  <div class="event-filter d-flex justify-content-center">
+  <div class="event-filter flex align-center">
+    <div @click="openFilter" class="toggle-filter white-text">
+      <i class="fas fa-filter"></i>
+    </div>
+    <aside :class="{'open': isOpen}">
     <el-input prefix-icon="el-icon-search" class="el-input" @input="setFilter" v-model="filter.byName" :placeholder="'search'"></el-input>
-    
       <el-select class="el-select" v-model="filter.byGenre" @change="setFilter" :placeholder="'genre'">
         <el-option
           v-for="item in genres"
@@ -27,10 +30,10 @@
         </el-option>
       </el-select>    
       <el-button-group>
-        <el-button type="primary" class="btn btn-md btn-info" @click="setSorter('time')">{{'Sort by date'}}</el-button>
-        <el-button type="primary" class="btn btn-md btn-info" @click="setSorter('allowedMembersCount')">{{'Sort by participants'}}</el-button>
+        <el-button type="primary" class="el-button" @click="setSorter('time')">{{'Sort by date'}}</el-button>
+        <el-button type="primary" class="el-button" @click="setSorter('allowedMembersCount')">{{'Sort by participants'}}</el-button>
       </el-button-group>
-    <!-- // <h1>{{'about'}}</h1> -->
+    </aside>
   </div>
 </template>
 
@@ -40,7 +43,6 @@ import bus, {FILTER} from "@/bus.js"
 export default {
   created() {
     bus.$on(FILTER, (object) => {
-      console.log(object,'object')
       if (object.genre) this.filter.byGenre = object.genre
       if (object.instrument) this.filter.byInstrument = object.instrument
       if (object.location) this.filter.byLocation = object.location
@@ -53,6 +55,7 @@ export default {
   },
   data() {
     return {
+      isOpen: false,
       filter: {
         byName: '',
         byInstrument: '',
@@ -82,31 +85,35 @@ export default {
         { label: 'All genres', value: 'All genres'}
       ],
       instruments: [
-        { label: 'guitar', value: 'guitar'},
-        { label: 'drums', value: 'drums'},
-        { label: 'bass guitar', value: 'bass guitar'},
-        { label: 'flute', value: 'flute'},
-        { label: 'clarinet', value: 'clarinet'},
-        { label: 'piano', value: 'piano'},
-        { label: 'trumpet', value: 'trumpet'},
-        { label: 'french horn', value: 'french horn'},
-        { label: 'trombone', value: 'trombone'},
-        { label: 'xylophone', value: 'xylophone'},
-        { label: 'violin', value: 'violin'},
-        { label: 'saxophone', value: 'saxophone'},
-        { label: 'All instruments', value: 'All instruments'},
-      ]
+          { label: 'guitar', value: 'guitar'},
+          { label: 'acoustic guitar', value: 'acoustic-guitar'},
+          { label: 'bass', value: 'bass-guitar'},
+          { label: 'drums', value: 'drums'},//missing in edit event
+          { label: 'flute', value: 'flute'},
+          { label: 'clarinet', value: 'clarinet'},
+          { label: 'piano', value: 'piano'},
+          { label: 'trumpet', value: 'trumpet'},
+          { label: 'french horn', value: 'french-horn'},
+          { label: 'tuba', value: 'tuba'},
+          { label: 'synthesizer', value: 'synthesizer'},
+          { label: 'violin', value: 'violin'},
+          { label: 'saxophone', value: 'saxophone'},
+          { label: 'dj', value: 'dj'},
+          { label: 'All instruments', value: 'All instruments'},
+        ]
     }
   },
   methods: {
     setFilter() {
-      console.log(this.filter,'filter1')
       this.$emit('filter-set',this.filter,this.sort)
     },
     setSorter(sorter) {
       this.sort.sorter = sorter
       this.sort.order *= -1
       this.$emit('filter-set',this.filter,this.sort)
+    },
+    openFilter() {
+      this.isOpen = !this.isOpen
     }
   },
 }
@@ -115,12 +122,46 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .event-filter {
-    margin-top: 49px;
-    .el-input {
-      max-width: 200px;
+    aside{
+      @media (min-width: 768px) {
+        display: flex;
+        align-items: center;
+        position: static;
+      }
+      position: fixed;
+      top: 150px;
+      left: 0;
+      &.open{
+        transform: translateX(100%)
+      }
     }
-    .el-select {
-      max-width: 200px;
+    margin-top: 49px; 
+    width: 100%;
+    background-color: black;
+    padding: 20px;
+    .toggle-filter{
+      display: block;
+      cursor: pointer;
+      border: 1px solid white;
+      width: fit-content;
+      padding: 5px;
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+    .el-input, .el-select,.el-button {
+      @media (min-width: 768px) {
+        max-width: 200px;
+        margin: 0 10px 10px 0; 
+        display: block;
+      }
+      display: none;
+    }
+
+    &.open{
+    .el-input, .el-select,.el-button {
+      display: block;
+      }
     }
   }
 </style>

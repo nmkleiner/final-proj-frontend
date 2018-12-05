@@ -1,51 +1,33 @@
 .home {
-  .header-wrapper{
-    padding: 0;
-  }
   header {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
     position: relative;
-
     margin-top: 49px;
     margin-bottom: 50px;
+    height: 370px;
+    @media (min-width: 500px) {
+      height: 470px;
+    }
     
-    background-color: black;
+    // background-color: black;
     
-    @media (min-width: 769px) {
-      height: 512px;
-    }
-    @media (min-width: 500px) and (max-width: 768px) {
-      height: 333px;
-    }
-    @media (max-width: 500px) {
-      width: 100%;
-    }
     .welcome-text {
-      width: 768px;
-      background-color: white;
-      opacity: 0.6;
-      color: black;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(165deg, #111 0%, #333 30% ,#999 100%);
+      opacity: 0.7;
       z-index: 2;
       h2 {
+        margin: 20px 0;
         text-align: center;
       }
       h4 {
-        color: black;
         font-size: 1.3rem;
       }
-      @media (min-width: 500px) and (max-width: 768px) {
-        width: 500px;
-      }
-      @media (max-width: 500px) {
-        background-color: black;
-        color: white;
-        width: 100%;
-        padding: 20px 10px;
-        h4 {
-          color: white;
-        }
+      p{
+        text-align: center;
       }
     }
   }
@@ -56,49 +38,35 @@
   }
 
   .carousels-container {
-    @media (min-width: 768px) {
-      padding: 0 10px 30px;
-    }
+    margin: 0 10px;
     padding: 0;
-    .isMobile {
-      display: inline;
-      font-size: 0.7rem;
-      margin-left: 10px;
-      @media (min-width: 768px) {
-        display: none;
-      }
+    @media (min-width: 768px) {
+      border: $border;
+      padding: 0 10px 30px;
+      margin: 0 40px;
     }
     h2 {
-      margin: 0;
+      font-size: 1.3em;
     }
     .carousel-section {
-      padding: 20px 0;
-      hr {
-        margin: 40px 0 0;
-      }
+      padding: 20px 15px;
+      border-bottom: $border;
     }
     .carousel {
-      @media (min-width: 768px) {
-        margin: 0px 20px;
-      }
-      margin: 0px;
+      margin: 20px;
 
       .slide {
-        @media (min-width: 768px) {
-          padding: 10px;
-        }
-        padding: 0px;
         display: flex;
         justify-content: center;
       }
       .VueCarousel-pagination {
         display: none;
       }
-      .VueCarousel-navigation-button[data-v-453ad8cd] {
-        display: none;
-        @media (min-width: 769px) {
-          display: block;
-        }
+      .VueCarousel-navigation-button{
+        font-size: 30px;
+      }
+      .VueCarousel-navigation--disabled[data-v-453ad8cd]{
+        visibility: hidden;
       }
     }
   }

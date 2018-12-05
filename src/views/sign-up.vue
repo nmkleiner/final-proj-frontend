@@ -68,6 +68,9 @@ export default {
   },
   components:{
     instrumentsMultiplePick
+  },
+  created() {
+    document.body.scrollIntoView();
   }
 };
       

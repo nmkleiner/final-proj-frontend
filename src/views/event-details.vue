@@ -47,7 +47,6 @@
           style="height: 300px"
         >
           <GmapMarker
-            v-if="markers.position"
             :key="index"
             v-for="(m, index) in markers"
             :position="m.position"
@@ -88,8 +87,8 @@
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
-      <h4>Players attending and their instruments:</h4>
-        <players-instruments :preview="false" :event="event" :players="players"></players-instruments>
+      <h4>attending:</h4>
+        <players-instruments :event="event" :players="players"></players-instruments>
 
       <h4 v-if="freePlayers.length">Free players attending:
         <br>
@@ -128,11 +127,7 @@ export default {
       admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,
-      markers: [
-        {
-          position: null
-        }
-      ],
+      markers: [],
       center: null
     };
   },
@@ -192,10 +187,10 @@ export default {
           `https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`
         )
         .then(res => {
-          console.log(this.$refs.mapRef);
           var latlng = res.data.results[0].geometry.location;
+          console.log(latlng);
           this.center = latlng;
-          // this.markers.position.push(latlng);
+          this.markers.push({position: latlng});
           return latlng;
         })
         .then(latlng => {

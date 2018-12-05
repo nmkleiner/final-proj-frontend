@@ -5,14 +5,18 @@ body{
 
 // Colors:
 $brand-white: #fff;
-$brand-text-color: darken($brand-white, 60%);
+$brand-white-darkened: darken($brand-white,10%);
+$brand-text-color: rgb(0, 34, 49);
 $brand-grey-light: darken($brand-white, 15%);
 $border: rgb(207, 207, 207) 1px solid;
+$border-color: rgb(207, 207, 207);
+$nav-links-color: #90f1f1;
 
 //Headings
 h1,h2,h3,h4,h5,h6{
     margin: 15px 0;
     font-family: 'Montserrat', sans-serif;
+    color: rgb(0, 34, 49);
 }
 
 h1{
@@ -28,14 +32,18 @@ h2{
 h4{
     font-weight: 700;
     font-size: 1rem;
-    color: darken($brand-white, 80%)
 }
-
+hr{
+    border: $border;
+}
 //Paragraphs
 p{
     font-size: 1rem;
     font-weight: 300;
     line-height: 1.5;
-    color: $brand-text-color;
+    color: darken($brand-text-color, 10%);
 }
+span{
+    color: darken($brand-text-color, 10%);
 
+}

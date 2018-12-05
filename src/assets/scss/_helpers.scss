@@ -14,6 +14,9 @@
 .mb-10 {
   margin-bottom: 10px;
 }
+.mt-5{
+  margin-top: 5px;
+}
 /* Flex */
 
 .flex {
@@ -115,6 +118,15 @@
 .bold {
   font-weight: bold;
 }
+.small-text{
+  font-size: 0.8rem;
+}
+.black-text{
+  color: black;
+}
+.white-text{
+  color: white;
+}
 // images
 .circle-icon {
   border-radius: 50%;
@@ -122,29 +134,24 @@
   width: 48px;
   height: 48px;
 }
+.circle-icon-lg {
+  border-radius: 50%;
+}
 .icon-red {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   padding: 2px;
-  border-radius: 15px;
   border: 3px solid #f56c6c;
   background-color: #f56c6c;
   margin-right: 2px;
 }
 .icon-green {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   padding: 2px;
-  border-radius: 15px;
   border: 3px solid #67c23a;
   background-color: #67c23a;
   margin-right: 2px;
 }
-.icon-white {
-  width: 48px;
-  height: 48px;
-  padding: 5px;
-}
-.circle-icon-lg {
-  border-radius: 50%;
-}
+
+
