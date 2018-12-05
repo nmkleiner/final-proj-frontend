@@ -58,7 +58,6 @@
     </div>
 
     <div class="card-container">
-      
       <el-button
         @click="toggleJoin"
         v-if="!isLoggedInUserAdmin && !isJoining"

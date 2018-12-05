@@ -2,7 +2,6 @@
   <section class="signup-card-wrapper">
     <form @submit.prevent="submitNewUser" class="signup-form-container flex flex-column align-center">
       <h1>sign up</h1>
-
       <input type="text" placeholder="Full Name..." v-model="newUser.name">
       <input type="password" placeholder="Password..." v-model="newUser.password">
       <select v-model="newUser.level" placeholder="How experienced are you?">
@@ -29,6 +28,8 @@
         <router-link  to='/'><el-button>Back</el-button></router-link> 
       </div>
     </form>
+  {{newUser}}
+
   </section>
 </template>
 
@@ -38,8 +39,6 @@ import instrumentsMultiplePick from '@/components/instruments-multiple-pick.vue'
 export default {
   data() {
     return {
-      
-      
       newUser: {
         name: "",
         password: "",
@@ -57,12 +56,11 @@ export default {
   methods: {
     submitNewUser() {
       this.newUser.pic = `/img/users/${this.newUser.name}.jpg`      
-      //TODO: get location too
       this.$store.dispatch({type: 'signUpUser', newUser: this.newUser})
         .then(() => {this.$router.push('/')})
     },
     setPickedInstruments(instruments){
-      this.instruments = instruments
+      this.newUser.instruments = instruments
       console.log('from signup form:', this.instruments)
     }
   },

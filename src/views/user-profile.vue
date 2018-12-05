@@ -15,7 +15,7 @@
         </h3>
         <h3>
           Preferred genres:
-          <i v-for="genre in user.favGenres" :key="genre">{{genre}}</i>.
+          <i v-for="genre in user.favGenres" :key="genre">{{genre}} </i>.
         </h3>
       </div>
       <div class="user-profile-card">

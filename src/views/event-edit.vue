@@ -26,17 +26,10 @@
         </el-select>
         <h4>Event Description</h4>
         <textarea v-model="event.desc" placeholder="Event Description"/>
+
         <h4>Choose instruments</h4>
+        <instruments-multiple-pick v-if="event && pickedInstruments.length || !event._id" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
 
-        <instruments-multiple-pick v-if="event && pickedInstruments.length" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
-        <!-- <instrument-list @add-instrument="addInstrument"></instrument-list> -->
-
-
-        <div class="add-instruments-container">
-          <div class="add-instrument">
-            <i class="fas fa-plus"></i>
-          </div>
-        </div>
         <h4>Freeplayers allowed</h4>
         <el-input
           type="number"
@@ -53,17 +46,10 @@
         <div>
           <h4>event hour</h4>
           <vue-timepicker v-model="event.time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
-          <!-- <time-picker class="align-self-center" v-model="event.time.hour"></time-picker> -->
-          {{event}}
         </div>
         <h4>event cost</h4>
         <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
         <div class="img-n-address-container">
-          <div class="img-container">
-            <img src alt>
-            <h4></h4>
-            <button>Upload image</button>
-          </div>
           <div class="address-container">
             <h4>city</h4>
             <el-input v-model="event.location.city" placeholder="city"></el-input>
@@ -73,13 +59,12 @@
         </div>
         <el-button type="success" v-if="!isUpdateEvent" @click="saveNewEvent">Save Event</el-button>
         <el-button type="success" v-else @click="updateEvent">Update Event</el-button>
-        <!-- <el-button @click="deleteEvent">Delete Event</el-button> -->
         <router-link to="/">
           <el-button type="danger">Cancel</el-button>
         </router-link>
-        <!-- {{event}} -->
       </div>
     </form>
+    {{event}}
   </section>
 </template>
 
@@ -154,6 +139,9 @@ export default {
     },
 
     saveNewEvent() {
+      this.pickedInstruments.forEach(instrument => {
+        this.addInstrument(instrument)
+      });
       this.fillEventObject();
       this.$store
         .dispatch({ type: "saveNewEvent", event: this.event })
@@ -164,8 +152,9 @@ export default {
     },
     updateEvent() {
       this.pickedInstruments.forEach(instrument => {
-        addInstrument(instrument)
+        this.addInstrument(instrument)
       });
+      this.fillEventObject();
       this.$store
         .dispatch({ type: "updateEvent", event: this.event })
         .then(eventId => {
@@ -174,7 +163,7 @@ export default {
     },
     setPickedInstruments(instruments){
       this.pickedInstruments = instruments
-      console.log(this.pickedInstruments)
+      console.log('picked instruments',this.pickedInstruments)
     },
     addInstrument(instrument) {
       const existObj = this.event.instruments.find(
