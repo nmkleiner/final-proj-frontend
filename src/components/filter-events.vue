@@ -29,10 +29,8 @@
           :value="item.value">
         </el-option>
       </el-select>    
-      <el-button-group>
-        <el-button type="primary" class="el-button" @click="setSorter('time')">{{'Sort by date'}}</el-button>
-        <el-button type="primary" class="el-button" @click="setSorter('allowedMembersCount')">{{'Sort by participants'}}</el-button>
-      </el-button-group>
+      <el-button type="primary" class="el-button" @click="setSorter('time')">{{'Sort by date'}}</el-button>
+      <el-button type="primary" class="el-button" @click="setSorter('allowedMembersCount')">{{'Sort by participants'}}</el-button>
     </aside>
   </div>
 </template>
@@ -122,23 +120,44 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
   .event-filter {
-    aside{
-      @media (min-width: 768px) {
-        display: flex;
-        align-items: center;
-        position: static;
-      }
-      position: fixed;
-      top: 150px;
-      left: 0;
-      &.open{
-        transform: translateX(100%)
-      }
-    }
-    margin-top: 49px; 
     width: 100%;
     background-color: black;
     padding: 20px;
+    position: fixed;
+    top: 49px;
+    z-index: 1;
+    @media (min-width: 768px) {
+      margin-top: 49px; 
+      position: static;
+    }
+    aside{
+      @media (min-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: static;
+        height: fit-content;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: fixed;
+      background-color: black;
+      padding: 0 20px;
+      height: calc(100vh - 122px);
+      top: 122px;
+      left: -100px;
+      transition: .6s linear;
+      z-index: 1;
+      &.open{
+        transform: translateX(90px);
+      .el-input, .el-select,.el-button {
+        display: block;
+        margin: 0 0 10px 0; 
+        width: 100%;
+        }
+      }
+    }
     .toggle-filter{
       display: block;
       cursor: pointer;
