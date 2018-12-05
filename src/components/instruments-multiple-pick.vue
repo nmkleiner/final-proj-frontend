@@ -259,7 +259,7 @@ export default {
   },
   created() {
     console.log("currInstruments", this.currInstruments);
-    if (this.currInstruments.length > 0) {
+    if (this.currInstruments && this.currInstruments.length > 0) {
       this.pickedInstruments = this.currInstruments;
       console.log("on created inst-mult", this.pickedInstruments);
       this.pickedInstruments.forEach(pickedInstrument => {
