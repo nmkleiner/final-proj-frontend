@@ -8,8 +8,8 @@
         <h4 class="card-organizer-name px-10 capitalize">{{event.adminName}}&nbsp;</h4>
 
         <template v-if="isLoggedInUserAdmin">
-          <el-button @click="goEdit" type="success" round>Edit Event</el-button>
-          <el-button type="danger" @click="removeEvent" round>Cancel Event</el-button>
+          <el-button @click="goEdit" type="success" round><i class="fas fa-edit"></i>  Edit Event</el-button>
+          <el-button type="danger" @click="removeEvent" round><i class="fas fa-trash-alt"></i>  Cancel Event</el-button>
         </template>
       </div>
 
@@ -59,13 +59,20 @@
     </div>
 
     <div class="card-container">
+      
       <el-button
         @click="toggleJoin"
-        v-if="!isLoggedInUserAdmin"
+        v-if="!isLoggedInUserAdmin && !isJoining"
         class="static join-button"
-        :class="{disabled :isJoining}"
-        type="danger"
+        type="success"
       >Join the event</el-button>
+
+      <el-button
+        @click="toggleJoin"
+        v-if="!isLoggedInUserAdmin && isJoining"
+        class="static join-button"
+        type="danger"
+      >Cancel</el-button>
 
       <transition name="fade">
         <instruments-comp
@@ -156,6 +163,7 @@ export default {
       }
     },
     joinTheEvent(instrument) {
+      if(instrument === null) return this.isJoining = !this.isJoining;
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId

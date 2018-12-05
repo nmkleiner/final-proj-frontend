@@ -52,10 +52,13 @@ export default {
         return user;
       });
     },
-    signUpUser({ commit }, { newUser }) {
-      userService.signupUser(newUser).then((user) => {
-        // commit({ type: 'setLoggedInUser', user}); TODO: get back user with _id from mongo
-        commit({ type: 'setLoggedInUser', user: newUser });
+    signUpUser({ dispatch }, { newUser }) {
+      userService.signupUser(newUser).then(() => {
+        const loginData = {
+          userName: newUser.name,
+          password: newUser.password
+        }
+        dispatch({type: 'login', loginData})
       });
     },
     logout({ commit }) {

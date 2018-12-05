@@ -6,8 +6,8 @@
             <el-input v-model="loginData.password" type="password" placeholder="password"></el-input>
             <span v-if="isWrong">Wrong password / username</span>
             <div class="flex">
-            <el-button type="primary" @click="submit" round>login</el-button>
-            <el-button type="primary" @click="signup" round>sign up</el-button>
+            <el-button type="primary" @click="submit" round><i class="fas fa-sign-in-alt"></i> Login</el-button>
+            <el-button type="primary" @click="signup" round><i class="fas fa-user-plus"></i> Sign Up</el-button>
             </div>
             <a>forgot your password?</a>
         </form>

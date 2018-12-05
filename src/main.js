@@ -8,6 +8,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import './assets/scss/main.scss'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueSocketIO from 'vue-socket.io'
+import 'vue-event-calendar/dist/style.css'
+import vueEventCalendar from 'vue-event-calendar'
+
+
+Vue.use(vueEventCalendar, {locale: 'fr'}) 
+
 var socketURL = 'http://localhost:3000'
 if (process.env.NODE_ENV !== "development") {
   socketURL = "/";
