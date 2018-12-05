@@ -118,6 +118,9 @@
 .bold {
   font-weight: bold;
 }
+.small-text{
+  font-size: 0.8rem;
+}
 .black-text{
   color: black;
 }
@@ -133,11 +136,6 @@
 }
 .circle-icon-lg {
   border-radius: 50%;
-}
-.circle-icon-sm {
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
 }
 .icon-red {
   width: 48px;

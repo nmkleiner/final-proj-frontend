@@ -9,8 +9,8 @@
                 <img class="inst" :src="'/img/events/' + playerInstrument(player._id) + '.png'"/>
             </div>
             <div class="flex flex-column">
-                <span>{{player.name}}</span>
-                <span>{{player.level}} 
+                <span class="bold">{{player.name}}</span>
+                <span class="small-text">{{player.level}} 
                     <span v-for="instrument in player.instruments" :key="instrument">{{instrument}} </span>
                     player.
                 </span>

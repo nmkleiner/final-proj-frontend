@@ -7,10 +7,14 @@
           <i class="fas fa-drum"></i>MUSIGROUPS
         </h2>
         <h4 class="pl-10">
-            Here you can find and join 
-            music events, created by musicians in your area, 
-            or create your own events.<br>
-            Connect with the musician community in a new way.
+            <p class="white-text p-10 bold">
+              Here you can find and join
+              music events, created by musicians in your area, 
+              or create your own events.
+            </p>
+            <p class="white-text p-10 bold">
+              Connect with the musician community in a new way.
+            </p>
           </h4>
       </div>
     </header>

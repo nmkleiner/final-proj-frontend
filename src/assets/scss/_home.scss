@@ -1,21 +1,15 @@
 .home {
   header {
-    // align-items: center;
     position: relative;
     margin-top: 49px;
     margin-bottom: 50px;
+    height: 370px;
+    @media (min-width: 500px) {
+      height: 470px;
+    }
     
-    background-color: black;
+    // background-color: black;
     
-    @media (min-width: 769px) {
-      height: 512px;
-    }
-    @media (min-width: 500px) and (max-width: 768px) {
-      height: 512px;
-    }
-    @media (max-width: 500px) {
-      height: 333px;
-    }
     .welcome-text {
       position: absolute;
       left: 0px;
@@ -27,6 +21,7 @@
       color: white;
       z-index: 2;
       h2 {
+        margin: 20px 0;
         text-align: center;
       }
       h4 {

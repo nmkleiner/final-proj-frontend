@@ -82,20 +82,22 @@ export default {
         { label: 'All genres', value: 'All genres'}
       ],
       instruments: [
-        { label: 'guitar', value: 'guitar'},
-        { label: 'drums', value: 'drums'},
-        { label: 'bass guitar', value: 'bass guitar'},
-        { label: 'flute', value: 'flute'},
-        { label: 'clarinet', value: 'clarinet'},
-        { label: 'piano', value: 'piano'},
-        { label: 'trumpet', value: 'trumpet'},
-        { label: 'french horn', value: 'french horn'},
-        { label: 'trombone', value: 'trombone'},
-        { label: 'xylophone', value: 'xylophone'},
-        { label: 'violin', value: 'violin'},
-        { label: 'saxophone', value: 'saxophone'},
-        { label: 'All instruments', value: 'All instruments'},
-      ]
+          { label: 'guitar', value: 'guitar'},
+          { label: 'acoustic-guitar', value: 'acoustic-guitar'},
+          { label: 'bass guitar', value: 'guitar-bass'},
+          { label: 'drums', value: 'drums'},//missing in edit event
+          { label: 'flute', value: 'flute'},
+          { label: 'clarinet', value: 'clarinet'},
+          { label: 'piano', value: 'piano'},
+          { label: 'trumpet', value: 'trumpet'},
+          { label: 'french horn', value: 'french-horn'},
+          { label: 'tuba', value: 'tuba'},
+          { label: 'synthesizer', value: 'synthesizer'},
+          { label: 'violin', value: 'violin'},
+          { label: 'saxophone', value: 'saxophone'},
+          { label: 'dj', value: 'dj'},
+          { label: 'All instruments', value: 'All instruments'},
+        ]
     }
   },
   methods: {
