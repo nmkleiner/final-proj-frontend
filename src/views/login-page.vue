@@ -22,7 +22,8 @@ export default {
                 userName: '',
                 password: ''
             },
-            isWrong: false
+            isWrong: false,
+            fromEventId: ''
         }
     },
     methods: {
@@ -32,7 +33,8 @@ export default {
                     if (!user) this.isWrong = true
                     else {
                     this.isWrong = false
-                    this.$router.push('/')
+                    if(this.fromEventId) this.$router.push(`/event/${this.fromEventId}`)
+                    else this.$router.push('/')
                     }
                 })
       
@@ -43,6 +45,7 @@ export default {
     },
     created() {
         document.body.scrollIntoView()
+        this.fromEventId = this.$route.params.eventId
     }
 }
 </script>

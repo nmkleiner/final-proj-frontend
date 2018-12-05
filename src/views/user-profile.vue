@@ -1,7 +1,7 @@
 <template>
   <section class="user-profile-cards-wrapper flex">
-    <section class="user-profile-card-container flex flex-row">
-      <div class="user-profile-card ">
+    <section class="user-profile-card-container flex">
+      <div class="user-profile-card">
         <div class="user-details-headline flex wrap align-center">
           <img class="user-pic" :src="user.pic">
           <h2>{{user.name}}</h2>
@@ -9,16 +9,17 @@
         <h4>{{user.name}}'s profile details:</h4>
         <p>Bio: {{user.bio}}</p>
         <h3>Level: {{user.level}}</h3>
+      </div>
+      <div class="user-profile-card">
         <h3>
           Instruments:
-          <i v-for="instrument in user.instruments" :key="instrument">{{instrument}}</i>
         </h3>
+          <show-instruments-comp  :instruments="user.instruments"></show-instruments-comp>
+          <!-- <i v-for="instrument in user.instruments" :key="instrument">{{instrument}}</i> -->
         <h3>
           Preferred genres:
           <i v-for="genre in user.favGenres" :key="genre">{{genre}}</i>.
         </h3>
-      </div>
-      <div class="user-profile-card">
       </div>
     </section>
 
@@ -40,9 +41,12 @@
 
 <script>
 import eventCarousel from "@/components/event-carousel.vue";
+import showInstrumentsComp from "@/components/show-instruments-comp.vue";
+
 export default {
   components: {
-    eventCarousel
+    eventCarousel,
+    showInstrumentsComp
   },
   data() {
     return {
@@ -105,7 +109,10 @@ export default {
   background-color: white;
   padding: 30px;
   margin-bottom: 0px;
+  flex-direction: column;
   @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-around;
     padding: 10px;
     width: 100%;
     margin-bottom: 30px;

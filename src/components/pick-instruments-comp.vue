@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: "instruments-comp",
+  name: "pick-instruments-comp",
   props: ["instruments"],
   data() {
     return {

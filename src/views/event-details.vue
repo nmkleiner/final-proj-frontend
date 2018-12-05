@@ -21,16 +21,8 @@
       </div>
 
       <div class="card-item-container">
-        <!-- <h4>Free participants:
-          {{event.freePlayers.length || 0}}/
-          {{event.freePlayers.amount}}
-        </h4>-->
         <p class="card-description">{{event.desc}}</p>
-
         <div class="event-details">
-          <span>
-            <!-- {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}} -->
-          </span>
           <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
@@ -60,25 +52,32 @@
     <div class="card-container">
       
       <el-button
+        @click="loginToJoin"
+        v-if="!loggedInUser"
+        class="static join-button"
+        type="info"
+      >Login to join</el-button>
+
+      <el-button
         @click="toggleJoin"
-        v-if="!isLoggedInUserAdmin && !isJoining"
+        v-if="loggedInUser && !isLoggedInUserAdmin && !isJoining"
         class="static join-button"
         type="success"
       >Join the event</el-button>
 
       <el-button
         @click="toggleJoin"
-        v-if="!isLoggedInUserAdmin && isJoining"
+        v-if="loggedInUser && !isLoggedInUserAdmin && isJoining"
         class="static join-button"
         type="danger"
       >Cancel</el-button>
 
       <transition name="fade">
-        <instruments-comp
+        <pick-instruments-comp
           :instruments="event.instruments"
           v-if="isJoining"
           @selectedInstrument="joinTheEvent"
-        ></instruments-comp>
+        ></pick-instruments-comp>
       </transition>
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
@@ -107,7 +106,7 @@ const axios = require("axios");
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
-import instrumentsComp from "@/components/instruments-comp.vue";
+import pickInstrumentsComp from "@/components/pick-instruments-comp.vue";
 import playersInstruments from "@/components/players-instruments.vue";
 import requiredInstruments from "@/components/required-instruments.vue";
 
@@ -115,7 +114,7 @@ export default {
   components: {
     gmapMap,
     feedComp,
-    instrumentsComp,
+    pickInstrumentsComp,
     playersInstruments,
     requiredInstruments
   },
@@ -200,6 +199,10 @@ export default {
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
+    },
+    loginToJoin(){
+      const eventId = this.event._id;
+      this.$router.push(`/login/${eventId}`);
     }
   },
   computed: {
@@ -263,13 +266,7 @@ export default {
       });
   },
   mounted() {
-    // At this point, the child GmapMap has been mounted, but
-    // its map has not been initialized.
-    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
-    // this.$refs.mapRef.$mapPromise.then(map => {
-    //   console.log('map promise');
-    //   return map.panTo({ lat: 32.089561, lng: 34.8627918 });
-    // });
+    
   },
   
 };

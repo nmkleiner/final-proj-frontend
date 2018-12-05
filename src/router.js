@@ -45,7 +45,17 @@ export default new Router({
       component: signUp
     },
     {
+      path: '/signup/:eventId',
+      name: 'signup',
+      component: signUp
+    },
+    {
       path: '/login',
+      name: 'login',
+      component: loginPage
+    },
+    {
+      path: '/login/:eventId',
       name: 'login',
       component: loginPage
     },
