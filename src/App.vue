@@ -3,7 +3,7 @@
     <nav-bar></nav-bar>
     <router-view/>  
     <msg-msg></msg-msg>
-    <footer>I Am Footer</footer>
+    <footer></footer>
   </div>
 </template>
 

@@ -7,8 +7,10 @@
   border-right: 3px solid white;
   border-radius: 0 0 15px 0;
   background-color: black;
-  color: white;
-  font-weight: bold;
+  h3{
+    color: $nav-links-color;
+    font-weight: bold;
+  }
   padding: 30px;
   transition: 0.8s;
 }
