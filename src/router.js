@@ -7,6 +7,7 @@ import eventsPage from './views/events-page.vue'
 import signUp from './views/sign-up.vue'
 import loginPage from './views/login-page.vue'
 import userProfile from './views/user-profile.vue'
+import About from './views/About.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: About
     },
     {
       path: '/event',

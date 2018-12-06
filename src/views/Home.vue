@@ -15,10 +15,12 @@
           </p>
           <p class="white-text bold">Connect with the musician community in a new way.</p>
         </h4>
+        <transition name="fade">
         <div v-if="!loggedInUser" class="visit-direction">
-          <h4 class="white-text bold">sign in to find event about the music and instrument you love</h4>
-          <h4 class="white-text bold">or feel free to browse for events you might like</h4>
+          <h4> <p class="white-text bold">sign in to find event about the music and instrument you love
+          or feel free to browse for events you might like</p></h4>
         </div>
+        </transition>
       </div>
     </header>
 
@@ -191,16 +193,28 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
 .visit-direction {
   h4 {
     font-size: 10px;
     margin: 10px 20px 0px 20px;
+    border: 2px solid darken(white, 5%);
+    padding: 10px;
   }
   @media screen and (min-width: 500px) {
     text-align: center;
-    border: 2px solid darken(white, 5%);
-    margin: 40px 20px 0px 20px;
+    // border: 2px solid darken(white, 5%);
+    margin: 60px 20px 0px 20px;
+    padding: 10px;
   }
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 </style>
 

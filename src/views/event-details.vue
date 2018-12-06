@@ -67,9 +67,17 @@
         type="warning"
       >Event is full</el-button>
 
+
+      <el-button
+        v-if="loggedInUser && participatingUser"
+        class="static join-button"
+        type="warning"
+      >Already Joined</el-button>
+
+
       <el-button
         @click="toggleJoin"
-        v-if="requiredInstrumentsToShow.length > 0 && loggedInUser && !isLoggedInUserAdmin && !isJoining"
+        v-if="requiredInstrumentsToShow.length > 0 && loggedInUser && !isLoggedInUserAdmin && !isJoining && !participatingUser"
         class="static join-button"
         type="success"
       >Join the event</el-button>
@@ -218,6 +226,11 @@ export default {
     }
   },
   computed: {
+    participatingUser(){
+      return this.players.find(player => {
+        return player._id === this.loggedInUser._id;
+      })
+    },
     loggedInUser() {
       return this.$store.getters.loggedInUser;
     },

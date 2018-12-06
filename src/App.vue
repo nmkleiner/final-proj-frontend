@@ -3,7 +3,7 @@
     <nav-bar></nav-bar>
     <router-view/>  
     <msg-msg></msg-msg>
-    <footer></footer>
+    <footer-comp></footer-comp>
   </div>
 </template>
 
@@ -11,10 +11,12 @@
 
 import navBar from '@/components/nav-bar.vue'
 import msgMsg from '@/components/msg-msg.vue'
+import footerComp from '@/components/footer-comp.vue'
 export default {
   components: {
     navBar,
-    msgMsg
+    msgMsg,
+    footerComp
   },
   created() {
     this.$store.dispatch('getLoggedInUser')    
@@ -23,13 +25,4 @@ export default {
 </script>
 
 <style lang="scss">
-#app{
-
-  footer {
-    color: white;
-    background-color: dimgray;
-    padding: 100px;
-    width: 100%;
-    }
-}
 </style>
