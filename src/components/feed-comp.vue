@@ -47,7 +47,7 @@ export default {
       });
       this.pushMsgToHistory(this.newMsg);
       this.newMsg = msgService.createEmptyMsg(this.nickName);
-      this.scrollToEnd();
+      // this.scrollToEnd();
     },
     scrollToEnd() {
       var container = this.$refs.conversationRef;
@@ -71,6 +71,10 @@ export default {
     renderMsg(msg) {
       console.log({ msg });
       this.msgs.push(msg);
+      this.$nextTick(() => {
+        // this.$refs.conversationRef.lastChild.scrollIntoView();
+        this.scrollToEnd();
+      })
     }
   },
   mounted() {

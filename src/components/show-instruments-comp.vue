@@ -30,10 +30,8 @@ export default {
 .instruments-wrapper {
   border: 1px solid lightgray;
   width: 100%;
-  height: 100px;
 }
 .instruments-container {
-  padding: 10px;
   flex-wrap: wrap;
 }
 img {

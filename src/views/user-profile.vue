@@ -6,21 +6,27 @@
           <img class="user-pic" :src="user.pic">
           <h2>{{user.name}}</h2>
         </div>
-        <h4>{{user.name}}'s profile details:</h4>
-        <p>Bio: {{user.bio}}</p>
-        <h3>Level: {{user.level}}</h3>
       </div>
       <div class="user-profile-card">
-        <h3>
-          Instruments:
-        </h3>
-          <show-instruments-comp  :instruments="user.instruments"></show-instruments-comp>
-          <!-- <i v-for="instrument in user.instruments" :key="instrument">{{instrument}}</i> -->
-        <h3>
-          Preferred genres:
-          <i v-for="genre in user.favGenres" :key="genre">{{genre}} </i>.
-        </h3>
+        <h4>Level:</h4>
+        <p>{{user.level}}</p>
       </div>
+
+      <div class="user-profile-card">
+        <h4>Instruments:</h4>
+        <show-instruments-comp :instruments="user.instruments" class="instrument-comp" ></show-instruments-comp>
+      </div>
+      <div class="user-profile-card">
+        <h4>Preferred genres:</h4>
+        <div v-for="genre in user.favGenres" :key="genre">
+          <p>{{genre}}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="user-profile-card-container">
+      <h4>Bio:</h4>
+      <p>{{user.bio}}</p>
     </section>
 
     <section v-if="userAdminEvents.length" class="user-profile-card-container">
@@ -52,7 +58,7 @@ export default {
     return {
       userAdminEvents: [],
       userPartEvents: [],
-      user: "",
+      user: ""
     };
   },
   computed: {
@@ -136,9 +142,15 @@ export default {
   margin: 20px 10px;
 }
 .user-pic {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 50%;
-  margin-right: 30px;
+  margin-right: 15px;
 }
+
+.instrument-comp{
+  border: 0px;
+
+}
+
 </style>
