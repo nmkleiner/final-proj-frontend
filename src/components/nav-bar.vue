@@ -22,12 +22,12 @@
           
           <div class="flex align-center profile-wrapper" v-if="isLoggedInUser">
             <img @click="goProfile" class="circle-icon-sm" :src="loggedInUser.pic"/>
-            <router-link class=""  :to="'/user/' + loggedInUser._id">
+            <a @click="goProfile">
               Profile
-            </router-link>
+            </a>
           </div>
 
-          <router-link v-else to="/login">Login</router-link>
+          <a v-else @click="goLogin">Login</a>
           <button class="nav-btn" @click="goEdit" v-if="isLoggedInUser" to="/event/edit">
             Create <i class="fas fa-plus"></i>
           </button>
@@ -44,17 +44,24 @@ export default {
     },
     methods: {
         goProfile() {
-          this.$router.push(`/user/${loggedInUser._id}`)
+          this.isOpen = false
+          this.$router.push(`/user/${this.loggedInUser._id}`)
         },
         setIsOpen(){
-            return this.isOpen = !this.isOpen;
+          return this.isOpen = !this.isOpen;
         },
         logout() {
+          this.isOpen = false
           this.$store.dispatch({type: 'logout'})
           .then(() => {this.$router.push('/')})
         },
         goEdit() {
+          this.isOpen = false
           this.$router.push('/event/edit')
+        },
+        goLogin() {
+          this.isOpen = false
+          this.$router.push('/login')
         }
     },
     computed: {
@@ -80,7 +87,7 @@ export default {
   width: 100%;
   z-index: 10;
   top: 0px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
   .circle-icon-sm {
     border-radius: 50%;
     width: 30px;
@@ -90,11 +97,18 @@ export default {
     background-color: black;
     color: rgb(144, 241, 241);
     font-size: 17px;
-    border: 1px solid lighten(black,20%);
+    border: 1px solid rgb(144, 241, 241);
     padding: 8px;
     border-radius: 50px;
     margin: 0 20px;
     cursor: pointer;
+    &:hover{
+      color: darken(rgb(144, 241, 241),15%);
+      border: 1px solid darken(rgb(144, 241, 241),15%);
+    }
+    &:focus{
+      outline: none;
+    }
   }
   a {
     display: block;

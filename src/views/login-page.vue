@@ -34,8 +34,7 @@ export default {
                     this.isWrong = false
                     this.$router.push('/')
                     }
-                })
-      
+            })
         },
         signup() {
             this.$router.push('/signup')

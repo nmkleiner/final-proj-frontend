@@ -2,15 +2,16 @@
   <section class="signup-card-wrapper">
     <form @submit.prevent="submitNewUser" class="signup-form-container flex flex-column align-center">
       <h1>sign up</h1>
-      <input type="text" placeholder="Full Name..." v-model="newUser.name">
-      <input type="password" placeholder="Password..." v-model="newUser.password">
-      <select v-model="newUser.level" placeholder="How experienced are you?">
+      <input required type="text" placeholder="Full Name..." v-model="newUser.name">
+      <input required type="password" placeholder="Password..." v-model="newUser.password">
+      <input required type="email" placeholder="name@email.com" v-model="newUser.email">
+      <select required v-model="newUser.level" placeholder="How experienced are you?">
         <option>amateur</option>
         <option>professional</option>
       </select>
 
       <h4>Choose instruments you play:</h4>
-      <instruments-multiple-pick @setPickedInstruments="setPickedInstruments"></instruments-multiple-pick>
+      <instruments-multiple-pick v-validate="'required'" @setPickedInstruments="setPickedInstruments"></instruments-multiple-pick>
      
       <span>What genres do you like?</span>
       <el-checkbox-group class="mt-20" v-model="newUser.favGenres" size="medium">
@@ -35,6 +36,7 @@ export default {
       newUser: {
         name: "",
         password: "",
+        email: '',
         pic: '',
         instruments: [],
         level: 'amateur',
