@@ -197,11 +197,6 @@ export default {
     right: 0;
     top: 0;
   }
-  // .nav-bar.open a {
-  //   float: none;
-  //   display: block;
-  //   text-align: left;
-  // }
 }
 
 </style>

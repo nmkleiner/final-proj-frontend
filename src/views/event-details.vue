@@ -21,15 +21,10 @@
       </div>
 
       <div class="card-item-container">
-        <!-- <h4>Free participants:
-          {{event.freePlayers.length || 0}}/
-          {{event.freePlayers.amount}}
-        </h4>-->
         <p class="card-description">{{event.desc}}</p>
 
         <div class="event-details">
           <span>
-            <!-- {{dateToShow}} {{event.time.hour.hours}}:{{event.time.hour.minutes}} -->
           </span>
           <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
@@ -132,8 +127,32 @@ export default {
   },
   methods: {
     pushMsgToHistory(msg) {
-      console.log('msg', msg)
       this.$store.dispatch({type: 'pushMsgToHistory', msg})
+    },
+    addPlayer() {
+      this.players.push(this.loggedInUser)
+    },
+    getPlayers() {
+      this.event.instruments.forEach(instrument => {
+          return instrument.playerIds.forEach(playerId => {
+            if (!playerId) return;
+            this.$store
+              .dispatch({ type: "getUserById", userId: playerId })
+              .then(player => {
+                this.players.push(player);
+              });
+          });
+        });
+        if (this.event.freePlayers.memberIds.length) {
+          this.event.freePlayers.memberIds.forEach(playerId => {
+            if (!playerId) return;
+            this.$store
+              .dispatch({ type: "getUserById", userId: playerId })
+              .then(player => {
+                this.freePlayers.push(player);
+              });
+          });
+        }
     },
     joinAs(instrument = null) {
       if (instrument === null) {
@@ -166,11 +185,11 @@ export default {
         .then(() => {
           this.$store.dispatch({ type: "joinEvent", joinedEvent })
             .then(() => {
-          // this.$router.push("/");
               this.$store.dispatch({ type: "getEventById", eventId: this.event._id })
                 .then(event => {
-                  console.log(event)
                   this.event = event;
+                  this.addPlayer()
+                  // this.getPlayers()
             })
           })
         })
@@ -196,7 +215,6 @@ export default {
         )
         .then(res => {
           var latlng = res.data.results[0].geometry.location;
-          console.log(latlng);
           this.center = latlng;
           this.markers.push({position: latlng});
           return latlng;
@@ -204,7 +222,6 @@ export default {
         .then(latlng => {
           this.$refs.mapRef.panTo(latlng);
         });
-      // console.log(currEventLocStr);
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
@@ -224,6 +241,7 @@ export default {
   created() {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
+    // this.getEvent()
     this.$store
       .dispatch({ type: "getEventById", eventId })
       .then(event => {
@@ -233,6 +251,7 @@ export default {
       })
 
       // get event admin
+      // this.getAdmin()
       .then(() => {
         const adminId = this.event.adminId;
 
@@ -245,41 +264,11 @@ export default {
             }
           });
       })
-
       // get's a players array for this preview
       .then(() => {
-        this.event.instruments.forEach(instrument => {
-          return instrument.playerIds.forEach(playerId => {
-            if (!playerId) return;
-            this.$store
-              .dispatch({ type: "getUserById", userId: playerId })
-              .then(player => {
-                this.players.push(player);
-              });
-          });
-        });
-        if (this.event.freePlayers.memberIds.length) {
-          this.event.freePlayers.memberIds.forEach(playerId => {
-            if (!playerId) return;
-            this.$store
-              .dispatch({ type: "getUserById", userId: playerId })
-              .then(player => {
-                this.freePlayers.push(player);
-              });
-          });
-        }
+        this.getPlayers()
       });
   },
-  mounted() {
-    // At this point, the child GmapMap has been mounted, but
-    // its map has not been initialized.
-    // Therefore we need to write mapRef.$mapPromise.then(() => ...)
-    // this.$refs.mapRef.$mapPromise.then(map => {
-    //   console.log('map promise');
-    //   return map.panTo({ lat: 32.089561, lng: 34.8627918 });
-    // });
-  },
-  
 };
 </script>
 

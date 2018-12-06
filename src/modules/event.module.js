@@ -74,20 +74,17 @@ export default {
     },
 
     updateEvent({ commit }, { event }) {
-      console.log({event})
       return eventService.saveEvent(event).then(() => {
         bus.$emit(MSG, 'Event updated.');
       });
     },
     updateHistoryEvent({ commit }, { event }) {
-      console.log({event})
       return eventService.saveEvent(event).then(() => {
       });
     },
     pushMsgToHistory({ commit, getters, dispatch }, { msg }) {
       commit({type: 'pushMsgToHistory', msg})
       const tempEvent = getters.currEvent
-      console.log('getters.currEvent', tempEvent)
       dispatch({type: 'updateHistoryEvent', event: tempEvent})
     },
     removeEvent({ commit }, { eventId }) {

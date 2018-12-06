@@ -258,12 +258,9 @@ export default {
     }
   },
   created() {
-    console.log("currInstruments", this.currInstruments);
     if (this.currInstruments.length > 0) {
       this.pickedInstruments = this.currInstruments;
-      console.log("on created inst-mult", this.pickedInstruments);
       this.pickedInstruments.forEach(pickedInstrument => {
-        console.log("pickedInstrument", pickedInstrument);
         this.itemPicked[pickedInstrument.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase()})] = true;
       });
     }

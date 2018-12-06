@@ -163,7 +163,6 @@ export default {
     },
     setPickedInstruments(instruments){
       this.pickedInstruments = instruments
-      console.log('picked instruments',this.pickedInstruments)
     },
     addInstrument(instrument) {
       const existObj = this.event.instruments.find(
@@ -189,7 +188,6 @@ export default {
           return instrumentObj.instrument
         })
         this.pickedInstruments = temp;
-        console.log('on created event edit:', this.pickedInstruments)
         this.event.pic = eventService.getImage();
       });
     }

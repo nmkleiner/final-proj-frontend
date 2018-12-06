@@ -1,7 +1,6 @@
 import ioClient from 'socket.io-client'
 
 const msgs = [];
-// const socket = ioClient('http://localhost:3000');
 
 
 
@@ -11,13 +10,11 @@ const getMsgs = () => {
 
 
 function createEmptyMsg(nickname = 'jhon doe', txt = '') {
-    console.log('createEmptyMsg: ', nickname )
     return { txt, from: nickname };
 }
 
 
 function roomJoin(roomName) {
-    console.log('chat room-joined', roomName)
     socket.emit('chat room-joined', roomName)
 }
 
@@ -26,7 +23,6 @@ function disconnectFromRoom(){
 }
 
 export default {
-    // msgType,
     getMsgs,
     createEmptyMsg,
     roomJoin,

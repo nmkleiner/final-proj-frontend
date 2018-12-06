@@ -55,7 +55,6 @@ export default {
     },
     setPickedInstruments(instruments){
       this.newUser.instruments = instruments
-      console.log('from signup form:', this.instruments)
     }
   },
   components:{

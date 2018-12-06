@@ -17,7 +17,6 @@ if (process.env.NODE_ENV !== "development") {
   socketURL = "/";
 }
 
-// Vue.use(VueSocketio, socketio(socketURL), store);
 
 
 Vue.use(new VueSocketIO({
@@ -42,12 +41,8 @@ Vue.use(VueCarousel);
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
-
-// Vue.crossorigin = true;
 Vue.crossOrigin = 'true'
 
-// import {Button} from 'element-ui';
-// Vue.use(Button);
 
 
 new Vue({
