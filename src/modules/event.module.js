@@ -3,7 +3,6 @@ import bus, { MSG } from '../bus.js';
 export default {
   state: {
     events: [],
-    // rockEvents: [],
     currEvent: null
   },
   mutations: {
@@ -13,9 +12,6 @@ export default {
     setCurrentEvent(state, { event }) {
       state.currEvent = event;
     },
-    // setRockEvents(state, { events }) {
-    //   state.rockEvents = events;
-    // },
     setUpdateEvent(state, { joinedEvent }) {
       state.currEvent.instruments
         .find(item => {
@@ -53,12 +49,6 @@ export default {
         commit({ type: 'setEvents', events });
       });
     },
-    // loadRockEvents({commit}) {
-    //     return eventService.query({byGenre: 'rock'})
-    //         .then(events => {
-    //             commit({type:'setRockEvents', events})
-    //         })
-    // },
     getEventById({ commit }, { eventId }) {
       return eventService.getEventById(eventId).then(event => {
         commit({ type: 'setCurrentEvent', event });
@@ -74,20 +64,17 @@ export default {
     },
 
     updateEvent({ commit }, { event }) {
-      console.log({event})
       return eventService.saveEvent(event).then(() => {
         bus.$emit(MSG, 'Event updated.');
       });
     },
     updateHistoryEvent({ commit }, { event }) {
-      console.log({event})
       return eventService.saveEvent(event).then(() => {
       });
     },
     pushMsgToHistory({ commit, getters, dispatch }, { msg }) {
       commit({type: 'pushMsgToHistory', msg})
       const tempEvent = getters.currEvent
-      console.log('getters.currEvent', tempEvent)
       dispatch({type: 'updateHistoryEvent', event: tempEvent})
     },
     removeEvent({ commit }, { eventId }) {
@@ -108,29 +95,5 @@ export default {
   getters: {
     events: state => state.events,
     currEvent: state => state.currEvent,
-    
-    // popularEvents(state) {
-    //   let eventsWithPop = state.events.map(event => {
-    //     event.pop = event.allowedMembersCount - event.joinedMembersCount;
-    //     return event;
-    //   });
-
-    //   return eventsWithPop;
-    // },
-    // rockEvents(state) {
-    //   let rockEvents = state.events.filter(event => {
-    //     return event.genre === 'rock';
-    //   });
-    //   return rockEvents;
-    // },
-    // guitarEvents(state) {
-    //   let rockEvents = state.events.filter(event => {
-    //     return event.instruments.some(
-    //       instrument => instrument.instrument === 'guitar'
-    //     );
-    //   });
-    //   return rockEvents;
-    // }
-    // rockEvents:
   }
 };

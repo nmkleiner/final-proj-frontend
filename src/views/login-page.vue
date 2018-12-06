@@ -1,12 +1,12 @@
 <template>
     <section class="login-page flex justify-center">
-        <form class="flex flex-column align-center">
+        <form @submit.prevent="onSubmit" class="flex flex-column align-center">
             <h2>Login to play</h2>
-            <el-input v-model="loginData.userName" placeholder="username"></el-input>
-            <el-input v-model="loginData.password" type="password" placeholder="password"></el-input>
+            <el-input required v-model="loginData.userName" placeholder="username"></el-input>
+            <el-input required v-model="loginData.password" type="password" placeholder="password"></el-input>
             <span v-if="isWrong">Wrong password / username</span>
             <div class="flex">
-            <el-button type="primary" @click="submit" round><i class="fas fa-sign-in-alt"></i> Login</el-button>
+            <el-button type="primary" native-type="submit" round><i class="fas fa-sign-in-alt"></i> Login</el-button>
             <el-button type="primary" @click="signup" round><i class="fas fa-user-plus"></i> Sign Up</el-button>
             </div>
             <a>forgot your password?</a>
@@ -27,7 +27,7 @@ export default {
         }
     },
     methods: {
-        submit() {
+        onSubmit() {
             this.$store.dispatch({type: 'login', loginData: this.loginData})
                 .then((user) => {
                     if (!user) this.isWrong = true
@@ -36,8 +36,7 @@ export default {
                     if(this.fromEventId) this.$router.push(`/event/${this.fromEventId}`)
                     else this.$router.push('/')
                     }
-                })
-      
+            })
         },
         signup() {
             if(this.fromEventId) this.$router.push(`/signup/${this.fromEventId}`);

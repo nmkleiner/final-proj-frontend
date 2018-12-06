@@ -1,15 +1,15 @@
 <template>
-  <section>
-    <form class="edit-event-wrapper flex space-between">
+  <section class="edit-event capitalize">
+    <form @submit.prevent="onSubmit" class="edit-event-wrapper flex space-between">
       <div class="edit-event-container">
         <div class="edit-event-user-container">
           <h4>{{loggedInUser.name}}</h4>
           <img class="circle-icon" :src="loggedInUser.pic" alt="event admin">
         </div>
         <h4>Event Title</h4>
-        <el-input type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>
+        <el-input required type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>
         <h4>select genre</h4>
-        <el-select v-model="event.genre" placeholder="select genre">
+        <el-select required class="el-select" v-model="event.genre" placeholder="select genre">
           <el-option value="rock">Rock</el-option>
           <el-option value="country">Country</el-option>
           <el-option value="jazz">Jazz</el-option>
@@ -20,7 +20,7 @@
           <el-option value="personal">Personal Material</el-option>
         </el-select>
         <h4>select level</h4>
-        <el-select v-model="event.level" placeholder="level">
+        <el-select required class="el-select" v-model="event.level" placeholder="level">
           <el-option value="pro">Professional</el-option>
           <el-option value="amateur">Amateur</el-option>
         </el-select>
@@ -29,42 +29,34 @@
 
         <h4>Choose instruments</h4>
         <instruments-multiple-pick v-if="event && pickedInstruments.length || !event._id" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
-
-        <h4>Freeplayers allowed</h4>
-        <el-input
-          type="number"
-          min="0"
-          v-model="event.freePlayers.amount"
-          placeholder="Number of free players"
-          title="free players can bring any instrument they want or just listen."
-        ></el-input>
       </div>
 
       <div class="edit-event-container">
         <h4>event date</h4>
-        <el-input type="date" v-model="event.time.day"></el-input>
+        <el-input required type="date" v-model="event.time.day"></el-input>
         <div>
           <h4>event hour</h4>
-          <vue-timepicker v-model="event.time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
+          <vue-timepicker required v-model="event.time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
         </div>
         <h4>event cost</h4>
         <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
         <div class="img-n-address-container">
           <div class="address-container">
             <h4>city</h4>
-            <el-input v-model="event.location.city" placeholder="city"></el-input>
+            <el-input required v-model="event.location.city" placeholder="city"></el-input>
             <h4>street</h4>
-            <el-input v-model="event.location.address" placeholder="street & number"></el-input>
+            <el-input required v-model="event.location.address" placeholder="street & number"></el-input>
           </div>
         </div>
-        <el-button type="success" v-if="!isUpdateEvent" @click="saveNewEvent">Save Event</el-button>
-        <el-button type="success" v-else @click="updateEvent">Update Event</el-button>
-        <router-link to="/">
-          <el-button type="danger">Cancel</el-button>
-        </router-link>
+        <div class="btns-wrapper">
+          <el-button type="success" v-if="!isUpdateEvent" native-type="submit">Save Event</el-button>
+          <el-button type="success" v-else native-type="submit">Update Event</el-button>
+          <router-link to="/">
+            <el-button type="danger">Cancel</el-button>
+          </router-link>
+        </div>
       </div>
     </form>
-    {{event}}
   </section>
 </template>
 
@@ -84,8 +76,8 @@ export default {
         time: {
           day: "",
            hour: {
-              HH: "",
-              mm: "",
+              HH: "19",
+              mm: "00",
               hours: '',
               minutes: '',
            }
@@ -96,10 +88,6 @@ export default {
         level: "",
         pic: "",
         instruments: [],
-        freePlayers: {
-          amount: 0,
-          memberIds: []
-        },
         allowedMembersCount: 0,
         joinedMembersCount: 0,
         cost: 0,
@@ -125,19 +113,15 @@ export default {
     }
   },
   methods: {
+    onSubmit(){
+      if (this.isUpdateEvent) this.updateEvent()
+      else this.saveNewEvent()
+    },
     fillEventObject() {
-      let allowedMembersCount = this.event.instruments.reduce((acc, inst) => {
-        acc += +inst.amount;
-        return acc;
-      }, 0);
-      allowedMembersCount += +this.event.freePlayers.amount;
-      this.event.allowedMembersCount = allowedMembersCount;
       this.event.time.timestamp = new Date(this.event.time.day).getTime();
       this.event.time.hour.hours = this.event.time.hour.HH;
       this.event.time.hour.minutes = this.event.time.hour.mm;
-
     },
-
     saveNewEvent() {
       this.pickedInstruments.forEach(instrument => {
         this.addInstrument(instrument)
@@ -163,9 +147,9 @@ export default {
     },
     setPickedInstruments(instruments){
       this.pickedInstruments = instruments
-      console.log('picked instruments',this.pickedInstruments)
     },
     addInstrument(instrument) {
+      this.allowedMembersCount++
       const existObj = this.event.instruments.find(
         inst => inst.instrument === instrument
       );
@@ -189,7 +173,6 @@ export default {
           return instrumentObj.instrument
         })
         this.pickedInstruments = temp;
-        console.log('on created event edit:', this.pickedInstruments)
         this.event.pic = eventService.getImage();
       });
     }

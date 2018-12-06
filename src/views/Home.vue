@@ -104,8 +104,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import nearPlacesMap from '@/components/near-places-map.vue'
 import eventList from "@/components/event-list.vue";
 import eventPreview from "@/components/event-preview.vue";
 import eventCarousel from "@/components/event-carousel.vue";

@@ -36,19 +36,6 @@ export default {
         this.instruments[instrumentIdx].isSelected = !this.instruments[instrumentIdx].isSelected;
       }
     },
-    computed: {
-      // instrumentStatus() {
-      //   return {
-      //     selected: instrument.isSelected
-      //   }
-      // }
-    },
-    watch: {
-
-    },
-    created() {
-        
-    }
 }
 </script>
 

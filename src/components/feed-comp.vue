@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     send() {
-      console.log("oom", this.currEvent._id);
       this.$socket.emit("assignMsg", {
         msg: this.newMsg,
         room: this.currEvent._id
@@ -69,7 +68,6 @@ export default {
   },
   sockets: {
     renderMsg(msg) {
-      console.log({ msg });
       this.msgs.push(msg);
       this.$nextTick(() => {
         // this.$refs.conversationRef.lastChild.scrollIntoView();
@@ -80,10 +78,6 @@ export default {
   mounted() {
     this.scrollToEnd();
   },
-  destroyed() {
-    // this.feedCurrEvent = null;
-    // console.log('after des', this.currEvent)
-  }
 };
 </script>
 

@@ -86,7 +86,6 @@ export default {
               this.userAdminEvents.push(event);
             });
         });
-        console.log("userAdminEvents", this.userAdminEvents);
         this.user.partEventsIds.forEach(eventId => {
           this.$store
             .dispatch({ type: "getEventById", eventId })
@@ -94,7 +93,6 @@ export default {
               this.userPartEvents.push(event);
             });
         });
-        console.log("partEventsIds", this.userPartEvents);
       });
   }
 };

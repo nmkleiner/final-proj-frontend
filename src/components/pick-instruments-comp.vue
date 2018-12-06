@@ -34,7 +34,6 @@ export default {
   methods: {
     setPickedInstrument(instrument) {
       this.pickedInstrument = instrument.instrument;
-      console.log(this.pickedInstrument);
     },
     selectInstrument() {
       this.$emit("selectedInstrument", this.pickedInstrument);
@@ -44,8 +43,6 @@ export default {
       this.selectInstrument();
     }
   },
-  created() {
-  }
 };
 </script>
 

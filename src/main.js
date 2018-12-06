@@ -11,13 +11,14 @@ import VueSocketIO from 'vue-socket.io'
 import VueTimepicker from 'vue2-timepicker'
 import VueGlide from 'vue-glide-js'
 import VueCarousel from 'vue-carousel';
+import VeeValidate from 'vee-validate';
+
 
 var socketURL = 'http://localhost:3000'
 if (process.env.NODE_ENV !== "development") {
   socketURL = "/";
 }
 
-// Vue.use(VueSocketio, socketio(socketURL), store);
 
 
 Vue.use(new VueSocketIO({
@@ -40,14 +41,11 @@ Vue.use(VueTimepicker)
 Vue.use(VueGlide)
 Vue.use(VueCarousel);
 Vue.use(ElementUI);
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false
-
-// Vue.crossorigin = true;
 Vue.crossOrigin = 'true'
 
-// import {Button} from 'element-ui';
-// Vue.use(Button);
 
 
 new Vue({

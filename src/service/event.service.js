@@ -13,16 +13,13 @@ export default {
 
 function query(filter = null, sort = null) {
   var urlEnd = '/event'
-  console.log(filter,'filter')
   if (filter) {
     urlEnd += `?genre=${filter.byGenre}&instrument=${filter.byInstrument}
                 &name=${filter.byName}&status=${filter.byStatus}`
   }
   if (sort) {
     urlEnd += `&sortBy=${sort.sorter}&order=${sort.order}`
-  }
-  console.log('heroku' ,  `${BASE_URL}${urlEnd}`);
-  
+  }  
   return axios.get(BASE_URL + urlEnd)
     .then(res => res.data);
 }
@@ -37,7 +34,6 @@ function remove(eventId) {
 }
 
 function saveEvent(event) {
-  console.log('before axios' , event)
   if (event._id) {
     return axios.put(`${BASE_URL}/event/${event._id}`, event);
   } else {

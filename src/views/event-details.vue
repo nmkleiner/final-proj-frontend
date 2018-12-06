@@ -93,19 +93,10 @@
       <h4>required instruments:
         <required-instruments :preview="false" :event="event" @setrequiredInstrumentsToShow="setrequiredInstrumentsToShow"></required-instruments>
       </h4>
-      <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
+      <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
       <h4>attending:</h4>
-      <players-instruments :event="event" :players="players"></players-instruments>
-
-      <h4 v-if="freePlayers.length">Free players attending:
-        <br>
-        <template v-for="player in freePlayers">
-          <router-link :to="'/user/' + player._id" :key="player._id">
-            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
-          </router-link>
-        </template>
-      </h4>
+        <players-instruments :event="event" :players="players"></players-instruments>
     </div>
   </section>
 </template>
@@ -131,7 +122,6 @@ export default {
     return {
       event: null,
       players: [],
-      freePlayers: [],
       admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,
@@ -145,32 +135,34 @@ export default {
       this.requiredInstrumentsToShow = instruments;
     },
     pushMsgToHistory(msg) {
-      console.log("msg", msg);
-      this.$store.dispatch({ type: "pushMsgToHistory", msg });
+      this.$store.dispatch({type: 'pushMsgToHistory', msg})
+    },
+    addPlayer() {
+      this.players.push(this.loggedInUser)
+    },
+    getPlayers() {
+      this.event.instruments.forEach(instrument => {
+          return instrument.playerIds.forEach(playerId => {
+            if (!playerId) return;
+            this.$store
+              .dispatch({ type: "getUserById", userId: playerId })
+              .then(player => {
+                this.players.push(player);
+              });
+          });
+        });
     },
     joinAs(instrument = null) {
-      if (instrument === null) {
-        if (
-          this.event.freePlayers.membersIds.length <
-          this.event.freePlayers.amount
-        )
-          this.event.freePlayers.membersIds.push(this.loggedInUser._id);
-        else {
-          // TODO:cannot join
-        }
-      } else {
         const instrumentObject = this.event.instruments.find(
           inst => inst.instrument === instrument
         );
         if (instrumentObject.playersIds.length < instrumentObject.amount) {
           instrumentObject.playersIds.push(this.loggedInUser._id);
-        } else {
-          // TODO:cannot join
         }
-      }
     },
     joinTheEvent(instrument) {
-      if (instrument === null) return (this.isJoining = !this.isJoining);
+      this.isJoining = false;
+      if(instrument === null) return this.isJoining = !this.isJoining;
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId
@@ -179,11 +171,11 @@ export default {
         .then(() => {
           this.$store.dispatch({ type: "joinEvent", joinedEvent })
             .then(() => {
-          // this.$router.push("/");
               this.$store.dispatch({ type: "getEventById", eventId: this.event._id })
                 .then(event => {
-                  console.log(event)
                   this.event = event;
+                  this.addPlayer()
+                  document.body.querySelector('footer').scrollIntoView();
             })
           })
         })
@@ -209,7 +201,6 @@ export default {
         )
         .then(res => {
           var latlng = res.data.results[0].geometry.location;
-          console.log(latlng);
           this.center = latlng;
           this.markers.push({ position: latlng });
           return latlng;
@@ -217,7 +208,6 @@ export default {
         .then(latlng => {
           this.$refs.mapRef.panTo(latlng);
         });
-      // console.log(currEventLocStr);
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
@@ -241,6 +231,7 @@ export default {
   created() {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
+    // this.getEvent()
     this.$store
       .dispatch({ type: "getEventById", eventId })
       .then(event => {
@@ -250,6 +241,7 @@ export default {
       })
 
       // get event admin
+      // this.getAdmin()
       .then(() => {
         const adminId = this.event.adminId;
 
@@ -262,32 +254,11 @@ export default {
             }
           });
       })
-
       // get's a players array for this preview
       .then(() => {
-        this.event.instruments.forEach(instrument => {
-          return instrument.playerIds.forEach(playerId => {
-            if (!playerId) return;
-            this.$store
-              .dispatch({ type: "getUserById", userId: playerId })
-              .then(player => {
-                this.players.push(player);
-              });
-          });
-        });
-        if (this.event.freePlayers.memberIds.length) {
-          this.event.freePlayers.memberIds.forEach(playerId => {
-            if (!playerId) return;
-            this.$store
-              .dispatch({ type: "getUserById", userId: playerId })
-              .then(player => {
-                this.freePlayers.push(player);
-              });
-          });
-        }
+        this.getPlayers()
       });
   },
-  mounted() {}
 };
 </script>
 

@@ -38,7 +38,6 @@ export default {
       var currEventLocStr = `${location.address.replace(/[^a-zA-Z0-9]/g,'+')}+${location.city.replace(/[^a-zA-Z0-9]/g,'+')}`
       return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`)
       .then(res => {
-        console.log(this.$refs.mapRef)
         var latlng = res.data.results[0].geometry.location
         this.center = latlng
         this.markers.position.push(latlng)
@@ -46,7 +45,6 @@ export default {
         }).then(latlng => {
           this.$refs.mapRef.panTo(latlng)
         })
-      // console.log(currEventLocStr);
     }
   },
   created(){
