@@ -83,8 +83,8 @@ export default {
         time: {
           day: "",
            hour: {
-              HH: "",
-              mm: "",
+              HH: "19",
+              mm: "00",
               hours: '',
               minutes: '',
            }

@@ -1,6 +1,5 @@
 <template>
   <section class="instruments-wrapper">
-    <div v-if="currInstruments">{{pickedInstruments}}</div>
     <div class="signup-instruments flex">
       <input
         type="checkbox"
