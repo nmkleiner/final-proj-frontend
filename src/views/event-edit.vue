@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="edit-event capitalize">
     <form class="edit-event-wrapper flex space-between">
       <div class="edit-event-container">
         <div class="edit-event-user-container">
@@ -7,9 +7,9 @@
           <img class="circle-icon" :src="loggedInUser.pic" alt="event admin">
         </div>
         <h4>Event Title</h4>
-        <el-input type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>
+        <el-input v-validate="'required'"  type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>
         <h4>select genre</h4>
-        <el-select v-model="event.genre" placeholder="select genre">
+        <el-select class="el-select" v-model="event.genre" placeholder="select genre">
           <el-option value="rock">Rock</el-option>
           <el-option value="country">Country</el-option>
           <el-option value="jazz">Jazz</el-option>
@@ -20,7 +20,7 @@
           <el-option value="personal">Personal Material</el-option>
         </el-select>
         <h4>select level</h4>
-        <el-select v-model="event.level" placeholder="level">
+        <el-select class="el-select" v-model="event.level" placeholder="level">
           <el-option value="pro">Professional</el-option>
           <el-option value="amateur">Amateur</el-option>
         </el-select>
@@ -64,7 +64,6 @@
         </router-link>
       </div>
     </form>
-    {{event}}
   </section>
 </template>
 
