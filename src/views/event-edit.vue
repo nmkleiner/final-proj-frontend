@@ -29,15 +29,6 @@
 
         <h4>Choose instruments</h4>
         <instruments-multiple-pick v-if="event && pickedInstruments.length || !event._id" @setPickedInstruments="setPickedInstruments" :currInstruments="pickedInstruments"></instruments-multiple-pick>
-
-        <h4>Freeplayers allowed</h4>
-        <el-input
-          type="number"
-          min="0"
-          v-model="event.freePlayers.amount"
-          placeholder="Number of free players"
-          title="free players can bring any instrument they want or just listen."
-        ></el-input>
       </div>
 
       <div class="edit-event-container">
@@ -57,11 +48,13 @@
             <el-input required v-model="event.location.address" placeholder="street & number"></el-input>
           </div>
         </div>
-        <el-button type="success" v-if="!isUpdateEvent" native-type="submit">Save Event</el-button>
-        <el-button type="success" v-else native-type="submit">Update Event</el-button>
-        <router-link to="/">
-          <el-button type="danger">Cancel</el-button>
-        </router-link>
+        <div class="btns-wrapper">
+          <el-button type="success" v-if="!isUpdateEvent" native-type="submit">Save Event</el-button>
+          <el-button type="success" v-else native-type="submit">Update Event</el-button>
+          <router-link to="/">
+            <el-button type="danger">Cancel</el-button>
+          </router-link>
+        </div>
       </div>
     </form>
   </section>
@@ -95,10 +88,6 @@ export default {
         level: "",
         pic: "",
         instruments: [],
-        freePlayers: {
-          amount: 0,
-          memberIds: []
-        },
         allowedMembersCount: 0,
         joinedMembersCount: 0,
         cost: 0,
@@ -129,18 +118,10 @@ export default {
       else this.saveNewEvent()
     },
     fillEventObject() {
-      let allowedMembersCount = this.event.instruments.reduce((acc, inst) => {
-        acc += +inst.amount;
-        return acc;
-      }, 0);
-      allowedMembersCount += +this.event.freePlayers.amount;
-      this.event.allowedMembersCount = allowedMembersCount;
       this.event.time.timestamp = new Date(this.event.time.day).getTime();
       this.event.time.hour.hours = this.event.time.hour.HH;
       this.event.time.hour.minutes = this.event.time.hour.mm;
-
     },
-
     saveNewEvent() {
       this.pickedInstruments.forEach(instrument => {
         this.addInstrument(instrument)
@@ -168,6 +149,7 @@ export default {
       this.pickedInstruments = instruments
     },
     addInstrument(instrument) {
+      this.allowedMembersCount++
       const existObj = this.event.instruments.find(
         inst => inst.instrument === instrument
       );

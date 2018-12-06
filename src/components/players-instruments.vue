@@ -1,7 +1,6 @@
 <template>
     <section class="players-instruments flex flex-column">
         <div class="row flex" v-for="player in players" :key="player._id">
-            
             <div class="player-instrument-wrapper">
                 <router-link v-if="player" :to="'/user/' + player._id">
                     <img class="circle-icon" :title="player.name" :src="player.pic">
@@ -15,13 +14,7 @@
                     player.
                 </span>
             </div>
-            <!-- <span v-if="player.partEventsIds.length > 1">been to {{player.partEventsIds.length}} jams.</span>
-            <span v-if="player.adminEventsIds.length > 1">hosted {{player.partEventsIds.length}} jams.</span> -->
-            <!-- {{player.rank}} -->
-
-
         </div>
-
     </section>
 </template>
 

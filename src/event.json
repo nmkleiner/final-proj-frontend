@@ -27,10 +27,6 @@
       "playerIds": ["5c0111c6f1b9e56f9012cb27"]
     }
   ],
-  "freePlayers": {
-    "amount": 3,
-    "memberIds": ["5c0111e3f1b9e56f9012cb28"]
-  },
   "allowedMembersCount": 8,
   "joinedMembersCount": 4,
   "status": "",

@@ -79,19 +79,10 @@
       <h4>required instruments:
         <required-instruments :preview="false" :event="event"></required-instruments>
       </h4>
-      <h4>{{event.joinedMembersCount}}/{{event.allowedMembersCount}} participators</h4>
+      <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
       <h4>attending:</h4>
         <players-instruments :event="event" :players="players"></players-instruments>
-
-      <h4 v-if="freePlayers.length">Free players attending:
-        <br>
-        <template v-for="player in freePlayers">
-          <router-link :to="'/user/' + player._id" :key="player._id">
-            <img class="circle-icon" :key="player._id" :title="player.name" :src="player.pic">
-          </router-link>
-        </template>
-      </h4>
     </div>
   </section>
 </template>
@@ -117,7 +108,6 @@ export default {
     return {
       event: null,
       players: [],
-      freePlayers: [],
       admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,
@@ -143,39 +133,17 @@ export default {
               });
           });
         });
-        if (this.event.freePlayers.memberIds.length) {
-          this.event.freePlayers.memberIds.forEach(playerId => {
-            if (!playerId) return;
-            this.$store
-              .dispatch({ type: "getUserById", userId: playerId })
-              .then(player => {
-                this.freePlayers.push(player);
-              });
-          });
-        }
     },
     joinAs(instrument = null) {
-      if (instrument === null) {
-        if (
-          this.event.freePlayers.membersIds.length <
-          this.event.freePlayers.amount
-        )
-          this.event.freePlayers.membersIds.push(this.loggedInUser._id);
-        else {
-          // TODO:cannot join
-        }
-      } else {
         const instrumentObject = this.event.instruments.find(
           inst => inst.instrument === instrument
         );
         if (instrumentObject.playersIds.length < instrumentObject.amount) {
           instrumentObject.playersIds.push(this.loggedInUser._id);
-        } else {
-          // TODO:cannot join
         }
-      }
     },
     joinTheEvent(instrument) {
+      this.isJoining = false;
       if(instrument === null) return this.isJoining = !this.isJoining;
       var joinedEvent = {
         instrument,
@@ -189,7 +157,7 @@ export default {
                 .then(event => {
                   this.event = event;
                   this.addPlayer()
-                  // this.getPlayers()
+                  document.body.querySelector('footer').scrollIntoView();
             })
           })
         })

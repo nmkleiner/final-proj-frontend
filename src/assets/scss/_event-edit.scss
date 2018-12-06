@@ -3,6 +3,8 @@
     padding: 30px;
     background-color: lighten($brand-grey-light, 10%);
     flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
     
     @media screen and (min-width: 600px) {
         flex-direction: row;
@@ -13,6 +15,9 @@
     background-color: $brand-white;
     padding: 30px;
     margin-bottom: 30px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
     @media screen and (min-width: 600px) {
         width: 48.6%;
         margin-bottom: 0;
@@ -30,10 +35,13 @@
     .el-select{
         display: block;
     }
+    .btns-wrapper{
+        padding: 20px;
+        align-self: center;
+    }
 }
 
 .edit-event-container input  {
-//   width: 70%;
   padding: 12px;
   border: 1px solid black;
   border-radius: 4px;
