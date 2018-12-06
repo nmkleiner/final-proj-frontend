@@ -24,7 +24,7 @@
       </div>
     </section>
 
-    <section class="user-profile-card-container">
+    <section v-if="user.bio.length" class="user-profile-card-container">
       <h4>Bio:</h4>
       <p>{{user.bio}}</p>
     </section>
@@ -102,6 +102,7 @@ export default {
   background-color: lighten(lightgray, 10%);
   flex-direction: column;
   margin-top: 50px;
+  min-height:480px;
 
   @media screen and (min-width: 768px) {
     padding: 30px;
