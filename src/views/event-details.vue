@@ -20,7 +20,7 @@
       <div class="card-item-container">
         <h4>
           <span>Genre: {{event.genre}}</span>
-          <span>Level: {{event.level}}</span>
+          <span>&nbsp;Level: {{event.level}}</span>
         </h4>
       </div>
 
@@ -52,7 +52,7 @@
         </GmapMap>
       </div>
     </div>
-    
+
     <div class="card-container">
       <el-button
         @click="loginToJoin"
@@ -99,12 +99,16 @@
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
       <h4>required instruments:
-        <required-instruments :preview="false" :event="event" @setrequiredInstrumentsToShow="setrequiredInstrumentsToShow"></required-instruments>
+        <required-instruments
+          :preview="false"
+          :event="event"
+          @setrequiredInstrumentsToShow="setrequiredInstrumentsToShow"
+        ></required-instruments>
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participators</h4>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
       <h4>attending:</h4>
-        <players-instruments :event="event" :players="players"></players-instruments>
+      <players-instruments :event="event" :players="players"></players-instruments>
     </div>
   </section>
 </template>
@@ -143,50 +147,53 @@ export default {
       this.requiredInstrumentsToShow = instruments;
     },
     pushMsgToHistory(msg) {
-      this.$store.dispatch({type: 'pushMsgToHistory', msg})
+      this.$store.dispatch({ type: "pushMsgToHistory", msg });
     },
     addPlayer() {
-      this.players.push(this.loggedInUser)
+      this.players.push(this.loggedInUser);
     },
     getPlayers() {
       this.event.instruments.forEach(instrument => {
-          return instrument.playerIds.forEach(playerId => {
-            if (!playerId) return;
-            this.$store
-              .dispatch({ type: "getUserById", userId: playerId })
-              .then(player => {
-                this.players.push(player);
-              });
-          });
+        return instrument.playerIds.forEach(playerId => {
+          if (!playerId) return;
+          this.$store
+            .dispatch({ type: "getUserById", userId: playerId })
+            .then(player => {
+              this.players.push(player);
+            });
         });
+      });
     },
     joinAs(instrument = null) {
-        const instrumentObject = this.event.instruments.find(
-          inst => inst.instrument === instrument
-        );
-        if (instrumentObject.playersIds.length < instrumentObject.amount) {
-          instrumentObject.playersIds.push(this.loggedInUser._id);
-        }
+      const instrumentObject = this.event.instruments.find(
+        inst => inst.instrument === instrument
+      );
+      if (instrumentObject.playersIds.length < instrumentObject.amount) {
+        instrumentObject.playersIds.push(this.loggedInUser._id);
+      }
     },
     joinTheEvent(instrument) {
       this.isJoining = false;
-      if(instrument === null) return this.isJoining = !this.isJoining;
+      // if (instrument === null) return (this.isJoining = !this.isJoining);
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId
       };
-      this.$store.dispatch({ type: "updateUserPartEvents", joinedEvent })
+      this.$store
+        .dispatch({ type: "updateUserPartEvents", joinedEvent })
         .then(() => {
-          this.$store.dispatch({ type: "joinEvent", joinedEvent })
-            .then(() => {
-              this.$store.dispatch({ type: "getEventById", eventId: this.event._id })
-                .then(event => {
-                  this.event = event;
-                  this.addPlayer()
-                  document.body.querySelector('footer').scrollIntoView();
-            })
-          })
-        })
+          this.$store.dispatch({ type: "joinEvent", joinedEvent }).then(() => {
+            this.$store
+              .dispatch({ type: "getEventById", eventId: this.event._id })
+              .then(event => {
+                this.event = event;
+                this.addPlayer();
+                document.body
+                  .querySelector("footer")
+                  .scrollIntoView({ block: "end", behavior: "smooth" });
+              });
+          });
+        });
     },
     goEdit() {
       const eventId = this.event._id;
@@ -223,6 +230,26 @@ export default {
     loginToJoin() {
       const eventId = this.event._id;
       this.$router.push(`/login/${eventId}`);
+    },
+    getEvent(eventId) {
+      return this.$store
+      .dispatch({ type: "getEventById", eventId })
+      .then(event => {
+        this.event = event;
+        this.getCoorFromAddress(event.location);
+        return this.event;
+      })
+    },
+    getAdmin() {
+      const adminId = this.event.adminId;
+      return this.$store
+        .dispatch({ type: "getUserById", userId: adminId })
+        .then(admin => {
+          this.admin = admin;
+          if (this.admin._id === this.loggedInUser._id) {
+            this.isLoggedInUserAdmin = true;
+          }
+        });
     }
   },
   computed: {
@@ -244,34 +271,14 @@ export default {
   created() {
     document.body.scrollIntoView();
     const eventId = this.$route.params.eventId;
-    // this.getEvent()
-    this.$store
-      .dispatch({ type: "getEventById", eventId })
-      .then(event => {
-        this.event = event;
-        this.getCoorFromAddress(event.location);
-        return (this.event = event);
-      })
-
-      // get event admin
-      // this.getAdmin()
+    this.getEvent(eventId)
       .then(() => {
-        const adminId = this.event.adminId;
-
-        this.$store
-          .dispatch({ type: "getUserById", userId: adminId })
-          .then(admin => {
-            this.admin = admin;
-            if (this.admin._id === this.loggedInUser._id) {
-              this.isLoggedInUserAdmin = true;
-            }
-          });
+        this.getAdmin();
       })
-      // get's a players array for this preview
       .then(() => {
-        this.getPlayers()
+        this.getPlayers();
       });
-  },
+  }
 };
 </script>
 

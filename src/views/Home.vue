@@ -69,13 +69,13 @@
         <a @click="goList('rock')">Show All Rock Events</a>
       </section>
 
-      <section class="carousel-section just-opened-events">
+      <section v-if="waitingEvents.length" class="carousel-section just-opened-events">
         <h2 class="capitalize">Just Opened!</h2>
         <event-carousel :events="waitingEvents"/>
         <a @click="goList('','','','','Waiting for players')">Show All Recent Events</a>
       </section>
 
-      <section class="carousel-section almost-full-events">
+      <section v-if="almostFullEvents.length" class="carousel-section almost-full-events">
         <h2 class="capitalize">Almost full grab your place!</h2>
         <event-carousel :events="almostFullEvents"/>
         <a @click="goList('','','','','almost full')">Show All Events</a>
