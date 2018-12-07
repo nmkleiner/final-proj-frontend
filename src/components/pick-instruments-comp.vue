@@ -14,11 +14,11 @@
       </div>
     </div>
     <el-button
-      type="success"
-      class="final-join-btn"
+      round
+      class="final-join-btn brand-button"
       @click="selectInstrument"
     >Join As: {{pickedInstrument}}</el-button>
-    <el-button @click='cancelInstrumentPick' type="danger">Back</el-button>
+    <el-button @click='cancelInstrumentPick' round >Back</el-button>
   </section>
 </template>
 

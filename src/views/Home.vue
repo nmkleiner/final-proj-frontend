@@ -10,17 +10,11 @@
         <h4 class="pl-10">
           <p class="white-text bold">
             Here you can find and join
-            music events, created by musicians in your area,
-            or create your own events.
+            jam sessions, created by musicians in your area,
+            or create your own sessions.
           </p>
           <p class="white-text bold">Connect with the musician community in a new way.</p>
         </h4>
-        <transition name="fade">
-        <div v-if="!loggedInUser" class="visit-direction">
-          <h4> <p class="white-text bold">sign in to find event about the music and instrument you love
-          or feel free to browse for events you might like</p></h4>
-        </div>
-        </transition>
       </div>
     </header>
 
@@ -31,9 +25,9 @@
           class="carousel-section favourite-genre"
           :key="genre"
         >
-          <h2 class="capitalize">Especially for you, {{genre}} music events:</h2>
+          <h2 class="capitalize">Especially for you, {{genre}} music sessions:</h2>
           <event-carousel :events="genreEvents(genre)"/>
-          <a @click="goList(genre.toLowerCase())">Show All {{genre}} Events</a>
+          <a @click="goList(genre.toLowerCase())">Show All {{genre}} sessions</a>
         </section>
       </template>
 
@@ -43,7 +37,7 @@
           class="carousel-section favourite-genre"
           :key="instrument"
         >
-          <h2 class="capitalize">Especially for you, events that need a {{instrument}} player:</h2>
+          <h2 class="capitalize">Especially for you, sessions that need a {{instrument}} player:</h2>
           <event-carousel :events="instrumentEvents(instrument)"/>
           <a @click="goList('',instrument.toLowerCase())">Show All {{instrument}} Events</a>
         </section>
@@ -52,54 +46,54 @@
 
     <div class="carousels-container">
       <section class="carousel-section close-distance-events">
-        <h2 class="capitalize">Music events in your area:</h2>
+        <h2 class="capitalize">Music sessions in your area:</h2>
         <event-carousel :events="closeEvents"/>
-        <a class @click="goList('','','location')">Show All Events</a>
+        <a class @click="goList('','','location')">Show All sessions</a>
       </section>
 
       <section class="carousel-section close-distance-events">
-        <h2 class="capitalize">events happening this week:</h2>
+        <h2 class="capitalize">sessions happening this week:</h2>
         <event-carousel :events="thisWeekEvents"/>
         <!-- <a @click="goList('','','','this week')">Show All Events</a> -->
       </section>
 
       <section class="carousel-section rock-events">
-        <h2 class="capitalize">Rock events:</h2>
+        <h2 class="capitalize">Rock sessions:</h2>
         <event-carousel :events="genreEvents('rock')"/>
-        <a @click="goList('rock')">Show All Rock Events</a>
+        <a @click="goList('rock')">Show All Rock sessions</a>
       </section>
 
       <section v-if="waitingEvents.length" class="carousel-section just-opened-events">
         <h2 class="capitalize">Just Opened!</h2>
         <event-carousel :events="waitingEvents"/>
-        <a @click="goList('','','','','Waiting for players')">Show All Recent Events</a>
+        <a @click="goList('','','','','Waiting for players')">Show All Recent sessions</a>
       </section>
 
       <section v-if="almostFullEvents.length" class="carousel-section almost-full-events">
         <h2 class="capitalize">Almost full grab your place!</h2>
         <event-carousel :events="almostFullEvents"/>
-        <a @click="goList('','','','','almost full')">Show All Events</a>
+        <a @click="goList('','','','','almost full')">Show All sessions</a>
       </section>
 
       <section class="carousel-section reggae-events">
-        <h2 class="capitalize">Reggae events:</h2>
+        <h2 class="capitalize">Reggae sessions:</h2>
         <event-carousel :events="genreEvents('reggae')"/>
-        <a @click="goList('reggae')">Show All Reggae Events</a>
+        <a @click="goList('reggae')">Show All Reggae sessions</a>
       </section>
 
       <section class="carousel-section world-music-events">
-        <h2 class="capitalize">World Music events:</h2>
+        <h2 class="capitalize">World Music sessions:</h2>
         <event-carousel :events="genreEvents('world')"/>
-        <a @click="goList('world')">Show All World Music Events</a>
+        <a @click="goList('world')">Show All World Music sessions</a>
       </section>
 
       <section
         v-if="genreEvents('progressive rock').length"
         class="carousel-section progressive-rock-events"
       >
-        <h2 class="capitalize">Progressive Rock events:</h2>
+        <h2 class="capitalize">Progressive Rock sessions:</h2>
         <event-carousel :events="genreEvents('progressive rock')"/>
-        <a @click="goList('progressive rock')">Show All Progressive Rock Events</a>
+        <a @click="goList('progressive rock')">Show All Progressive Rock sessions</a>
       </section>
     </div>
   </div>
@@ -203,7 +197,6 @@ export default {
   }
   @media screen and (min-width: 500px) {
     text-align: center;
-    // border: 2px solid darken(white, 5%);
     margin: 60px 20px 0px 20px;
     padding: 10px;
   }

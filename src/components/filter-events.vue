@@ -29,8 +29,8 @@
           :value="item.value">
         </el-option>
       </el-select>    
-      <el-button type="primary" class="el-button" @click="setSorter('time')">{{'Sort by date'}}</el-button>
-      <el-button type="primary" class="el-button" @click="setSorter('allowedMembersCount')">{{'Sort by participants'}}</el-button>
+      <el-button class="brand-button" round @click="setSorter('time')"><i class="fas fa-sort"></i>{{'Sort by date'}}</el-button>
+      <el-button class="brand-button" round @click="setSorter('allowedMembersCount')"><i class="fas fa-sort"></i>{{'Sort by participants'}}</el-button>
     </aside>
   </div>
 </template>

@@ -59,12 +59,14 @@
         v-if="!loggedInUser"
         class="static join-button"
         type="info"
+        round
       >Login to join</el-button>
 
       <el-button
         v-if="loggedInUser && requiredInstrumentsToShow.length === 0"
         class="static join-button"
         type="warning"
+        round
       >Event is full</el-button>
 
 
@@ -72,21 +74,22 @@
         v-if="loggedInUser && participatingUser"
         class="static join-button"
         type="warning"
+        round
       >Already Joined</el-button>
 
 
       <el-button
         @click="toggleJoin"
         v-if="requiredInstrumentsToShow.length > 0 && loggedInUser && !isLoggedInUserAdmin && !isJoining && !participatingUser"
-        class="static join-button"
-        type="success"
+        class="static join-button brand-button"
+        round
       >Join the event</el-button>
 
       <el-button
         @click="toggleJoin"
         v-if="loggedInUser && !isLoggedInUserAdmin && isJoining"
         class="static join-button"
-        type="danger"
+        round
       >Cancel</el-button>
 
       <transition name="fade">
@@ -151,18 +154,6 @@ export default {
     },
     addPlayer() {
       this.players.push(this.loggedInUser);
-    },
-    getPlayers() {
-      this.event.instruments.forEach(instrument => {
-        return instrument.playerIds.forEach(playerId => {
-          if (!playerId) return;
-          this.$store
-            .dispatch({ type: "getUserById", userId: playerId })
-            .then(player => {
-              this.players.push(player);
-            });
-        });
-      });
     },
     joinAs(instrument = null) {
       const instrumentObject = this.event.instruments.find(
@@ -250,7 +241,19 @@ export default {
             this.isLoggedInUserAdmin = true;
           }
         });
-    }
+    },
+    getPlayers() {
+      this.event.instruments.forEach(instrument => {
+        return instrument.playerIds.forEach(playerId => {
+          if (!playerId) return;
+          this.$store
+            .dispatch({ type: "getUserById", userId: playerId })
+            .then(player => {
+              this.players.push(player);
+            });
+        });
+      });
+    },
   },
   computed: {
     participatingUser(){
