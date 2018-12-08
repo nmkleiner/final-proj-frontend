@@ -148,12 +148,12 @@ export default {
     setPickedInstruments(instruments){
       this.pickedInstruments = instruments
     },
-    addInstrument(instrument) {
+    addInstrument(addedInstrument) {
       this.allowedMembersCount++
       const existObj = this.event.instruments.find(
-        inst => inst.instrument === instrument
+        instrument => instrument.name === addedInstrument
       );
-      const instObj = { instrument, amount: 1, playerIds: [] };
+      const instObj = { name: addedInstrument, amount: 1, playerIds: [] };
 
       if (existObj) existObj.amount++;
       else this.event.instruments.push(instObj);

@@ -23,7 +23,7 @@
       </div>
 
       <div class="details-section">
-        <required-instruments :event="event"></required-instruments>
+        <required-instruments :preview="true" :event="event"></required-instruments>
       </div>
       
     </div>

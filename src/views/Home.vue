@@ -163,7 +163,7 @@ export default {
     instrumentEvents(userInstrument) {
       return this.events.filter(event =>
         event.instruments.find(
-          instrument => instrument.instrument === userInstrument.toLowerCase()
+          instrument => instrument.name === userInstrument.toLowerCase()
         )
       );
     },

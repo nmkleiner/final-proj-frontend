@@ -8,8 +8,8 @@
         @click="setPickedInstrument(instrument)"
       >
         <img
-          :src="'/img/events/'+ instrument.instrument + '.png'"
-          :class="{picked: pickedInstrument === instrument.instrument}"
+          :src="'/img/events/'+ instrument.name + '.png'"
+          :class="{picked: pickedInstrument === instrument.name}"
         >
       </div>
     </div>
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     setPickedInstrument(instrument) {
-      this.pickedInstrument = instrument.instrument;
+      this.pickedInstrument = instrument.name;
     },
     selectInstrument() {
       this.$emit("selectedInstrument", this.pickedInstrument);

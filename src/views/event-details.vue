@@ -155,9 +155,9 @@ export default {
     addPlayer() {
       this.players.push(this.loggedInUser);
     },
-    joinAs(instrument = null) {
+    joinAs(joinedInstrument = null) {
       const instrumentObject = this.event.instruments.find(
-        inst => inst.instrument === instrument
+        instrument => instrument.name === joinedInstrument
       );
       if (instrumentObject.playersIds.length < instrumentObject.amount) {
         instrumentObject.playersIds.push(this.loggedInUser._id);
