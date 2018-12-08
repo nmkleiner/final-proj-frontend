@@ -31,7 +31,7 @@ export default {
       let instruments = this.event.instruments
         .filter(instrument => !instrument.playerIds.length)
         .map(instrument => instrument.name);
-      if (this.preview) return instruments.slice(0, 6);
+      if (this.preview) return instruments.slice(0, 5);
       return instruments;
     },
     requiredInstrumentsObj() {
