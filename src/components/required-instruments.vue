@@ -28,10 +28,9 @@ export default {
   },
   computed: {
     requiredInstruments() {
-      let instruments = this.event.instruments
+      return this.event.instruments
         .filter(instrument => !instrument.playerIds.length)
         .map(instrument => instrument.name);
-      if (this.preview) return instruments.slice(0, 5);
       return instruments;
     },
     requiredInstrumentsObj() {
@@ -40,9 +39,12 @@ export default {
       );
     },
     chosenInstruments() {
-      return this.event.instruments
+      let instruments = this.event.instruments
         .filter(instrument => instrument.playerIds.length)
         .map(instrument => instrument.name);
+        if (this.preview && instruments.length && 
+            this.requiredInstruments.length + instruments.length > 6) instruments.length = 6 - this.requiredInstruments.length;
+        return instruments
     }
   },
   mounted() {
