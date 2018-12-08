@@ -28,24 +28,25 @@ export default {
   },
   computed: {
     requiredInstruments() {
-      return this.event.instruments
+      let instruments = this.event.instruments
         .filter(instrument => !instrument.playerIds.length)
         .map(instrument => instrument.name);
-      return instruments;
-    },
-    requiredInstrumentsObj() {
-      return this.event.instruments.filter(
-        instrument => !instrument.playerIds.length
-      );
+        if (this.preview && instruments.length > 6) instruments.length = 6
+       return instruments;
     },
     chosenInstruments() {
-      let instruments = this.event.instruments
+        let instruments = this.event.instruments
         .filter(instrument => instrument.playerIds.length)
         .map(instrument => instrument.name);
         if (this.preview && instruments.length && 
             this.requiredInstruments.length + instruments.length > 6) instruments.length = 6 - this.requiredInstruments.length;
         return instruments
-    }
+    },
+    requiredInstrumentsObj() {
+        return this.event.instruments.filter(
+        instrument => !instrument.playerIds.length
+        );
+    },
   },
   mounted() {
     this.$emit("setrequiredInstrumentsToShow", this.requiredInstrumentsObj);

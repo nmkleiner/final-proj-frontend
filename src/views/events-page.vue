@@ -47,6 +47,6 @@ export default {
 
 <style>
 .events-page{
-    min-height: 55vh;
+    min-height: 65vh;
 }
 </style>
