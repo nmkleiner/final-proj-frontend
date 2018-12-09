@@ -69,12 +69,15 @@ export default {
       });
     },
     updateHistoryEvent({ commit }, { event }) {
+      console.log(event,'updateHistoryEvent')
       return eventService.saveEvent(event).then(() => {
       });
     },
     pushMsgToHistory({ commit, getters, dispatch }, { msg }) {
+      console.log(msg,'msg')
       commit({type: 'pushMsgToHistory', msg})
       const tempEvent = getters.currEvent
+      console.log(tempEvent,'pushMsgToHistory')
       dispatch({type: 'updateHistoryEvent', event: tempEvent})
     },
     removeEvent({ commit }, { eventId }) {
