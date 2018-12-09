@@ -26,10 +26,8 @@ export default {
     event: Object,
     preview: Boolean
   },
-  computed: {11
-
-
-requiredInstruments() {
+  computed: {
+    requiredInstruments() {
       let instruments = this.event.instruments
         .filter(instrument => !instrument.playerIds.length)
         .map(instrument => instrument.name);
