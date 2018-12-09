@@ -11,12 +11,13 @@ $brand-grey-light: darken($brand-white, 15%);
 $border: rgb(207, 207, 207) 1px solid;
 $border-color: rgb(207, 207, 207);
 $nav-links-color: #90f1f1;
+$brand-heading-color: rgb(0, 34, 49);
 
 //Headings
 h1,h2,h3,h4,h5,h6{
     margin: 15px 0;
     font-family: 'Montserrat', sans-serif;
-    color: rgb(0, 34, 49);
+    color: $brand-heading-color;
 }
 
 h1{
@@ -51,4 +52,20 @@ p{
 span{
     color: darken($brand-text-color, 10%);
 
+}
+
+// buttons
+
+.brand-button{
+    background-color: black;
+    border: 1px solid $nav-links-color;
+    &:hover{
+        background-color: black;
+    }
+    &:focus{
+        background-color: black;
+    }
+    span{
+        color: $nav-links-color;
+    }
 }

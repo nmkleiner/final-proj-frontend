@@ -6,7 +6,7 @@
           <h4>{{loggedInUser.name}}</h4>
           <img class="circle-icon" :src="loggedInUser.pic" alt="event admin">
         </div>
-        <h4>Event Title</h4>
+        <h4>Session Title</h4>
         <el-input required type="text" id="title" v-model="event.title" placeholder="Event Title"></el-input>
         <h4>select genre</h4>
         <el-select required class="el-select" v-model="event.genre" placeholder="select genre">
@@ -24,7 +24,7 @@
           <el-option value="pro">Professional</el-option>
           <el-option value="amateur">Amateur</el-option>
         </el-select>
-        <h4>Event Description</h4>
+        <h4>Session Description</h4>
         <textarea v-model="event.desc" placeholder="Event Description"/>
 
         <h4>Choose instruments</h4>
@@ -32,13 +32,13 @@
       </div>
 
       <div class="edit-event-container">
-        <h4>event date</h4>
-        <el-input required type="date" v-model="event.time.day"></el-input>
+        <h4>Session date</h4>
+        <el-input required type="date" v-model="time.day"></el-input>
         <div>
-          <h4>event hour</h4>
-          <vue-timepicker required v-model="event.time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
+          <h4>hour</h4>
+          <vue-timepicker required v-model="time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
         </div>
-        <h4>event cost</h4>
+        <h4>cost</h4>
         <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
         <div class="img-n-address-container">
           <div class="address-container">
@@ -49,10 +49,10 @@
           </div>
         </div>
         <div class="btns-wrapper">
-          <el-button type="success" v-if="!isUpdateEvent" native-type="submit">Save Event</el-button>
-          <el-button type="success" v-else native-type="submit">Update Event</el-button>
+          <el-button class="brand-button" round v-if="!isUpdateEvent" native-type="submit">Save Session</el-button>
+          <el-button class="brand-button" round v-else native-type="submit">Update Session</el-button>
           <router-link to="/">
-            <el-button type="danger">Cancel</el-button>
+            <el-button round>Cancel</el-button>
           </router-link>
         </div>
       </div>
@@ -65,7 +65,7 @@ import eventService from "@/service/event.service.js";
 import instrumentList from "@/components/instrument-list.vue";
 import instrumentsMultiplePick from "@/components/instruments-multiple-pick.vue";
 import VueTimepicker from "vue2-timepicker";
-
+import moment from "moment"
 export default {
   name: "edit-event",
   data() {
@@ -73,15 +73,7 @@ export default {
       event: {
         adminId: "",
         location: { address: "", city: "" },
-        time: {
-          day: "",
-           hour: {
-              HH: "19",
-              mm: "00",
-              hours: '',
-              minutes: '',
-           }
-        },
+        timestamp: null,
         title: "",
         desc: "",
         genre: "",
@@ -92,6 +84,13 @@ export default {
         joinedMembersCount: 0,
         cost: 0,
         msgs: []
+      },
+      time: {
+          day: "",
+           hour: {
+              HH: "19",
+              mm: "00",
+         }
       },
       pickedInstruments: []
     };
@@ -118,9 +117,9 @@ export default {
       else this.saveNewEvent()
     },
     fillEventObject() {
-      this.event.time.timestamp = new Date(this.event.time.day).getTime();
-      this.event.time.hour.hours = this.event.time.hour.HH;
-      this.event.time.hour.minutes = this.event.time.hour.mm;
+      // new Date("2018-12-18 03:40").getTime();
+      // console.log(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}` , new Date(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}`).getTime())
+      this.event.timestamp = new Date(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}`).getTime();
     },
     saveNewEvent() {
       this.pickedInstruments.forEach(instrument => {
@@ -148,15 +147,20 @@ export default {
     setPickedInstruments(instruments){
       this.pickedInstruments = instruments
     },
-    addInstrument(instrument) {
+    addInstrument(addedInstrument) {
       this.allowedMembersCount++
       const existObj = this.event.instruments.find(
-        inst => inst.instrument === instrument
+        instrument => instrument.name === addedInstrument
       );
-      const instObj = { instrument, amount: 1, playerIds: [] };
+      const instObj = { name: addedInstrument, amount: 1, playerIds: [] };
 
       if (existObj) existObj.amount++;
       else this.event.instruments.push(instObj);
+    },
+    getTime(timestamp) {
+      this.time.day = moment(timestamp).format('DD-MM-YYYY')
+      this.time.hour.HH = moment(timestamp).format('HH')
+      this.time.hour.mm = moment(timestamp).format('mm')
     }
   },
   created() {
@@ -169,6 +173,7 @@ export default {
     if (eventId) {
       this.$store.dispatch({ type: "getEventById", eventId }).then(event => {
         this.event = event;
+        this.getTime(this.event.timestamp)
         var temp = this.event.instruments.map(instrumentObj => {
           return instrumentObj.instrument
         })

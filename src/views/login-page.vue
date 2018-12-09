@@ -6,8 +6,8 @@
             <el-input required v-model="loginData.password" type="password" placeholder="password"></el-input>
             <span v-if="isWrong">Wrong password / username</span>
             <div class="flex">
-            <el-button type="primary" native-type="submit" round><i class="fas fa-sign-in-alt"></i> Login</el-button>
-            <el-button type="primary" @click="signup" round><i class="fas fa-user-plus"></i> Sign Up</el-button>
+            <el-button class="brand-button" round native-type="submit" ><i class="fas fa-sign-in-alt"></i> Login</el-button>
+            <el-button class="brand-button" round @click="signup" ><i class="fas fa-user-plus"></i> Sign Up</el-button>
             </div>
             <a>forgot your password?</a>
         </form>
@@ -51,30 +51,5 @@ export default {
 </script>
 
 <style lang="scss">
-.login-page{
-    width: 70vw;
-    margin: 90px auto 0;
-    padding-bottom: 100px; 
-    form {
-        height: fit-content;
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        a {
-            font-size: 0.8rem;
-            color: gray;
-            cursor: pointer;
-        }
-        input,button {
-            margin: 0 0 10px;
-        }
-    }
-}
 
-@media (min-width: 600px) {
-    .login-page {
-        max-width: 350px;
-    }
-}
 </style>

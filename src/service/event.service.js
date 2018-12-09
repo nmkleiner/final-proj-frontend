@@ -16,10 +16,14 @@ function query(filter = null, sort = null) {
   if (filter) {
     urlEnd += `?genre=${filter.byGenre}&instrument=${filter.byInstrument}
                 &name=${filter.byName}&status=${filter.byStatus}`
+    if (sort) {
+      urlEnd += `&sortBy=${sort.sorter}&order=${sort.order}`
+    }  
   }
-  if (sort) {
-    urlEnd += `&sortBy=${sort.sorter}&order=${sort.order}`
-  }  
+  if (!filter && sort) {
+    urlEnd += `?sortBy=${sort.sorter}&order=${sort.order}`
+  }
+  console.log(urlEnd)
   return axios.get(BASE_URL + urlEnd)
     .then(res => res.data);
 }

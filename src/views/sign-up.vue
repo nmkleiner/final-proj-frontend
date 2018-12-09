@@ -23,9 +23,9 @@
 
       <textarea v-model="newUser.bio" class="signup-bio" placeholder="tell us about yourself..."></textarea>
       <div class="signup-button-wrapper">
-        <el-button native-type="submit">Save</el-button>
+        <el-button round class="brand-button" native-type="submit">Save</el-button>
         <router-link to="/">
-          <el-button>Back</el-button>
+          <el-button round class="brand-button">Back</el-button>
         </router-link>
       </div>
     </form>

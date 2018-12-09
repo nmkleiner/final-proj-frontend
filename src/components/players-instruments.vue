@@ -31,7 +31,7 @@ export default {
                 const index = inst.playerIds.findIndex(id => id === playerId)
                 return (index === -1)? null : inst
             })
-            return instrument.instrument
+            return instrument.name
         }
     }
 }

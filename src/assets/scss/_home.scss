@@ -8,25 +8,29 @@
       height: 470px;
     }
     
-    // background-color: black;
-    
     .welcome-text {
       position: absolute;
       left: 0px;
       top: 0px;
       width: 100%;
       height: 100%;
-      background: linear-gradient(165deg, #111 0%, #333 30% ,#999 100%);
+      background: linear-gradient(165deg, #111 0%, #333 60% ,#999 100%);
       opacity: 0.7;
       z-index: 2;
       h2 {
+        width: 80%;
         margin: 20px 0;
         text-align: center;
+        font-size: 3rem;
+        margin: 0 auto;
       }
       h4 {
-        font-size: 1.3rem;
+        font-size: 2rem;
       }
       p{
+        margin: 0 auto;
+        width: 80%;
+        font-size: 2rem;
         text-align: center;
       }
     }
@@ -51,9 +55,12 @@
     .carousel-section {
       padding: 20px 15px;
       border-bottom: $border;
+      a{
+        color: lighten($brand-heading-color,20%);
+        font-size: 1.1rem;
+      }
     }
     .carousel {
-      margin: 20px;
 
       .slide {
         display: flex;

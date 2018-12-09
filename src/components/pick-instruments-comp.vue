@@ -8,17 +8,17 @@
         @click="setPickedInstrument(instrument)"
       >
         <img
-          :src="'/img/events/'+ instrument.instrument + '.png'"
-          :class="{picked: pickedInstrument === instrument.instrument}"
+          :src="'/img/events/'+ instrument.name + '.png'"
+          :class="{picked: pickedInstrument === instrument.name}"
         >
       </div>
     </div>
     <el-button
-      type="success"
-      class="final-join-btn"
+      round
+      class="final-join-btn brand-button"
       @click="selectInstrument"
     >Join As: {{pickedInstrument}}</el-button>
-    <el-button @click='cancelInstrumentPick' type="danger">Back</el-button>
+    <el-button @click='cancelInstrumentPick' round >Back</el-button>
   </section>
 </template>
 
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     setPickedInstrument(instrument) {
-      this.pickedInstrument = instrument.instrument;
+      this.pickedInstrument = instrument.name;
     },
     selectInstrument() {
       this.$emit("selectedInstrument", this.pickedInstrument);

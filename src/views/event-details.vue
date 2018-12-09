@@ -28,6 +28,7 @@
         <p class="card-description">{{event.desc}}</p>
         <div class="event-details">
           <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
+          <span class="capitalize">{{dateToShow}}</span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
         </div>
@@ -59,12 +60,14 @@
         v-if="!loggedInUser"
         class="static join-button"
         type="info"
+        round
       >Login to join</el-button>
 
       <el-button
         v-if="loggedInUser && requiredInstrumentsToShow.length === 0"
         class="static join-button"
         type="warning"
+        round
       >Event is full</el-button>
 
 
@@ -72,21 +75,22 @@
         v-if="loggedInUser && participatingUser"
         class="static join-button"
         type="warning"
+        round
       >Already Joined</el-button>
 
 
       <el-button
         @click="toggleJoin"
         v-if="requiredInstrumentsToShow.length > 0 && loggedInUser && !isLoggedInUserAdmin && !isJoining && !participatingUser"
-        class="static join-button"
-        type="success"
+        class="static join-button brand-button"
+        round
       >Join the event</el-button>
 
       <el-button
         @click="toggleJoin"
         v-if="loggedInUser && !isLoggedInUserAdmin && isJoining"
         class="static join-button"
-        type="danger"
+        round
       >Cancel</el-button>
 
       <transition name="fade">
@@ -115,12 +119,16 @@
 
 <script>
 const axios = require("axios");
+import moment from "moment"
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
 import pickInstrumentsComp from "@/components/pick-instruments-comp.vue";
 import playersInstruments from "@/components/players-instruments.vue";
 import requiredInstruments from "@/components/required-instruments.vue";
+import ioClient from "socket.io-client";
+import msgService from "@/service/msg.service.js";
+
 
 export default {
   components: {
@@ -152,33 +160,31 @@ export default {
     addPlayer() {
       this.players.push(this.loggedInUser);
     },
-    getPlayers() {
-      this.event.instruments.forEach(instrument => {
-        return instrument.playerIds.forEach(playerId => {
-          if (!playerId) return;
-          this.$store
-            .dispatch({ type: "getUserById", userId: playerId })
-            .then(player => {
-              this.players.push(player);
-            });
-        });
-      });
-    },
-    joinAs(instrument = null) {
+    joinAs(joinedInstrument = null) {
       const instrumentObject = this.event.instruments.find(
-        inst => inst.instrument === instrument
+        instrument => instrument.name === joinedInstrument
       );
       if (instrumentObject.playersIds.length < instrumentObject.amount) {
         instrumentObject.playersIds.push(this.loggedInUser._id);
       }
     },
+    send(instrument) {
+      this.$socket.emit("assignMsg", {
+        msg: {txt: `${this.loggedInUser.name} joined the session as ${instrument} player!`,
+              from: this.loggedInUser.name},
+        room: this.event._id
+      });
+      this.pushMsgToHistory(this.newMsg);
+      this.newMsg = msgService.createEmptyMsg(this.nickName);
+      // this.scrollToEnd();
+    },
     joinTheEvent(instrument) {
       this.isJoining = false;
-      // if (instrument === null) return (this.isJoining = !this.isJoining);
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId
       };
+      this.send(instrument)
       this.$store
         .dispatch({ type: "updateUserPartEvents", joinedEvent })
         .then(() => {
@@ -250,7 +256,19 @@ export default {
             this.isLoggedInUserAdmin = true;
           }
         });
-    }
+    },
+    getPlayers() {
+      this.event.instruments.forEach(instrument => {
+        return instrument.playerIds.forEach(playerId => {
+          if (!playerId) return;
+          this.$store
+            .dispatch({ type: "getUserById", userId: playerId })
+            .then(player => {
+              this.players.push(player);
+            });
+        });
+      });
+    },
   },
   computed: {
     participatingUser(){
@@ -262,10 +280,7 @@ export default {
       return this.$store.getters.loggedInUser;
     },
     dateToShow() {
-      return this.event.time.day
-        .split("-")
-        .reverse()
-        .join("/");
+      return moment(this.event.timestamp).format('DD/MM HH:mm')
     }
   },
   created() {
