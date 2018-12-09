@@ -178,10 +178,7 @@ export default {
       }
       this.$socket.emit("assignMsg",joinedMsg);
       this.pushMsgToHistory(joinedMsg.msg);
-      // this.scrollToEnd();
-    },
-    theMethod() {
-      console.log('baba')
+      this.scrollToEnd();
     },
     joinTheEvent(instrument) {
       this.isJoining = false;
