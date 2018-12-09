@@ -128,8 +128,6 @@ import playersInstruments from "@/components/players-instruments.vue";
 import requiredInstruments from "@/components/required-instruments.vue";
 import ioClient from "socket.io-client";
 import msgService from "@/service/msg.service.js";
-
-
 export default {
   components: {
     gmapMap,
@@ -305,7 +303,6 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-
 .disabled {
   background-color: white;
   color: lightgray;
