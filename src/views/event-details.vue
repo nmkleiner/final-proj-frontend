@@ -169,13 +169,15 @@ export default {
       }
     },
     send(instrument) {
-      this.$socket.emit("assignMsg", {
-        msg: {txt: `${this.loggedInUser.name} joined the session as ${instrument} player!`,
-        from: this.loggedInUser.name},
+      const joinedMsg =  {
+        msg: {
+          txt: `${this.loggedInUser.name} joined the session as ${instrument} player!`,
+          from: this.loggedInUser.name
+          },
         room: this.event._id
-      });
-      this.pushMsgToHistory(this.newMsg);
-      this.newMsg = msgService.createEmptyMsg(this.nickName);
+      }
+      this.$socket.emit("assignMsg",joinedMsg);
+      this.pushMsgToHistory(joinedMsg.msg);
       // this.scrollToEnd();
     },
     theMethod() {
