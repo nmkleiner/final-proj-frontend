@@ -33,10 +33,10 @@
 
       <div class="edit-event-container">
         <h4>Session date</h4>
-        <el-input required type="date" v-model="event.time.day"></el-input>
+        <el-input required type="date" v-model="time.day"></el-input>
         <div>
           <h4>hour</h4>
-          <vue-timepicker required v-model="event.time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
+          <vue-timepicker required v-model="time.hour" :minute-interval="15" format="HH:mm"></vue-timepicker>
         </div>
         <h4>cost</h4>
         <el-input type="number" min="0" v-model="event.cost" placeholder="cost"></el-input>
@@ -65,7 +65,7 @@ import eventService from "@/service/event.service.js";
 import instrumentList from "@/components/instrument-list.vue";
 import instrumentsMultiplePick from "@/components/instruments-multiple-pick.vue";
 import VueTimepicker from "vue2-timepicker";
-
+import moment from "moment"
 export default {
   name: "edit-event",
   data() {
@@ -73,15 +73,7 @@ export default {
       event: {
         adminId: "",
         location: { address: "", city: "" },
-        time: {
-          day: "",
-           hour: {
-              HH: "19",
-              mm: "00",
-              hours: '',
-              minutes: '',
-           }
-        },
+        timestamp: null,
         title: "",
         desc: "",
         genre: "",
@@ -92,6 +84,13 @@ export default {
         joinedMembersCount: 0,
         cost: 0,
         msgs: []
+      },
+      time: {
+          day: "",
+           hour: {
+              HH: "19",
+              mm: "00",
+         }
       },
       pickedInstruments: []
     };
@@ -118,9 +117,9 @@ export default {
       else this.saveNewEvent()
     },
     fillEventObject() {
-      this.event.time.timestamp = new Date(this.event.time.day).getTime();
-      this.event.time.hour.hours = this.event.time.hour.HH;
-      this.event.time.hour.minutes = this.event.time.hour.mm;
+      // new Date("2018-12-18 03:40").getTime();
+      // console.log(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}` , new Date(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}`).getTime())
+      this.event.timestamp = new Date(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}`).getTime();
     },
     saveNewEvent() {
       this.pickedInstruments.forEach(instrument => {
@@ -157,6 +156,11 @@ export default {
 
       if (existObj) existObj.amount++;
       else this.event.instruments.push(instObj);
+    },
+    getTime(timestamp) {
+      this.time.day = moment(timestamp).format('DD-MM-YYYY')
+      this.time.hour.HH = moment(timestamp).format('HH')
+      this.time.hour.mm = moment(timestamp).format('mm')
     }
   },
   created() {
@@ -169,6 +173,7 @@ export default {
     if (eventId) {
       this.$store.dispatch({ type: "getEventById", eventId }).then(event => {
         this.event = event;
+        this.getTime(this.event.timestamp)
         var temp = this.event.instruments.map(instrumentObj => {
           return instrumentObj.instrument
         })

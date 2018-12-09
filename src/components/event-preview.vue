@@ -7,13 +7,14 @@
       </div>
     </router-link>
 
-    <div class="details flex flex-column space-between capitalize">
-      <div class="details-section">
+    <div class="details flex flex-column capitalize">
+      <div class="details-section flex flex-column">
         <h6 class="bold">{{event.title}}</h6>
         <span>{{event.genre}} music<span v-if="!!event.level.length"> for {{event.level}}s</span> 
         </span>
-        <span>, happening on {{dateToShow}} in {{event.location.city}}.</span>
-        <div class="flex mt-5">
+        <span>happening on {{dateToShow}} in {{event.location.city}}.</span>
+        <div class="flex-grow"></div>
+        <div class="flex players-wrapper justify-self-end">
           <div v-for="player in playersToShow" :key="player._id">
             <router-link v-if="player" :to="'/user/' + player._id">
               <img class="circle-icon" :title="player.name" :src="player.pic">
@@ -34,6 +35,8 @@
 import userService from "@/service/user.service.js";
 import playersInstruments from '@/components/players-instruments.vue'
 import requiredInstruments from '@/components/required-instruments.vue'
+import moment from "moment"
+
 export default {
   components: {
     playersInstruments,
@@ -81,9 +84,7 @@ export default {
       return this.players.slice(0, 4);
     },
     dateToShow() {
-      var date = this.event.time.day.split('-').reverse()
-      date.splice(2,1)
-      return date.join('/')
+      return moment(this.event.timestamp).format('DD/MM')
     }
   }
 };

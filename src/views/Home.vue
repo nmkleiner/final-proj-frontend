@@ -127,8 +127,8 @@ export default {
     thisWeekEvents() {
       return this.events.filter(
         event =>
-          event.time.timestamp > Date.now() &&
-          event.time.timestamp < Date.now() + 1000 * 3600 * 24 * 7
+          event.timestamp > Date.now() &&
+          event.timestamp < Date.now() + 1000 * 3600 * 24 * 7
       );
     },
     waitingEvents() {

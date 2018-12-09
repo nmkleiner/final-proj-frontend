@@ -14,8 +14,8 @@ export default {
     },
     setUpdateEvent(state, { joinedEvent }) {
       state.currEvent.instruments
-        .find(item => {
-          return item.instrument === joinedEvent.instrument;
+        .find(instrument => {
+          return instrument.name === joinedEvent.instrument;
         })
         .playerIds.push(joinedEvent.currUser._id);
         state.currEvent.joinedMembersCount++
@@ -83,6 +83,7 @@ export default {
       });
     },
     filter({ commit, dispatch }, { filter, sort }) {
+      console.log('filter, sort',filter,sort)
       if (!filter.byGenre && !filter.byInstrument && !filter.byName && !filter.byStatus) {
           if (!sort) return dispatch('loadEvents')
           return eventService.query(null, sort)

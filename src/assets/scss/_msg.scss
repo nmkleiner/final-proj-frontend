@@ -2,17 +2,20 @@
   z-index: 11;
   position: fixed;
   left: 0;
-  top: -150px;
-  border-bottom: 3px solid white;
-  border-right: 3px solid white;
+  top: 0px;
+  border: 3px solid white;
   border-radius: 0 0 15px 0;
   background-color: black;
+  transition: 1s ease-in-out;
+  padding: 30px;
+  &.hidden{
+    top: -250px;
+  }
   h3{
     color: $nav-links-color;
     font-weight: bold;
   }
-  padding: 30px;
-  transition: 0.8s ease-in-out;
+
 }
 .msg-msg.show {
   transform: translateY(150px)  

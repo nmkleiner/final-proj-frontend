@@ -204,22 +204,6 @@
           title="violin"
         >
       </label>
-      <input
-        type="checkbox"
-        id="other"
-        value="other"
-        v-model="pickedInstruments"
-        @change="setPickedInstruments"
-        hidden
-      >
-      <label for="other">
-        <img
-          :src="'/img/events/other.png'"
-          @click="setPicked('other')"
-          :class="{picked: itemPicked.other}"
-          title="other"
-        >
-      </label>
     </div>
   </section>
 </template>
@@ -237,7 +221,6 @@ export default {
         dj: false,
         flute: false,
         frenchHorn: false,
-        other: false,
         piano: false,
         saxophone: false,
         synthesizer: false,

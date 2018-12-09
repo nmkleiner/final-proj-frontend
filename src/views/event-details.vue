@@ -28,6 +28,7 @@
         <p class="card-description">{{event.desc}}</p>
         <div class="event-details">
           <span class="capitalize">{{event.location.address}}, {{event.location.city}}</span>
+          <span class="capitalize">{{dateToShow}}</span>
           <span v-if="event.cost">cost: {{event.cost}}$</span>
           <span v-else>cost: free</span>
         </div>
@@ -118,12 +119,16 @@
 
 <script>
 const axios = require("axios");
+import moment from "moment"
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
 import pickInstrumentsComp from "@/components/pick-instruments-comp.vue";
 import playersInstruments from "@/components/players-instruments.vue";
 import requiredInstruments from "@/components/required-instruments.vue";
+import ioClient from "socket.io-client";
+import msgService from "@/service/msg.service.js";
+
 
 export default {
   components: {
@@ -163,13 +168,23 @@ export default {
         instrumentObject.playersIds.push(this.loggedInUser._id);
       }
     },
+    send(instrument) {
+      this.$socket.emit("assignMsg", {
+        msg: {txt: `${this.loggedInUser.name} joined the session as ${instrument} player!`,
+              from: this.loggedInUser.name},
+        room: this.event._id
+      });
+      this.pushMsgToHistory(this.newMsg);
+      this.newMsg = msgService.createEmptyMsg(this.nickName);
+      // this.scrollToEnd();
+    },
     joinTheEvent(instrument) {
       this.isJoining = false;
-      // if (instrument === null) return (this.isJoining = !this.isJoining);
       var joinedEvent = {
         instrument,
         eventId: this.$route.params.eventId
       };
+      this.send(instrument)
       this.$store
         .dispatch({ type: "updateUserPartEvents", joinedEvent })
         .then(() => {
@@ -180,7 +195,7 @@ export default {
                 this.event = event;
                 this.addPlayer();
                 document.body
-                  .querySelector("footer")
+                  .querySelector(".footer")
                   .scrollIntoView({ block: "end", behavior: "smooth" });
               });
           });
@@ -265,10 +280,7 @@ export default {
       return this.$store.getters.loggedInUser;
     },
     dateToShow() {
-      return this.event.time.day
-        .split("-")
-        .reverse()
-        .join("/");
+      return moment(this.event.timestamp).format('DD/MM HH:mm')
     }
   },
   created() {

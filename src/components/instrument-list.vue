@@ -27,7 +27,6 @@ export default {
               {name: 'violin', src: '', isSelected: false},
               {name: 'saxophone', src: '', isSelected: false},
               {name: 'synthesizer', src: '', isSelected: false},
-              {name: 'other', src: '', isSelected: false}
             ],
         }
     },

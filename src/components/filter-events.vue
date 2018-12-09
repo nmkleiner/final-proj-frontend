@@ -29,7 +29,7 @@
           :value="item.value">
         </el-option>
       </el-select>    
-      <el-button class="brand-button" round @click="setSorter('time')"><i class="fas fa-sort"></i>{{'Sort by date'}}</el-button>
+      <el-button class="brand-button" round @click="setSorter('timestamp')"><i class="fas fa-sort"></i>{{'Sort by date'}}</el-button>
       <el-button class="brand-button" round @click="setSorter('allowedMembersCount')"><i class="fas fa-sort"></i>{{'Sort by participants'}}</el-button>
     </aside>
   </div>
@@ -57,7 +57,7 @@ export default {
       filter: {
         byName: '',
         byInstrument: '',
-        byGenre: '',
+        byGenre: 'All genres',
         byLocation: '',
         byStatus: '',
         byRecent: ''
@@ -86,7 +86,7 @@ export default {
           { label: 'guitar', value: 'guitar'},
           { label: 'acoustic guitar', value: 'acoustic-guitar'},
           { label: 'bass', value: 'bass-guitar'},
-          { label: 'drums', value: 'drums'},//missing in edit event
+          { label: 'drums', value: 'drums'},
           { label: 'flute', value: 'flute'},
           { label: 'clarinet', value: 'clarinet'},
           { label: 'piano', value: 'piano'},
