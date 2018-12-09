@@ -178,7 +178,6 @@ export default {
       }
       this.$socket.emit("assignMsg",joinedMsg);
       this.pushMsgToHistory(joinedMsg.msg);
-      this.scrollToEnd();
     },
     joinTheEvent(instrument) {
       this.isJoining = false;
