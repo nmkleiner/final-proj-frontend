@@ -189,7 +189,7 @@ export default {
                 this.event = event;
                 this.addPlayer();
                 document.body
-                  .querySelector("footer")
+                  .querySelector(".footer")
                   .scrollIntoView({ block: "end", behavior: "smooth" });
               });
           });

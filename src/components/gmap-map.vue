@@ -1,58 +1,84 @@
 <template>
-  <GmapMap
-    v-if="center"
-    ref="mapRef"
-    class="static map"
-    :zoom="18"
-    :center="center"
-    map-type-id="roadmap"
-    style="height: 300px"
-  >
-    <GmapMarker
-      v-if="markers.position"
-      :key="index"
-      v-for="(m, index) in markers"
-      :position="m.position"
-      :clickable="true"
-      @click="center=m.position"
-    />
-  </GmapMap>
+  <div>
+    <div>
+      <h4>Event Location</h4>
+      <label>
+        <gmap-autocomplete
+          @place_changed="setPlace">
+        </gmap-autocomplete>
+        <button @click="addMarker">Add</button>
+        <button @click="removeLocatin">Remove</button>
+      </label>
+      <br/>
+
+    </div>
+    <br>
+    <gmap-map
+      v-if="places.length > 0"
+      :center="center"
+      :zoom="12"
+      style="width:100%;  height: 400px;"
+    >
+      <gmap-marker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        @click="center=m.position"
+      ></gmap-marker>
+    </gmap-map>
+  </div>
 </template>
 
 <script>
-const axios = require('axios');
 export default {
-  props: ["currEvent"],
+  name: "GoogleMap",
   data() {
     return {
-      markers: [
-        {
-          position: null
-        }
-      ],
-      center: null
-    }
+      // default to Montreal to keep it simple
+      // change this to whatever makes sense
+      center: { lat: 45.508, lng: -73.587 },
+      markers: [],
+      places: [],
+      currentPlace: null
+    };
   },
+
+  mounted() {
+    this.geolocate();
+  },
+
   methods: {
-      getCoorFromAddress(location){
-      var currEventLocStr = `${location.address.replace(/[^a-zA-Z0-9]/g,'+')}+${location.city.replace(/[^a-zA-Z0-9]/g,'+')}`
-      return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`)
-      .then(res => {
-        var latlng = res.data.results[0].geometry.location
-        this.center = latlng
-        this.markers.position.push(latlng)
-        return latlng
-        }).then(latlng => {
-          this.$refs.mapRef.panTo(latlng)
-        })
+    // receives a place object via the autocomplete component
+    setPlace(place) {
+      console.log(place)
+      this.currentPlace = place;
+    },
+    addMarker() {
+      if (this.currentPlace) {
+        const marker = {
+          lat: this.currentPlace.geometry.location.lat(),
+          lng: this.currentPlace.geometry.location.lng()
+        };
+        this.markers.push({ position: marker });
+        this.places.push(this.currentPlace);
+        this.center = marker;
+        this.currentPlace = null;
+      }
+    },
+    removeLocatin(){
+      this.markers.splice(this.markers.length -1, 1)
+      this.places.splice(this.places.length -1, 1)
+      this.currentPlace = null;
+
+    },
+    geolocate: function() {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+      });
     }
-  },
-  created(){
-      this.getCoorFromAddress(this.currEvent.location)
   }
-  }
-
+};
 </script>
-
-<style>
-</style>
