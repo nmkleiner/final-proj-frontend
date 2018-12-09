@@ -147,7 +147,7 @@ export default {
       isJoining: false,
       markers: [],
       center: null,
-      requiredInstrumentsToShow: []
+      requiredInstrumentsToShow: [],
     };
   },
   methods: {
@@ -171,7 +171,7 @@ export default {
     send(instrument) {
       this.$socket.emit("assignMsg", {
         msg: {txt: `${this.loggedInUser.name} joined the session as ${instrument} player!`,
-              from: this.loggedInUser.name},
+        from: this.loggedInUser.name},
         room: this.event._id
       });
       this.pushMsgToHistory(this.newMsg);
