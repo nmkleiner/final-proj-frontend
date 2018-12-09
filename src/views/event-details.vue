@@ -178,6 +178,9 @@ export default {
       this.newMsg = msgService.createEmptyMsg(this.nickName);
       // this.scrollToEnd();
     },
+    theMethod() {
+      console.log('baba')
+    },
     joinTheEvent(instrument) {
       this.isJoining = false;
       var joinedEvent = {
