@@ -1,6 +1,6 @@
 <template>
   <section class="required-instruments flex wrap">
-      <div v-for="instrument in instruments" :key="instrument.name">
+      <div v-for="instrument in instrumentsToShow" :key="instrument.name">
         <img
           :class="{
             'icon-green': instrument.required, 
@@ -17,14 +17,14 @@
 export default {
   name: "required-instruments",
   props: {
-    event: Object,
+    instruments: Array,
     preview: Boolean
   },
   computed: {
-    instruments() {
-      let instruments = this.event.instruments
+    instrumentsToShow() {
+      let instruments = this.instruments
         .map(instrument => {
-          const required = !instrument.playerIds.length 
+          const required = !!instrument.playerIds.length 
           return {name: instrument.name, required}
         })
         .sort((a,b) => {
@@ -35,13 +35,13 @@ export default {
       return instruments
     },
     requiredInstrumentsObj() {
-        return this.event.instruments.filter(
+        return this.instruments.filter(
         instrument => !instrument.playerIds.length
         );
     },
   },
   mounted() {
-    this.$emit("setrequiredInstrumentsToShow", this.requiredInstrumentsObj);
+    this.$emit("setRequiredInstrumentsToShow", this.requiredInstrumentsObj);
   }
 };
 </script>

@@ -58,7 +58,7 @@ export default {
     return {
       userAdminEvents: [],
       userPartEvents: [],
-      user: ""
+      user: {bio: ''}
     };
   },
   computed: {

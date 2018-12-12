@@ -105,8 +105,8 @@
       <h4>required instruments:
         <required-instruments
           :preview="false"
-          :event="event"
-          @setrequiredInstrumentsToShow="setrequiredInstrumentsToShow"
+          :instruments="event.instruments"
+          @setRequiredInstrumentsToShow="setrequiredInstrumentsToShow"
         ></required-instruments>
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participators</h4>

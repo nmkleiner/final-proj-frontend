@@ -25,26 +25,17 @@
         font-size: 2rem;
         @media (min-width: 768px) {
           font-size: 3rem;
-  
         }
       }
       h4 {
         font-size: 1.5rem;
         display: none;
-        @media (min-width: 768px) {
-          display: inline;
-          font-size: 2rem;
-        }
       }
       p{
         margin: 0 auto;
         width: 80%;
         text-align: center;
         font-size: 1.5rem;
-        @media (min-width: 768px) {
-          font-size: 2rem;
-  
-        }
       }
     }
   }
