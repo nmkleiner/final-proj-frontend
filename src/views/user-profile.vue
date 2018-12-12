@@ -64,8 +64,7 @@ export default {
     return {
       userAdminEvents: [],
       userPartEvents: [],
-      user: "",
-      modal: false
+      user: {bio: ''}
     };
   },
   methods:{

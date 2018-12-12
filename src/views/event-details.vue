@@ -105,8 +105,8 @@
       <h4>required instruments:
         <required-instruments
           :preview="false"
-          :event="event"
-          @setrequiredInstrumentsToShow="setrequiredInstrumentsToShow"
+          :instruments="event.instruments"
+          @setRequiredInstrumentsToShow="setrequiredInstrumentsToShow"
         ></required-instruments>
       </h4>
       <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participators</h4>
@@ -176,10 +176,6 @@ export default {
       }
       this.$socket.emit("assignMsg",joinedMsg);
       this.pushMsgToHistory(joinedMsg.msg);
-      // this.scrollToEnd();
-    },
-    theMethod() {
-      console.log('baba')
     },
     joinTheEvent(instrument) {
       this.isJoining = false;
