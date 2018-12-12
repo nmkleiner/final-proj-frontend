@@ -1,21 +1,15 @@
 <template>
   <section class="required-instruments flex wrap">
-    <template>
-      <div v-for="instrument in chosenInstruments" :key="instrument">
+      <div v-for="instrument in instruments" :key="instrument.name">
         <img
-          class="icon-green"
-          :src="'/img/events/' + instrument + '.png'"
-          :title="'Already have ' + instrument +'.'"
+          :class="{
+            'icon-green': instrument.required, 
+            'icon-red': !instrument.required
+            }"
+          :src="'/img/events/' + instrument.name + '.png'"
+          :title="'Already have ' + instrument.name +'.'"
         >
       </div>
-    </template>
-    <div v-for="instrument in requiredInstruments" :key="instrument">
-      <img
-        class="icon-red"
-        :src="'/img/events/' + instrument + '.png'"
-        :title="'Still looking for ' + instrument + '.'"
-      >
-    </div>
   </section>
 </template>
 
@@ -27,20 +21,18 @@ export default {
     preview: Boolean
   },
   computed: {
-    requiredInstruments() {
+    instruments() {
       let instruments = this.event.instruments
-        .filter(instrument => !instrument.playerIds.length)
-        .map(instrument => instrument.name);
+        .map(instrument => {
+          const required = !instrument.playerIds.length 
+          return {name: instrument.name, required}
+        })
+        .sort((a,b) => {
+          if (a.required) return 1
+          else return -1
+        })
         if (this.preview && instruments.length > 6) instruments.length = 6
-       return instruments;
-    },
-    chosenInstruments() {
-        let instruments = this.event.instruments
-        .filter(instrument => instrument.playerIds.length)
-        .map(instrument => instrument.name);
-        if (this.preview && instruments.length && 
-            this.requiredInstruments.length + instruments.length > 6) instruments.length = 6 - this.requiredInstruments.length;
-        return instruments
+      return instruments
     },
     requiredInstrumentsObj() {
         return this.event.instruments.filter(
@@ -53,6 +45,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>
