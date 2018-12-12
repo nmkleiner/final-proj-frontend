@@ -7,14 +7,13 @@
           @place_changed="setPlace">
         </gmap-autocomplete>
         <button @click="addMarker">Add</button>
-        <button @click="removeLocatin">Remove</button>
+        <button @click="removeLocation">Remove</button>
       </label>
       <br/>
 
     </div>
     <br>
     <gmap-map
-      v-if="places.length > 0"
       :center="center"
       :zoom="12"
       style="width:100%;  height: 400px;"
@@ -65,7 +64,7 @@ export default {
         this.currentPlace = null;
       }
     },
-    removeLocatin(){
+    removeLocation(){
       this.markers.splice(this.markers.length -1, 1)
       this.places.splice(this.places.length -1, 1)
       this.currentPlace = null;

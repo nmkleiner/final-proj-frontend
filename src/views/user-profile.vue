@@ -33,6 +33,8 @@
       <section class="carousel-section progressive-rock-events">
         <h3 class="capitalize">Events {{user.name}} created:</h3>
         <event-carousel :events="userAdminEvents"/>
+        <button @click="showModal">show map</button>
+        <modal-comp v-if="modal"></modal-comp>
       </section>
     </section>
 
@@ -40,6 +42,8 @@
       <section class="carousel-section progressive-rock-events">
         <h3 class="capitalize">Events {{user.name}} joined:</h3>
         <event-carousel :events="userPartEvents"/>
+        <button @click="showModal">show map</button>
+        <modal-comp v-if="modal" @close="showModal"></modal-comp>
       </section>
     </section>
   </section>
@@ -48,18 +52,26 @@
 <script>
 import eventCarousel from "@/components/event-carousel.vue";
 import showInstrumentsComp from "@/components/show-instruments-comp.vue";
+import modalComp from "@/components/modal-comp.vue";
 
 export default {
   components: {
     eventCarousel,
-    showInstrumentsComp
+    showInstrumentsComp,
+    modalComp
   },
   data() {
     return {
       userAdminEvents: [],
       userPartEvents: [],
-      user: ""
+      user: "",
+      modal: false
     };
+  },
+  methods:{
+    showModal(){
+      this.modal = !this.modal
+    }
   },
   computed: {
     isLoggedInUser() {
