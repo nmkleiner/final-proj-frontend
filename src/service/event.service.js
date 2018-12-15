@@ -23,7 +23,6 @@ function query(filter = null, sort = null) {
   if (!filter && sort) {
     urlEnd += `?sortBy=${sort.sorter}&order=${sort.order}`
   }
-  console.log(urlEnd)
   return axios.get(BASE_URL + urlEnd)
     .then(res => res.data);
 }

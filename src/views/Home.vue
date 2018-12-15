@@ -46,7 +46,7 @@
 
     <div class="carousels-container">
       <section class="carousel-section close-distance-events">
-        <h2 class="capitalize">Music sessions in your area:</h2>
+        <h2 class="capitalize">Jam sessions in your area:</h2>
         <event-carousel :events="closeEvents"/>
         <a class @click="goList('','','location')">Show All sessions</a>
       </section>
@@ -54,7 +54,6 @@
       <section class="carousel-section close-distance-events">
         <h2 class="capitalize">sessions happening this week:</h2>
         <event-carousel :events="thisWeekEvents"/>
-        <!-- <a @click="goList('','','','this week')">Show All Events</a> -->
       </section>
 
       <section class="carousel-section rock-events">

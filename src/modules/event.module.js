@@ -69,15 +69,12 @@ export default {
       });
     },
     updateHistoryEvent({ commit }, { event }) {
-      console.log(event,'updateHistoryEvent')
       return eventService.saveEvent(event).then(() => {
       });
     },
     pushMsgToHistory({ commit, getters, dispatch }, { msg }) {
-      console.log(msg,'msg')
       commit({type: 'pushMsgToHistory', msg})
       const tempEvent = getters.currEvent
-      console.log(tempEvent,'pushMsgToHistory')
       dispatch({type: 'updateHistoryEvent', event: tempEvent})
     },
     removeEvent({ commit }, { eventId }) {
@@ -86,7 +83,6 @@ export default {
       });
     },
     filter({ commit, dispatch }, { filter, sort }) {
-      console.log('filter, sort',filter,sort)
       if (!filter.byGenre && !filter.byInstrument && !filter.byName && !filter.byStatus) {
           if (!sort) return dispatch('loadEvents')
           return eventService.query(null, sort)
