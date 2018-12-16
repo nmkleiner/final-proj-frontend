@@ -172,7 +172,8 @@ export default {
   },
   created() {
     if (!this.isLoggedInUser) this.$router.push("/");
-    document.body.scrollIntoView();
+    document.body.scrollIntoView({block: 'start'});
+
 
     this.event.adminId = this.loggedInUser._id;
     this.event.adminName = this.loggedInUser.name;

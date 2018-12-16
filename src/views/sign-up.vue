@@ -72,7 +72,8 @@ export default {
     instrumentsMultiplePick
   },
   created() {
-    document.body.scrollIntoView();
+    document.body.scrollIntoView({block: 'start'});
+
     this.fromEventId = this.$route.params.eventId;
   }
 };

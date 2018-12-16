@@ -93,7 +93,7 @@ export default {
     }
   },
   created() {
-    document.body.scrollIntoView();
+    document.body.scrollIntoView({block: 'start'});
     const userId = this.$route.params.userId;
 
     this.$store

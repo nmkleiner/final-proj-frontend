@@ -277,7 +277,7 @@ export default {
     }
   },
   created() {
-    document.body.scrollIntoView();
+    document.body.scrollIntoView({block: 'start'});
     const eventId = this.$route.params.eventId;
     this.getEvent(eventId)
       .then(() => {

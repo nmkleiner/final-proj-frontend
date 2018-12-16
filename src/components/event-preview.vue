@@ -14,7 +14,7 @@
         </span>
         <span class="mb-5">happening on {{dateToShow}} in {{event.location.city}}.</span>
         <div class="flex-grow"></div>
-        <div class="flex players-wrapper justify-self-end">
+        <div class="flex players-wrapper justify-between">
           <div v-for="player in playersToShow" :key="player._id">
             <router-link v-if="player" :to="'/user/' + player._id">
               <img class="circle-icon" :title="player.name" :src="player.pic">
@@ -23,9 +23,9 @@
         </div>
       </div>
 
-      <div class="details-section flex align-center">
+      <div class="details-section flex flex-column justify-center ">
         <required-instruments :preview="true" :instruments="event.instruments"></required-instruments>
-        <span v-if="!!status" class="text-red">{{status}}</span>
+        <span v-if="!!status" class="text-red center">{{status}}</span>
       </div>
       
     </div>
@@ -69,7 +69,7 @@ export default {
       return (isFull)? 'Full Session' : false;
     },
     playersToShow() {
-      return this.players.slice(0, 4);
+      return this.players.slice(0, 5);
     },
     dateToShow() {
       return moment(this.event.timestamp).format('DD/MM')

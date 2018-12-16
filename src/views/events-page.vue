@@ -38,7 +38,7 @@ export default {
 
     },
     created() {
-        document.body.scrollIntoView()
+        document.body.scrollIntoView({block: 'start'})
         this.$store.dispatch('loadEvents')
 
     }

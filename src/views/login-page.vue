@@ -44,7 +44,8 @@ export default {
         }
     },
     created() {
-        document.body.scrollIntoView()
+        document.body.scrollIntoView({block: 'start'});
+
         this.fromEventId = this.$route.params.eventId
     }
 }
