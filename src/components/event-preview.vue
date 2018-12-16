@@ -12,7 +12,7 @@
         <h6 class="bold">{{event.title}}</h6>
         <span>{{event.genre}} music<span v-if="!!event.level.length"> for {{event.level}}s</span> 
         </span>
-        <span>happening on {{dateToShow}} in {{event.location.city}}.</span>
+        <span class="mb-5">happening on {{dateToShow}} in {{event.location.city}}.</span>
         <div class="flex-grow"></div>
         <div class="flex players-wrapper justify-self-end">
           <div v-for="player in playersToShow" :key="player._id">
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="details-section">
+      <div class="details-section flex align-center">
         <required-instruments :preview="true" :instruments="event.instruments"></required-instruments>
         <span v-if="!!status" class="text-red">{{status}}</span>
       </div>

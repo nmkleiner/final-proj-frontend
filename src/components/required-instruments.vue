@@ -1,6 +1,6 @@
 <template>
   <section class="required-instruments flex wrap">
-      <div v-for="instrument in instrumentsToShow" :key="instrument.name">
+      <div class="flex align-center" v-for="instrument in instrumentsToShow" :key="instrument.name">
         <img
           :class="{
             'icon-green': instrument.required, 
