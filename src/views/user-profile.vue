@@ -24,7 +24,7 @@
       </div>
     </section>
 
-    <section v-if="user.bio.length" class="user-profile-card-container">
+    <section v-if="user.bio" class="user-profile-card-container">
       <h4>Bio:</h4>
       <p>{{user.bio}}</p>
     </section>

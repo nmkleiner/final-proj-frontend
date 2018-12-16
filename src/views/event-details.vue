@@ -53,8 +53,8 @@
         </GmapMap>
       </div>
     </div>
-
     <div class="card-container">
+      
       <el-button
         @click="loginToJoin"
         v-if="!loggedInUser"
@@ -100,19 +100,23 @@
           @selectedInstrument="joinTheEvent"
         ></pick-instruments-comp>
       </transition>
+      <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
+      <h4 v-if="!!players">attending:</h4>
+      <players-instruments :event="event" :players="players"></players-instruments>
+      <!-- <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participants</h4> -->
+      <h4>Instruments:</h4>
+          <required-instruments
+            :preview="false"
+            :instruments="event.instruments"
+            @setRequiredInstrumentsToShow="setrequiredInstrumentsToShow"
+          ></required-instruments>
+      
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
-      <h4>required instruments:
-        <required-instruments
-          :preview="false"
-          :instruments="event.instruments"
-          @setRequiredInstrumentsToShow="setrequiredInstrumentsToShow"
-        ></required-instruments>
-      </h4>
-      <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participators</h4>
-      <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
-      <h4>attending:</h4>
-      <players-instruments :event="event" :players="players"></players-instruments>
+      
+
+      
+      
     </div>
   </section>
 </template>

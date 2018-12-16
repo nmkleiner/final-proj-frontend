@@ -25,6 +25,7 @@
 
       <div class="details-section">
         <required-instruments :preview="true" :instruments="event.instruments"></required-instruments>
+        <span v-if="!!status" class="text-red">{{status}}</span>
       </div>
       
     </div>
@@ -48,17 +49,9 @@ export default {
   data() {
     return {
       players: [],
-      admin: {}
     };
   },
   created() {
-    // get admin
-    const adminId = this.event.adminId;
-      this.$store
-        .dispatch({ type: "getUserById", userId: adminId })
-        .then(admin => {
-          this.admin = admin;
-          });
     // get players
     this.event.instruments.forEach(instrument => {
           return instrument.playerIds.forEach(playerId => {
@@ -72,13 +65,8 @@ export default {
   },
   computed: {
     status() {
-      const ratio =
-        this.event.joinedMembersCount / +this.event.allowedMembersCount;
-      if (ratio < 0.4)
-        return { txt: "Waiting for players", color: "lightgreen" };
-      else if (ratio < 0.8) return { txt: "Kinda full", color: "orange" };
-      else if (ratio < 1) return { txt: "Almost full", color: "orangered" };
-      return { txt: "Event full", color: "red" };
+      const isFull = !this.event.instruments.find(instrument => !instrument.playerIds.length)
+      return (isFull)? 'Full Session' : false;
     },
     playersToShow() {
       return this.players.slice(0, 4);
@@ -86,7 +74,7 @@ export default {
     dateToShow() {
       return moment(this.event.timestamp).format('DD/MM')
     }
-  }
+  },
 };
 </script>
 

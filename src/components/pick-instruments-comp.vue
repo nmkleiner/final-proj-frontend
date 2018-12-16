@@ -13,13 +13,16 @@
         >
       </div>
     </div>
-    <el-button
-      round
-      class="final-join-btn brand-button"
-      @click="selectInstrument"
-    >Join As: {{pickedInstrument}}</el-button>
-    <el-button @click='cancelInstrumentPick' round >Back</el-button>
-  </section>
+    <!-- <el-button @click='cancelInstrumentPick' round ><i class="fa fa-arrow-left"></i></el-button> -->
+    <h4 v-if="pickedInstrument">Selected {{pickedInstrument}}</h4>
+    <div class="wrapper flex justify-center">
+      <el-button
+        round
+        class="final-join-btn brand-button center"
+        @click="selectInstrument"
+      >Join Session</el-button>
+    </div>
+    </section>
 </template>
 
 <script>
@@ -38,10 +41,10 @@ export default {
     selectInstrument() {
       this.$emit("selectedInstrument", this.pickedInstrument);
     },
-    cancelInstrumentPick(){
-      this.pickedInstrument = null;
-      this.selectInstrument();
-    }
+    // cancelInstrumentPick(){
+    //   this.pickedInstrument = null;
+    //   this.selectInstrument();
+    // }
   },
 };
 </script>
@@ -82,5 +85,8 @@ h4 {
 
 button {
   margin: 20px 0px 0px 30px;
+}
+.final-join-btn {
+  margin: 0 auto;
 }
 </style>

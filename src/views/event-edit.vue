@@ -126,8 +126,6 @@ export default {
       else this.saveNewEvent()
     },
     fillEventObject() {
-      // new Date("2018-12-18 03:40").getTime();
-      // console.log(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}` , new Date(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}`).getTime())
       this.event.timestamp = new Date(`${this.time.day} ${this.time.hour.HH}:${this.time.hour.mm}`).getTime();
     },
     saveNewEvent() {

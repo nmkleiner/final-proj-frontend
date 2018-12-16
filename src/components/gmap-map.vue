@@ -67,7 +67,6 @@ export default {
   methods: {
     // receives a place object via the autocomplete component
     setPlace(place) {
-      console.log(place)
       this.currentPlace = place;
     },
     addLocation() {
