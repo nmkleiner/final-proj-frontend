@@ -214,24 +214,14 @@ export default {
         this.$router.push("/");
       });
     },
-    getCoorFromAddress(location) {
-      var currEventLocStr = `${location.address.replace(
-        /[^a-zA-Z0-9]/g,
-        "+"
-      )}+${location.city.replace(/[^a-zA-Z0-9]/g, "+")}`;
-      return axios
-        .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${currEventLocStr}&key=AIzaSyC1FhnnrcBKyOeZF9as6Qw89mBzjul9jU4`
-        )
-        .then(res => {
-          var latlng = res.data.results[0].geometry.location;
-          this.center = latlng;
-          this.markers.push({ position: latlng });
-          return latlng;
-        })
-        .then(latlng => {
-          this.$refs.mapRef.panTo(latlng);
-        });
+    getCoorFromAddress(gLocation) {
+      const marker = {
+          lat: gLocation.geometry.location.lat,
+          lng: gLocation.geometry.location.lng
+        };
+        this.center = marker
+        this.markers.push({ position: marker });
+        // this.$refs.mapRef.panTo(marker);
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
@@ -245,7 +235,7 @@ export default {
       .dispatch({ type: "getEventById", eventId })
       .then(event => {
         this.event = event;
-        this.getCoorFromAddress(event.location);
+        this.getCoorFromAddress(event.gLocation);
         return this.event;
       })
     },

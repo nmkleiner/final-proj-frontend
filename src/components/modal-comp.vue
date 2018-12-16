@@ -3,8 +3,8 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-          <button class="modal-default-button" @click="$emit('close')">OK</button>
-          <gmap-map></gmap-map>
+          <button class="modal-default-button" @click="$emit('close')">X</button>
+          <slot></slot>
         </div>
       </div>
     </div>
@@ -12,18 +12,13 @@
 </template>
 
 <script>
-import gmapMap from "./gmap-map.vue";
-export default {
-  components: {
-    gmapMap
-  }
-};
+export default {};
 </script>
 
 <style>
 .modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;

@@ -14,7 +14,7 @@
 
       <div class="user-profile-card">
         <h4>Instruments:</h4>
-        <show-instruments-comp :instruments="user.instruments" class="instrument-comp" ></show-instruments-comp>
+        <show-instruments-comp :instruments="user.instruments" class="instrument-comp"></show-instruments-comp>
       </div>
       <div class="user-profile-card">
         <h4>Preferred genres:</h4>
@@ -29,12 +29,16 @@
       <p>{{user.bio}}</p>
     </section>
 
+    <modal-comp v-if="userAdminEventsModal || userPartEventsModal" @close="closeModal">
+      <gmap-map v-if="userAdminEventsModal" :eventsPlaces="userAdminEvents"></gmap-map>
+      <gmap-map v-if="userPartEventsModal" :eventsPlaces="userPartEvents"></gmap-map>
+    </modal-comp>
+
     <section v-if="userAdminEvents.length" class="user-profile-card-container">
       <section class="carousel-section progressive-rock-events">
+       <button @click="showModal('admin')"> <i class="fas fa-map-marked-alt"></i></button>
         <h3 class="capitalize">Events {{user.name}} created:</h3>
         <event-carousel :events="userAdminEvents"/>
-        <button @click="showModal">show map</button>
-        <modal-comp v-if="modal"></modal-comp>
       </section>
     </section>
 
@@ -42,8 +46,7 @@
       <section class="carousel-section progressive-rock-events">
         <h3 class="capitalize">Events {{user.name}} joined:</h3>
         <event-carousel :events="userPartEvents"/>
-        <button @click="showModal">show map</button>
-        <modal-comp v-if="modal" @close="showModal"></modal-comp>
+        <button @click="showModal('part')"><i class="fas fa-map-marked-alt"></i></button>
       </section>
     </section>
   </section>
@@ -53,23 +56,32 @@
 import eventCarousel from "@/components/event-carousel.vue";
 import showInstrumentsComp from "@/components/show-instruments-comp.vue";
 import modalComp from "@/components/modal-comp.vue";
+import gmapMap from "@/components/gmap-map.vue";
 
 export default {
   components: {
     eventCarousel,
     showInstrumentsComp,
-    modalComp
+    modalComp,
+    gmapMap
   },
   data() {
     return {
       userAdminEvents: [],
       userPartEvents: [],
-      user: {}
+      user: { bio: "" },
+      userAdminEventsModal: false,
+      userPartEventsModal: false
     };
   },
-  methods:{
-    showModal(){
-      this.modal = !this.modal
+  methods: {
+    showModal(type) {
+      if(type === 'admin') this.userAdminEventsModal = !this.userAdminEventsModal;
+      if(type === 'part') this.userPartEventsModal = !this.userPartEventsModal;
+    },
+    closeModal(){
+      this.userAdminEventsModal = false;
+      this.userPartEventsModal = false;
     }
   },
   computed: {
@@ -113,7 +125,7 @@ export default {
   background-color: lighten(lightgray, 10%);
   flex-direction: column;
   margin-top: 50px;
-  min-height:480px;
+  min-height: 480px;
 
   @media screen and (min-width: 768px) {
     padding: 30px;
@@ -158,9 +170,7 @@ export default {
   margin-right: 15px;
 }
 
-.instrument-comp{
+.instrument-comp {
   border: 0px;
-
 }
-
 </style>
