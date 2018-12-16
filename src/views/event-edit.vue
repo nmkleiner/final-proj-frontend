@@ -47,7 +47,9 @@
             <h4>street</h4>
             <el-input required v-model="event.location.address" placeholder="street & number"></el-input>
           </div>
+          <gmap-map @addLocation='addGlocation'></gmap-map>
         </div>
+
         <div class="btns-wrapper">
           <el-button class="brand-button" round v-if="!isUpdateEvent" native-type="submit">Save Session</el-button>
           <el-button class="brand-button" round v-else native-type="submit">Update Session</el-button>
@@ -64,6 +66,7 @@
 import eventService from "@/service/event.service.js";
 import instrumentList from "@/components/instrument-list.vue";
 import instrumentsMultiplePick from "@/components/instruments-multiple-pick.vue";
+import gmapMap from '@/components/gmap-map.vue'
 import VueTimepicker from "vue2-timepicker";
 import moment from "moment"
 export default {
@@ -73,6 +76,7 @@ export default {
       event: {
         adminId: "",
         location: { address: "", city: "" },
+        gLocation: null,
         timestamp: null,
         title: "",
         desc: "",
@@ -98,7 +102,8 @@ export default {
   components: {
     instrumentsMultiplePick,
     instrumentList,
-    VueTimepicker 
+    VueTimepicker,
+    gmapMap
   },
   computed: {
     loggedInUser() {
@@ -112,6 +117,10 @@ export default {
     }
   },
   methods: {
+    addGlocation(location){
+      this.event.gLocation = location;
+      console.log('from edit', this.event.gLocation)
+    },
     onSubmit(){
       if (this.isUpdateEvent) this.updateEvent()
       else this.saveNewEvent()

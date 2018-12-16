@@ -3,17 +3,14 @@
     <header>
       <replacing-images></replacing-images>
       <div class="welcome-text">
-        <h2 class="white-text">Welcome to
+        <h2 class="white-text">
           <br>
           <i class="fas fa-drum"></i>MUSIGROUPS
         </h2>
         <h4 class="pl-10">
           <p class="white-text bold">
-            Here you can find and join
-            jam sessions, created by musicians in your area,
-            or create your own sessions.
+            Create and Join Jam Sessions
           </p>
-          <p class="white-text bold">Connect with the musician community in a new way.</p>
         </h4>
       </div>
     </header>
@@ -187,6 +184,10 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+
+.welcome-text {
+  padding-top: 10%;
+}
 
 .visit-direction {
   h4 {
