@@ -221,7 +221,7 @@ export default {
         };
         this.center = marker
         this.markers.push({ position: marker });
-        this.$refs.mapRef.panTo(marker);
+        // this.$refs.mapRef.panTo(marker);
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;

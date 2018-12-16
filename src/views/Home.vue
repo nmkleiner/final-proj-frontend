@@ -3,15 +3,13 @@
     <header>
       <replacing-images></replacing-images>
       <div class="welcome-text">
-        <h2 class="white-text">
+        <div class="welcome-headline flex align-center justify-center">
           <br>
-          <i class="fas fa-drum"></i>MUSIGROUPS
-        </h2>
-        <h4 class="pl-10">
-          <p class="white-text bold">
-            Create and Join Jam Sessions
-          </p>
-        </h4>
+          <img src="/img/events/weblogo.png">
+          <div class="flex flex-column">
+            <h2 class="white-text">Join Jam Sessions</h2>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -183,9 +181,10 @@ export default {
 </script>
 
 <style scoped lang='scss'>
+.white-text {
+  
+    font-weight: 900;
 
-.welcome-text {
-  padding-top: 10%;
 }
 
 .visit-direction {
@@ -202,12 +201,13 @@ export default {
   }
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 2s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
-
 </style>
 

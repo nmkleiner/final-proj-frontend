@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="details-section">
+      <div class="details-section flex flex-column justify-center">
         <required-instruments :preview="true" :instruments="event.instruments"></required-instruments>
         <span v-if="!!status" class="text-red">{{status}}</span>
       </div>
