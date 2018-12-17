@@ -6,7 +6,7 @@
         <div class="welcome-headline flex align-center justify-center">
           <br>
           <img src="/img/events/weblogo.png">
-          <div class="flex flex-column">
+          <div class="flex flex-column align-center">
             <h2 class="white-text">Join Jam Sessions</h2>
           </div>
         </div>
