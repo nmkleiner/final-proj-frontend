@@ -60,7 +60,7 @@ span{
     background-color: black;
     border: 1px solid $nav-links-color;
     &:hover{
-        background-color: black;
+        background-color: lighten(black,15%);
     }
     &:focus{
         background-color: black;

@@ -2,13 +2,11 @@
   <div class="home">
     <header>
       <replacing-images></replacing-images>
-      <div class="welcome-text">
-        <div class="welcome-headline flex align-center justify-center">
-          <br>
-          <img src="/img/events/weblogo.png">
-          <div class="flex flex-column">
-            <h2 class="white-text">Join Jam Sessions</h2>
-          </div>
+      <div class="welcome-text flex flex-column">
+        <div class="welcome-headline flex flex-column align-center justify-center">
+            <h2 class="white-text">Discover, join, play!</h2>
+            <!-- <br/> -->
+            <h4 class="white-text">Your favorite music with new people.</h4>
         </div>
       </div>
     </header>
@@ -182,9 +180,7 @@ export default {
 
 <style scoped lang='scss'>
 .white-text {
-  
     font-weight: 900;
-
 }
 
 .visit-direction {

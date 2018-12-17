@@ -28,21 +28,28 @@
     // display: block;
     color: rgb(144, 241, 241);
     text-align: center;
-    padding: 14px 20px;
+    padding: 7px 20px;
     text-decoration: none;
     font-size: 17px;
     border-bottom: 1px solid transparent;
     cursor: pointer;
     transition: .3s;
+    
   }
   img {
     cursor: pointer; 
+    width: 50px;
+    height: 50px;
   }
   a:hover {
     border-bottom: 1px solid rgb(144, 241, 241);
   }
-  .logo:hover {
-    border-bottom: 1px solid transparent;
+  .logo {
+    font-size: 25px;
+    &:hover {
+      border-bottom: 1px solid transparent;
+    }
+
   }
   .links{
     display: flex;
