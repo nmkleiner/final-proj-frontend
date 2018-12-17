@@ -4,6 +4,12 @@
     <router-link :to="'/event/' + event._id">
       <div class="pic-wrapper flex flex-column justify-center">
         <img class="main-img" :src="event.pic" alt="event image">
+        <div class="circle-container">
+          <div v-if="!!status" class="circle">
+            <span v-if="!!status" class="status text-red center">{{status}}</span>
+          </div>
+        </div>
+
       </div>
     </router-link>
 
@@ -25,7 +31,6 @@
 
       <div class="details-section flex flex-column justify-center ">
         <required-instruments :preview="true" :instruments="event.instruments"></required-instruments>
-        <span v-if="!!status" class="text-red center">{{status}}</span>
       </div>
       
     </div>
@@ -66,7 +71,7 @@ export default {
   computed: {
     status() {
       const isFull = !this.event.instruments.find(instrument => !instrument.playerIds.length)
-      return (isFull)? 'Full Session' : false;
+      return (isFull)? 'Full' : false;
     },
     playersToShow() {
       return this.players.slice(0, 5);

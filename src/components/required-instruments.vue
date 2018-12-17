@@ -3,11 +3,11 @@
       <div class="flex align-center" v-for="instrument in instrumentsToShow" :key="instrument.name">
         <img
           :class="{
-            'icon-green': instrument.required, 
-            'icon-red': !instrument.required
+            'icon-green': !instrument.required, 
+            'icon-red': instrument.required
             }"
           :src="'/img/events/' + instrument.name + '.png'"
-          :title="'Already have ' + instrument.name +'.'"
+          :title="(!instrument.required)? 'Still looking for '+ instrument.name +'.' : 'Already have ' + instrument.name +'.'"
         >
       </div>
   </section>
@@ -32,7 +32,7 @@ export default {
           else return -1
         })
         if (this.preview && instruments.length > 6) instruments.length = 6
-      return instruments
+      return instruments.reverse()
     },
     requiredInstrumentsObj() {
         return this.instruments.filter(
