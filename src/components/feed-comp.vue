@@ -68,6 +68,7 @@ export default {
   },
   sockets: {
     renderMsg(msg) {
+      this.scrollIntoView({ block: "center", behavior: "smooth" })
       this.msgs.push(msg);
       this.$nextTick(() => {
         // this.$refs.conversationRef.lastChild.scrollIntoView();
