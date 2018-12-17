@@ -5,7 +5,31 @@
     width: 280px;
     position: relative;
     .pic-wrapper {
-        .main-img {
+        .circle-container {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 200px;
+            .circle {
+                position: absolute;
+                background-color: #fff;
+                padding: 10px;
+                height: 70px;
+                width: 70px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0.8;
+                .status {
+                    color: #f56c6c;
+                    font-size: 1.2re,;
+                }
+            }
+        }
+            .main-img {
             display: block;
             height: 200px;
             width: 100%;

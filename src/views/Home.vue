@@ -20,7 +20,7 @@
           class="carousel-section favourite-genre"
           :key="genre"
         >
-          <h2 class="capitalize">Especially for you, {{genre}} music sessions:</h2>
+          <h2 class="capitalize">{{genre}} music sessions:</h2>
           <event-carousel :events="genreEvents(genre)"/>
           <a @click="goList(genre.toLowerCase())">Show All {{genre}} sessions</a>
         </section>
@@ -32,7 +32,7 @@
           class="carousel-section favourite-genre"
           :key="instrument"
         >
-          <h2 class="capitalize">Especially for you, sessions that need a {{instrument}} player:</h2>
+          <h2 class="capitalize">Sessions that need a {{instrument}} player:</h2>
           <event-carousel :events="instrumentEvents(instrument)"/>
           <a @click="goList('',instrument.toLowerCase())">Show All {{instrument}} Events</a>
         </section>

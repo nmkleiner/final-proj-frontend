@@ -1,6 +1,5 @@
 <template>
     <div class="nav-bar flex space-between">
-        <!-- <router-link class="logo" to="/"><i class="fas fa-drum fa-lg"></i> MUSIGROUPS</router-link> -->
         <router-link class="logo" to="/"><img src="/img/events/weblogo.png"> MUSIGROUPS</router-link>
         <div class="links">
           <el-button round @click="goEdit" v-if="isLoggedInUser" to="/event/edit">
