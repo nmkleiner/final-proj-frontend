@@ -5,7 +5,6 @@
       <div class="welcome-text flex flex-column">
         <div class="welcome-headline flex flex-column align-center justify-center">
             <h2 class="white-text">Discover, join, play!</h2>
-            <!-- <br/> -->
             <h4 class="white-text">Your favorite music with new people.</h4>
         </div>
       </div>

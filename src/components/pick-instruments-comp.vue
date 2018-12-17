@@ -41,10 +41,6 @@ export default {
     selectInstrument() {
       this.$emit("selectedInstrument", this.pickedInstrument);
     },
-    // cancelInstrumentPick(){
-    //   this.pickedInstrument = null;
-    //   this.selectInstrument();
-    // }
   },
 };
 </script>
@@ -60,13 +56,14 @@ export default {
   flex-wrap: wrap;
 }
 img {
+  cursor: pointer;
   border-radius: 5px;
   width: 40px;
   height: 40px;
   margin: 5px;
   padding: 5px;
   border: 1px solid black;
-  background-color: #f56c6c;
+  background-color: #58e612;
   &:hover {
     background-color: #85ce61;
   }
@@ -81,6 +78,7 @@ h4 {
 
 .picked {
   background-color: #67c23a;
+  border: 2px solid rgb(65, 65, 65);
 }
 
 button {
