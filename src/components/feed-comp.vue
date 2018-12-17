@@ -53,6 +53,10 @@ export default {
       var scrollHeight = container.scrollHeight;
       container.scrollTop = scrollHeight;
     },
+    scrollIntoView() {
+      var container = this.$refs.conversationRef;
+      container.scrollIntoView()
+    },
     pushMsgToHistory(msg) {
       this.$emit("pushMsgToHistory", msg);
     }
@@ -68,7 +72,7 @@ export default {
   },
   sockets: {
     renderMsg(msg) {
-      this.scrollIntoView({ block: "center", behavior: "smooth" })
+      this.scrollIntoView()
       this.msgs.push(msg);
       this.$nextTick(() => {
         // this.$refs.conversationRef.lastChild.scrollIntoView();
