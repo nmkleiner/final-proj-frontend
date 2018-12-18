@@ -2,6 +2,7 @@
   <section class="carousel">
     <carousel :navigationNextLabel="rightArrow" 
     :navigationPrevLabel="leftArrow" 
+    :navigationClickTargetSize="0"
     :perPageCustom="[[0,1],[700,2],[1030, 3], [1250, 4]]"
     :mouse-drag="true"
     :navigationEnabled="true">
