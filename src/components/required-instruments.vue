@@ -4,7 +4,7 @@
         <img
           :class="{
             'icon-green': !instrument.required, 
-            'icon-red': instrument.required
+            'icon-grey': instrument.required
             }"
           :src="'/img/events/' + instrument.name + '.png'"
           :title="(!instrument.required)? 'Still looking for '+ instrument.name +'.' : 'Already have ' + instrument.name +'.'"
@@ -32,7 +32,7 @@ export default {
           else return -1
         })
         if (this.preview && instruments.length > 6) instruments.length = 6
-      return instruments.reverse()
+      return instruments;
     },
     requiredInstrumentsObj() {
         return this.instruments.filter(

@@ -57,15 +57,15 @@ span{
 // buttons
 
 .brand-button{
-    background-color: black;
+    background-color: #67c23a;
     border: 1px solid $nav-links-color;
     &:hover{
-        background-color: black;
+        background-color: #85ce61;
     }
     &:focus{
-        background-color: black;
+        background-color: #5daf34;
     }
     span{
-        color: $nav-links-color;
+        color: white;
     }
 }

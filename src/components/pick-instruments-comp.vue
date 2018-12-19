@@ -62,7 +62,7 @@ img {
   height: 40px;
   margin: 5px;
   padding: 5px;
-  border: 1px solid black;
+  border: 1px solid #58e612;
   background-color: #58e612;
   &:hover {
     background-color: #85ce61;
@@ -78,7 +78,7 @@ h4 {
 
 .picked {
   background-color: #67c23a;
-  border: 2px solid rgb(65, 65, 65);
+  border: 0.5px solid gray;
 }
 
 button {

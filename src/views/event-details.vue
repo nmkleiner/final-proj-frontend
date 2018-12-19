@@ -54,7 +54,6 @@
       </div>
     </div>
     <div class="card-container">
-      
       <el-button
         @click="loginToJoin"
         v-if="!loggedInUser"
@@ -66,18 +65,16 @@
       <el-button
         v-if="loggedInUser && requiredInstrumentsToShow.length === 0"
         class="static join-button"
-        type="warning"
+        type="danger"
         round
       >Event is full</el-button>
-
 
       <el-button
         v-if="loggedInUser && participatingUser"
         class="static join-button"
-        type="warning"
+        type="info"
         round
       >Already Joined</el-button>
-
 
       <el-button
         @click="toggleJoin"
@@ -90,6 +87,7 @@
         @click="toggleJoin"
         v-if="loggedInUser && !isLoggedInUserAdmin && isJoining"
         class="static join-button"
+        type="warning"
         round
       >Cancel</el-button>
 
@@ -105,25 +103,21 @@
       <players-instruments :event="event" :players="players"></players-instruments>
       <!-- <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participants</h4> -->
       <h4>Instruments:</h4>
-          <required-instruments
-            :preview="false"
-            :instruments="event.instruments"
-            @setRequiredInstrumentsToShow="setrequiredInstrumentsToShow"
-          ></required-instruments>
-      
+      <required-instruments
+        :preview="false"
+        :instruments="event.instruments"
+        @setRequiredInstrumentsToShow="setrequiredInstrumentsToShow"
+      ></required-instruments>
+
       <h4>Chat</h4>
       <feed-comp :currEvent="event" @pushMsgToHistory="pushMsgToHistory"></feed-comp>
-      
-
-      
-      
     </div>
   </section>
 </template>
 
 <script>
 const axios = require("axios");
-import moment from "moment"
+import moment from "moment";
 import userService from "@/service/user.service.js";
 import gmapMap from "@/components/gmap-map.vue";
 import feedComp from "@/components/feed-comp.vue";
@@ -149,7 +143,7 @@ export default {
       isJoining: false,
       markers: [],
       center: null,
-      requiredInstrumentsToShow: [],
+      requiredInstrumentsToShow: []
     };
   },
   methods: {
@@ -171,14 +165,16 @@ export default {
       }
     },
     send(instrument) {
-      const joinedMsg =  {
+      const joinedMsg = {
         msg: {
-          txt: `${this.loggedInUser.name} joined the session as ${instrument} player!`,
+          txt: `${
+            this.loggedInUser.name
+          } joined the session as ${instrument} player!`,
           from: this.loggedInUser.name
-          },
+        },
         room: this.event._id
-      }
-      this.$socket.emit("assignMsg",joinedMsg);
+      };
+      this.$socket.emit("assignMsg", joinedMsg);
       this.pushMsgToHistory(joinedMsg.msg);
     },
     joinTheEvent(instrument) {
@@ -187,7 +183,7 @@ export default {
         instrument,
         eventId: this.$route.params.eventId
       };
-      this.send(instrument)
+      this.send(instrument);
       this.$store
         .dispatch({ type: "updateUserPartEvents", joinedEvent })
         .then(() => {
@@ -216,12 +212,12 @@ export default {
     },
     getCoorFromAddress(gLocation) {
       const marker = {
-          lat: gLocation.geometry.location.lat,
-          lng: gLocation.geometry.location.lng
-        };
-        this.center = marker
-        this.markers.push({ position: marker });
-        // this.$refs.mapRef.panTo(marker);
+        lat: gLocation.geometry.location.lat,
+        lng: gLocation.geometry.location.lng
+      };
+      this.center = marker;
+      this.markers.push({ position: marker });
+      // this.$refs.mapRef.panTo(marker);
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
@@ -232,12 +228,12 @@ export default {
     },
     getEvent(eventId) {
       return this.$store
-      .dispatch({ type: "getEventById", eventId })
-      .then(event => {
-        this.event = event;
-        this.getCoorFromAddress(event.gLocation);
-        return this.event;
-      })
+        .dispatch({ type: "getEventById", eventId })
+        .then(event => {
+          this.event = event;
+          this.getCoorFromAddress(event.gLocation);
+          return this.event;
+        });
     },
     getAdmin() {
       const adminId = this.event.adminId;
@@ -261,23 +257,23 @@ export default {
             });
         });
       });
-    },
+    }
   },
   computed: {
-    participatingUser(){
+    participatingUser() {
       return this.players.find(player => {
         return player._id === this.loggedInUser._id;
-      })
+      });
     },
     loggedInUser() {
       return this.$store.getters.loggedInUser;
     },
     dateToShow() {
-      return moment(this.event.timestamp).format('DD/MM HH:mm')
+      return moment(this.event.timestamp).format("DD/MM HH:mm");
     }
   },
   created() {
-    document.body.scrollIntoView({block: 'start'});
+    document.body.scrollIntoView({ block: "start" });
     const eventId = this.$route.params.eventId;
     this.getEvent(eventId)
       .then(() => {
@@ -304,11 +300,13 @@ export default {
   border: 1px solid black;
 }
 .join-button {
+  font-size: 1.2rem;
   margin: 20px 0px;
   width: 100%;
   top: 0;
   position: sticky;
   @media screen and (min-width: 768px) {
+    font-size: 1.2rem;
     margin: 20px 0px;
     width: 100%;
   }
