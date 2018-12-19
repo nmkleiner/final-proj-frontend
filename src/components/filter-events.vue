@@ -21,14 +21,6 @@
           :value="item.value">
         </el-option>
       </el-select>    
-      <el-select class="el-select" v-model="filter.byStatus" @change="setFilter" :placeholder="'Event status'">
-        <el-option
-          v-for="item in statuses"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>    
       <el-button class="brand-button" round @click="setSorter('timestamp')"><i class="fas fa-sort"></i>{{'Sort by date'}}</el-button>
       <el-button class="brand-button" round @click="setSorter('allowedMembersCount')"><i class="fas fa-sort"></i>{{'Sort by participants'}}</el-button>
     </aside>
@@ -67,13 +59,6 @@ export default {
         order: -1
       },
       selected: 'All Categories',
-      statuses: [
-        { label: 'empty', value: 'Waiting for players'},
-        { label: 'Kinda full', value: 'Kinda full'},
-        { label: 'Almost full', value: 'Almost full'},
-        { label: 'Event full', value: 'Event full'},
-        { label: 'All statuses', value: 'All statuses'},
-      ],
       genres: [
         { label: 'rock', value: 'rock'},
         { label: 'jazz', value: 'jazz'},
