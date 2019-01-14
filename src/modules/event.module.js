@@ -14,19 +14,19 @@ export default {
     },
     setUpdateEvent(state, { joinedEvent }) {
       state.currEvent.instruments
-        .find(instrument => {
-          return instrument.name === joinedEvent.instrument;
-        })
-        .playerIds.push(joinedEvent.currUser._id);
-        state.currEvent.joinedMembersCount++
+      .find(instrument => {
+        return instrument.name === joinedEvent.instrument;
+      })
+      .playerIds.push(joinedEvent.currUser._id);
+      state.currEvent.joinedMembersCount++
     },
     setEventStatus(state) {
-        const ratio =
-          state.currEvent.joinedMembersCount / +state.currEvent.allowedMembersCount;
-        if (ratio < 0.4) state.currEvent.status = "Waiting for players";
-        else if (ratio < 0.8) state.currEvent.status = "Kinda full";
-        else if (ratio < 1) state.currEvent.status = "Almost full";
-        else state.currEvent.status = "Event full";
+      const ratio =
+      state.currEvent.joinedMembersCount / +state.currEvent.allowedMembersCount;
+      if (ratio < 0.4) state.currEvent.status = "Waiting for players";
+      else if (ratio < 0.8) state.currEvent.status = "Kinda full";
+      else if (ratio < 1) state.currEvent.status = "Almost full";
+      else state.currEvent.status = "Event full";
     },
     pushMsgToHistory(state, {msg}){
       state.currEvent.msgs.push(msg);
@@ -37,13 +37,16 @@ export default {
       joinedEvent.currUser = getters.loggedInUser;
       commit({ type: 'setUpdateEvent', joinedEvent });
       commit({ type: 'setEventStatus', joinedEvent });
-      return eventService.saveEvent(state.currEvent).then(() => {
-        return dispatch('loadEvents').then(() => {
+      const event = state.currEvent
+      delete event.players
+      delete event.admin
+      return eventService.saveEvent(event).then(() => {
+        return dispatch({type: 'getEventById' , eventId: event._id}).then(() => {
           bus.$emit(MSG, 'Joined event.');
         })
       });
     },
-
+    
     loadEvents({ commit }) {
       return eventService.query().then(events => {
         commit({ type: 'setEvents', events });

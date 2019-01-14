@@ -4,8 +4,8 @@
       <h1>{{event.title}}</h1>
 
       <div class="flex wrap align-center">
-        <img class="circle-icon mb-10" :src="event.eventAdmin[0].pic " alt="event admin" :title="event.eventAdmin[0].name">
-        <h4 class="card-organizer-name px-10 capitalize">{{event.eventAdmin[0].name}}&nbsp;</h4>
+        <img class="circle-icon mb-10" :src="event.admin[0].pic " alt="event admin" :title="event.admin[0].name">
+        <h4 class="card-organizer-name px-10 capitalize">{{event.admin[0].name}}&nbsp;</h4>
 
         <template v-if="isLoggedInUserAdmin">
           <el-button @click="goEdit" type="success" round>
@@ -99,8 +99,8 @@
         ></pick-instruments-comp>
       </transition>
       <el-button type="danger" round v-if="isLoggedInUserAdmin">Remove participant</el-button>
-      <h4 v-if="!!players">attending:</h4>
-      <players-instruments :event="event" :players="players"></players-instruments>
+      <h4 v-if="!!event.players">attending:</h4>
+      <players-instruments :event="event" :players="event.players"></players-instruments>
       <!-- <h4>{{event.joinedMembersCount}}/{{event.instruments.length}} participants</h4> -->
       <h4>Instruments:</h4>
       <required-instruments
@@ -137,7 +137,7 @@ export default {
   data() {
     return {
       event: null,
-      players: [],
+      // players: [],
       // admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,
@@ -153,9 +153,9 @@ export default {
     pushMsgToHistory(msg) {
       this.$store.dispatch({ type: "pushMsgToHistory", msg });
     },
-    addPlayer() {
-      this.players.push(this.loggedInUser);
-    },
+    // addPlayer() {
+    //   this.event.players.push(this.loggedInUser);
+    // },
     joinAs(joinedInstrument = null) {
       const instrumentObject = this.event.instruments.find(
         instrument => instrument.name === joinedInstrument
@@ -192,7 +192,6 @@ export default {
               .dispatch({ type: "getEventById", eventId: this.event._id })
               .then(event => {
                 this.event = event;
-                this.addPlayer();
                 document.body
                   .querySelector(".footer")
                   .scrollIntoView({ block: "end", behavior: "smooth" });
@@ -212,20 +211,11 @@ export default {
     },
     getCoorFromAddress(gLocation) {
       const marker = {
-<<<<<<< HEAD
           lat: gLocation.geometry.location.lat,
           lng: gLocation.geometry.location.lng
         };
         this.center = marker
         this.markers.push({ position: marker });
-=======
-        lat: gLocation.geometry.location.lat,
-        lng: gLocation.geometry.location.lng
-      };
-      this.center = marker;
-      this.markers.push({ position: marker });
-      // this.$refs.mapRef.panTo(marker);
->>>>>>> 26e3a13bdde57b31c222f5759dfd5a4021167eb1
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
@@ -234,54 +224,28 @@ export default {
       const eventId = this.event._id;
       this.$router.push(`/login/${eventId}`);
     },
-<<<<<<< HEAD
     async getEvent(eventId) {
       this.event = await this.$store.dispatch({ type: "getEventById", eventId })
       this.getCoorFromAddress(this.event.gLocation);
       return Promise.resolve()
-=======
-    getEvent(eventId) {
-      return this.$store
-        .dispatch({ type: "getEventById", eventId })
-        .then(event => {
-          this.event = event;
-          this.getCoorFromAddress(event.gLocation);
-          return this.event;
-        });
     },
-    getAdmin() {
-      const adminId = this.event.adminId;
-      return this.$store
-        .dispatch({ type: "getUserById", userId: adminId })
-        .then(admin => {
-          this.admin = admin;
-          if (this.admin._id === this.loggedInUser._id) {
-            this.isLoggedInUserAdmin = true;
-          }
-        });
->>>>>>> 26e3a13bdde57b31c222f5759dfd5a4021167eb1
-    },
-    getPlayers() {
-      this.event.instruments.forEach(instrument => {
-        return instrument.playerIds.forEach(playerId => {
-          if (!playerId) return;
-          this.$store
-            .dispatch({ type: "getUserById", userId: playerId })
-            .then(player => {
-              this.players.push(player);
-            });
-        });
-      });
-    }
+    // getPlayers() {
+    //   this.event.instruments.forEach(instrument => {
+    //     return instrument.playerIds.forEach(playerId => {
+    //       if (!playerId) return;
+    //       this.$store
+    //         .dispatch({ type: "getUserById", userId: playerId })
+    //         .then(player => {
+    //           this.players.push(player);
+    //         });
+    //     });
+    //   });
+    // }
   },
   computed: {
-<<<<<<< HEAD
     participatingUser(){
-      if (!this.players) return
-=======
-    participatingUser() {
->>>>>>> 26e3a13bdde57b31c222f5759dfd5a4021167eb1
-      return this.players.find(player => {
+      if (!this.event.players) return
+      return this.event.players.find(player => {
         return player._id === this.loggedInUser._id;
       });
     },
@@ -292,16 +256,11 @@ export default {
       return moment(this.event.timestamp).format("DD/MM HH:mm");
     }
   },
-<<<<<<< HEAD
     async created() {
     document.body.scrollIntoView({block: 'start'});
-=======
-  created() {
-    document.body.scrollIntoView({ block: "start" });
->>>>>>> 26e3a13bdde57b31c222f5759dfd5a4021167eb1
     const eventId = this.$route.params.eventId;
     await this.getEvent(eventId)
-    this.getPlayers()
+    // this.getPlayers()
     if (this.event.adminId === this.loggedInUser._id) {
     this.isLoggedInUserAdmin = true;
     }
