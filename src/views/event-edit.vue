@@ -175,7 +175,7 @@ export default {
     document.body.scrollIntoView({block: 'start'});
 
 
-    this.event.adminId = this.loggedInUser._id;
+    this.event.adminId = this.loggedInUser._id
     this.event.adminName = this.loggedInUser.name;
     const eventId = this.$route.params.eventId;
     if (eventId) {

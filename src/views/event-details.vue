@@ -4,8 +4,8 @@
       <h1>{{event.title}}</h1>
 
       <div class="flex wrap align-center">
-        <img class="circle-icon mb-10" :src="admin.pic " alt="event admin" :title="admin.name">
-        <h4 class="card-organizer-name px-10 capitalize">{{event.adminName}}&nbsp;</h4>
+        <img class="circle-icon mb-10" :src="event.eventAdmin[0].pic " alt="event admin" :title="event.eventAdmin[0].name">
+        <h4 class="card-organizer-name px-10 capitalize">{{event.eventAdmin[0].name}}&nbsp;</h4>
 
         <template v-if="isLoggedInUserAdmin">
           <el-button @click="goEdit" type="success" round>
@@ -144,7 +144,7 @@ export default {
     return {
       event: null,
       players: [],
-      admin: {},
+      // admin: {},
       isLoggedInUserAdmin: false,
       isJoining: false,
       markers: [],
@@ -221,7 +221,6 @@ export default {
         };
         this.center = marker
         this.markers.push({ position: marker });
-        // this.$refs.mapRef.panTo(marker);
     },
     toggleJoin() {
       this.isJoining = !this.isJoining;
@@ -230,25 +229,10 @@ export default {
       const eventId = this.event._id;
       this.$router.push(`/login/${eventId}`);
     },
-    getEvent(eventId) {
-      return this.$store
-      .dispatch({ type: "getEventById", eventId })
-      .then(event => {
-        this.event = event;
-        this.getCoorFromAddress(event.gLocation);
-        return this.event;
-      })
-    },
-    getAdmin() {
-      const adminId = this.event.adminId;
-      return this.$store
-        .dispatch({ type: "getUserById", userId: adminId })
-        .then(admin => {
-          this.admin = admin;
-          if (this.admin._id === this.loggedInUser._id) {
-            this.isLoggedInUserAdmin = true;
-          }
-        });
+    async getEvent(eventId) {
+      this.event = await this.$store.dispatch({ type: "getEventById", eventId })
+      this.getCoorFromAddress(this.event.gLocation);
+      return Promise.resolve()
     },
     getPlayers() {
       this.event.instruments.forEach(instrument => {
@@ -265,6 +249,7 @@ export default {
   },
   computed: {
     participatingUser(){
+      if (!this.players) return
       return this.players.find(player => {
         return player._id === this.loggedInUser._id;
       })
@@ -276,16 +261,14 @@ export default {
       return moment(this.event.timestamp).format('DD/MM HH:mm')
     }
   },
-  created() {
+    async created() {
     document.body.scrollIntoView({block: 'start'});
     const eventId = this.$route.params.eventId;
-    this.getEvent(eventId)
-      .then(() => {
-        this.getAdmin();
-      })
-      .then(() => {
-        this.getPlayers();
-      });
+    await this.getEvent(eventId)
+    this.getPlayers()
+    if (this.event.adminId === this.loggedInUser._id) {
+    this.isLoggedInUserAdmin = true;
+    }
   }
 };
 </script>

@@ -2,29 +2,7 @@ import userService from '../service/user.service.js';
 
 export default {
   state: {
-    loggedInUser: {
-      // '_id':  '5bff07f73411145ee03351b7',
-      // 'name': 'noam',
-      // 'password': '12',
-      // 'pic': 'https://api.adorable.io/avatars/64/noam.png',
-      // 'instruments': [
-      //     'Drums',
-      //     'Bass',
-      //     'Guitar'
-      // ],
-      // 'level': 'amateur',
-      // 'bio': 'very tired',
-      // 'favGenres': [
-      //     'Rock',
-      //     'Classic',
-      //     'World'
-      // ],
-      // 'location': '',
-      // 'partEventsIds': [
-      //     '5bff9d8786fed21fc472518e'
-      // ],
-      // 'adminEventsIds': []
-    }
+    loggedInUser: {}
   },
   mutations: {
     setLoggedInUser(state, { user }) {
